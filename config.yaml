@@ -1,0 +1,20 @@
+config:
+  backup: true
+  create: true
+  dotpath: dotfiles
+dotfiles:
+  f_starship.toml:
+    src: config/starship.toml
+    dst: ~/.config/starship.toml
+  f_kitty.conf:
+    src: config/kitty/kitty.conf
+    dst: ~/.config/kitty/kitty.conf
+  f_config.toml:
+    src: config/typeracer/config.toml
+    dst: ~/.config/typeracer/config.toml
+profiles:
+  nan-pc:
+    dotfiles:
+    - f_starship.toml
+    - f_kitty.conf
+    - f_config.toml
