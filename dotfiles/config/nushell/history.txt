@@ -1,0 +1,2217 @@
+config nu
+ls
+ll
+cat .config/nushell/env.nu
+cat .config/nushell/config.nu
+bat cat .config/nushell/config.nu
+bat .config/nushell/config.nu
+ezit
+starship init nu | save .config/nushell/starship.nu
+lvim .config/nushell/config.nu
+$nu.config-path
+lvim .config/nushell/config.nu
+ls
+ll
+ls
+journalctl 
+sudo shutdown -r now
+journalctl --help
+journalctl --no-full -r 
+ll
+ls
+cat Prims.idr
+cat request.json
+rm request.json
+ls
+lvim .config/nushell/config.nu
+lvim .config/nushell/alias.nu
+ls
+lsd 
+which lsd 
+lvim .config/nushell/env.nu
+bat
+lsd
+$env.PATH
+typeracer 
+lvim .config/nushell/env.nu
+lsd
+ls .asdf/shims/
+lvim .config/nushell/alias.nu
+ls
+cat Prims.idr
+java --version
+which java
+which idris2
+idris2
+asdf
+asdf list 
+dotnet --version
+kotlin --version
+asdf global kotlin 1.7.1
+asdf global kotlin 1.7.10
+kotlin --version
+kotlin -version
+terraform --version
+ls
+cat .config/dotfiles/fish/alias.fish
+cat .config/dotfiles/fish/abbreviations.fish
+cat .config/dotfiles/fish/alias.fish
+ls
+ls --help
+ls -l
+ls -h
+ls -f 
+ls -f -l
+ls -l
+ls -h
+ls -sl 
+ls -s
+ls 
+ls -h
+ls
+ls | shape
+help commands
+help commands | where is_custom ==  false | first 10
+help commands | where is_custom ==  false | first 10 | drop column
+help commands | where is_custom ==  false | first 10 | drop column | drop column
+help drop
+help reject
+ls -f | reject name
+ls -l | reject name
+ls -l | reject created, accessed
+ls -l | reject created
+ls
+ls --color
+help reject
+ls -l | reject created accessed modified
+ls 
+ls -l
+ls -sl
+ls -sl | reject modified
+ls -sl | reject 
+ls -sl 
+ls -sl | drop column
+ls -sl | reject created accessed  modified
+ls --help
+ls  | reject created accessed  modified
+help reject
+ls --all --long --shot-names
+ls --all --long --short-names
+ls --all --long --short-names | reject created
+ls --all --long --short-names | reject readonly num_links created accessed modified
+$env.LS_COLORS
+cat $env.LS_COLORS
+env
+env | where name == LS_COLOR
+env | where name == PATH
+dircolors 
+sudo pamac install vivid
+vivid
+vivid generate molokai
+lvim .config/nushell/env.nu
+source .config/nushell/config.nu
+ls
+ll
+lvim .config/nushell/alias.nu
+source .config/nushell/config.nu
+lvim .config/nushell/alias.nu
+source .config/nushell/config.nu
+ll
+ls
+la
+lvim .config/nushell/alias.nu
+src
+ll
+la
+lvim .config/nushell/alias.nu
+src
+la
+ll
+env | where name == PATH
+env | where name == LS_COLOR
+cat .config/nushell/env.nu
+ls
+ll
+la
+ll
+la
+ll
+ls | colormgr 
+help commands
+ls
+ls | select name
+ls -l | select name
+ls -l
+ls -l | select name type target mode inode uid group size modified
+lvim .config/nushell/alias.nu
+srd
+src
+ll
+ls
+la
+ls -l | select name type target mode inode uid group size modified
+ls -l | select name target uid group  type mode size inode modified
+(ls -l | select name target uid group  type mode size inode modified)
+(ls -l | select name target uid group  type mode size inode modified) | table
+ls -l | select name target uid group  type mode size inode modified
+expode
+explode 'ls'
+(ls -l | select name target uid group  type mode size inode modified)
+(ls -l | select name target uid group  type mode size inode modified) | complete
+(ls -l | select name target uid group  type mode size inode modified) | ignore
+(ls -l | select name target uid group  type mode size inode modified) | debug
+(ls -l | select name target uid group  type mode size inode modified | table)
+lvim .config/nushell/alias.nu
+src
+ll
+la
+rm java_error_in_idea_.hprof
+ll
+la
+math 1 * 2
+math '1 * 2'
+lvim .config/dotfiles/fish/alias.fish
+lvim .config/nushell/alias.nu
+lvim .config/dotfiles/fish/alias.fish
+lvim .config/nushell/alias.nu
+src
+lvim .config/nushell/alias.nu
+src
+3 * (1 + 2) 
+lvim .config/nushell/config.nu
+src
+ll
+la
+ls .steampath
+ls .steampid
+ls -l .steampid
+ls -l .steampath
+lvim .config/nushell/config.nu
+src
+ll
+la
+echo $LS_COLORS
+env.LS_COLORS
+echo env.LS_COLORS
+echo $env.LS_COLORS
+ls
+lvim .config/nushell/env.nu
+src
+ls
+source .config/nushell/env.nu
+source .config/nushell/config.nu
+ls
+source .config/nushell/env.nu
+ls
+source .config/nushell/config.nu
+ls
+ll
+lx
+ls
+source .config/nushell/env.nu
+src
+lvim .config/nushell/env.nu
+src
+ls
+ll
+la
+ls
+ll
+cat .config/dotfiles/fish/abbreviations.fish | pbcopy 
+lvim .config/nushell/alias.nu
+src
+lvim .config/nushell/alias.nu
+src
+lvim .config/nushell/alias.nu
+src
+.g
+cat .config/dotfiles/fish/alias.fish
+lvim .config/nushell/alias.nu
+src
+.g
+.gs
+cat .config/dotfiles/fish/env.fish
+lvim .config/nushell/env.nu
+src
+lvim .config/dotfiles/fish/env.fish
+lvim .config/nushell/env.nu
+src
+lvim .config/nushell/env.nu
+ls ~/.dotfiles
+lvim .config/nushell/env.nu
+.g
+.gs
+cat .config/dotfiles/fish/alias.fish
+git --git-dir=$env.DOTFILES_REPO --work-tree=$env.HOME
+git --git-dir=$env.DOTFILES_REPO --work-tree=$env.HOME status
+git --git-dir=($env.DOTFILES_REPO) --work-tree=$env.HOME status
+git --git-dir=$($env.DOTFILES_REPO) --work-tree=$env.HOME status
+git --git-dir=$'$env.DOTFILES_REPO' --work-tree=$env.HOME status
+git --git-dir='$env.DOTFILES_REPO' --work-tree=$env.HOME status
+$env.DOTFILES_REPO
+$env.DOTFILES_REPO | get 
+git --git-dir='$env.DOTFILES_REPO' --work-tree=$env.HOME status
+echo $env.DOTFILES_REPO
+git --git-dir=(echo $env.DOTFILES_REPO) --work-tree=$env.HOME status
+echo $env.DOTFILES_REPO
+echo ($env).DOTFILES_REPO
+git --git-dir=(echo ($env).DOTFILES_REPO) --work-tree=$env.HOME status
+git --git-dir=~/.dotfiles --work-tree=$env.HOME status
+git --git-dir=~/.dotfiles/ --work-tree=$env.HOME status
+git --git-dir=~/.dotfiles/ --work-tree=~ status
+git --git-dir='~/.dotfiles/' --work-tree=~ status
+ls ~/.dotfiles
+typeracer
+ls
+typeracer
+type gcmsg 
+describe gcmsg 
+gcmsg  | describe
+describe gcmsg 
+help describe
+typeracer
+ping 8.8.8.8
+typeracer
+ping 1.1.1.1
+ping 8.8.8.8
+typeracer
+ps
+ps | where cpu > 4
+ps | where cpu > 3
+ps | where mem 100m
+ps | where mem >  100m
+ps | where mem > 100m
+ps | where mem > 100M
+ps 
+ps | where mem > 70.0Mib
+ps | where mem > 100.0Mib
+ps | where mem > 800.0Mib
+ps | where mem > 1Gib
+sys
+sys.host
+sys | get host
+sys | get cpu
+sys | get disk
+sys | get disks
+sys
+sys | get mem 
+sys | get net
+sys | get temp
+date
+date now
+date now | date to-table
+date now | date to-record
+date now | date to-timezone
+sys | get host.sessions.name
+sys | get host.sessions.name | each { |it| echo $it }
+sys | get host.sessions.name | each { |it| ^echo $it }
+sys | get host.sessions.name | each { |it| echo $it }
+sys | get host.sessions.name | each { echo $it }
+sys | get host.sessions.name | each { echo it }
+help path
+git --git-dir=/home/anonymous/.dotfiles/ --work-tree=/home/anonymous status
+pwd
+$pwd
+$env.pwd
+$env.HOME
+$env.HOME | path join '.asdf'
+($env.HOME | path join '.asdf')
+git --git-dir=($env.HOME | path join '.dotfiles') --work-tree=/home/anonymous status
+echo "def abc [] { 1 + 2 }" | save output.nu
+souce output.nu
+source output.nu
+abc
+echo $env.DOTFILES_REPO
+echo $env.DOTFILES_REPO | expand
+ls
+mkdir .config/dotfiles/nushell
+lvim .config/dotfiles/nushell/functions.nu
+rm output.nu
+git --git-dir=($env.HOME | path join '.dotfiles') --work-tree=($env.HOME) status
+git --git-dir=(echo $env.HOME | path join '.dotfiles') --work-tree=(echo $env.HOME) status
+git --git-dir=/home/anonymous/.dotfiles --work-tree=$env.HOME status
+git --git-dir=/home/anonymous/.dotfiles --work-tree=($env.HOME) status
+git --git-dir=/home/anonymous/.dotfiles --work-tree = $env.HOME status
+git --git-dir=/home/anonymous/.dotfiles --work-tree = ($env.HOME) status
+git --git-dir=/home/anonymous/.dotfiles --work-tree ($env.HOME) status
+git --git-dir=/home/anonymous/.dotfiles --work-tree $env.HOME status
+git --git-dir ~/.dotfiles  --work-tree $env.HOME status
+git --git-dir $env.DOTFILES_REPO  --work-tree $env.HOME status
+lvim .config/nushell/alias.nu
+src
+.gs 
+.g status
+lvim .config/nushell/alias.nu
+src
+.gs
+lvim .config/nushell/alias.nu
+let x = git --git-dir $env.DOTFILES_REPO  --work-tree $env.HOME
+x
+$x
+echo $x
+let x = { |s| git --git-dir $env.DOTFILES_REPO  --work-tree $env.HOME }
+x
+x status
+x | describe
+let xy = { |s| git --git-dir $env.DOTFILES_REPO  --work-tree $env.HOME }
+xy
+xy status
+let g = { |$s| git --git-dir $env.DOTFILES_REPO  --work-tree $env.HOME $s}
+g
+g status
+let dotgit = { |$s| git --git-dir $env.DOTFILES_REPO  --work-tree $env.HOME $s}
+$dotgit status
+lvim .config/nushell/alias.nu
+src
+.gs
+.gs | table
+.gs | autoview
+help commands
+.gs
+.gs | ansi
+lvim .config/nushell/alias.nu
+src
+.g
+lvim .config/nushell/alias.nu
+src
+gs
+.gs
+lvim .config/nushell/env.nu
+src
+.gs
+ls
+asdf
+asdf update
+asdf
+code .config/nushell/asdf.nu
+asdf
+asdf plugin list all 
+asdf plugin list all | lines
+asdf plugin list all 
+asdf plugin list all | lines | each { |line| $line | str trim } 
+asdf plugin list all | lines | each { |line| $line | str replace '[\*]' '' |  str trim } 
+asdf plugin list all | lines | each { |line| $line | str replace '[\*]' ' ' |  str trim } 
+ps
+ps | name | str downcase 
+ps | (name | str downcase) 
+ps | where (name | str downcase) ~ 'asdf'
+ps | where (name | str downcase) contains 'asdf'
+ps | where (name | str downcase) =~ 'asdf'
+ps | where name =~ 'asdf'
+kill 33503
+kill -9 33503
+ps | where name =~ 'kitty'
+echo $env.PID
+pid
+ps
+killall kitty
+asdf plugin list all | lines | each { |line| $line | str replace '[\*]' ' ' | split row ' '|  str trim } 
+asdf plugin list all | lines | each { |line| $line | str replace '[\*]' ' ' | split row ' '|  str trim | first } 
+asdf plugin list all | lines | each { |line| $line | str replace '[\*]' ' ' | split row ' ' | first | str trim } 
+src
+asdf
+src
+asdf plugin 
+asdf plugin  --help
+asdf plugins 
+asdf plugins
+asdf plugin list
+asdf
+asdf --help
+src
+asdf
+src
+asdf plugin list
+asdf plugin list all 
+asdf
+src
+asdf plugin list
+asdf plugin list --urls 
+asdf plugin list --urls --refs 
+asdf
+src
+asdf plugin update 
+asdf
+asdf plugin list
+src
+ls
+asdf
+srd
+src
+asdf uninstall
+help asdf uninstall
+asdf list | lines 
+asdf list | lines | where { |it| it =~ '\S' }
+asdf list | lines | where { |it| $it =~ '\S' }
+asdf list | lines | where { |it| $it =~ ' ' }
+asdf list | lines | where { |it| $it =~ '\w' }
+asdf list | lines | where { |it| $it =~ '\\w' }
+asdf list | lines | where { |it| $it =~ '/w' }
+asdf list | lines | where { |it| $it not starts-with ' ' }
+asdf list | lines | where { |it| $it starts-with ' ' }
+asdf list | lines | where not { |it| $it starts-with ' ' }
+asdf list | lines | where  { |it| not $it starts-with ' ' }
+asdf list | lines | where  { |it| not $it starts-with ' ' } | each { |line| $line | str trim }
+srcc
+src
+help asdf
+src
+asdf
+help asdf
+src
+help asdf
+src
+help asdf
+src
+asdf
+help asdf
+src
+help asdf
+help asdf plugin add 
+asdf
+asdf latest --help
+^asdf latest --help
+^asdf help latest
+^asdf --help 
+^asdf latest --all
+^asdf latest --all | lines
+asdf
+^asdf latest --all
+echo "awscli 2.8.3 missing" | split row ' ' 
+echo "awscli 2.8.3 missing" | split column ' ' 
+help rename
+echo "awscli 2.8.3 missing" | split column ' '  | rename package latest_version status
+^asdf latest --all | lines | each { |line| $line | split column ' ' } | rename package latest_version status
+asdf plugin list 
+src
+asdf
+^asdf latest --all | lines | each { |line| $line | split column ' ' }
+^asdf help
+^asdf help java
+^asdf help asdf
+^asdf help terraform
+^asdf env
+^asdf env env
+^asdf env cargo
+^asdf env rust
+^asdf help
+^asdf latest --all | lines | each { |line| $line | split row ' ' }
+^asdf info
+^asdf help
+^asdf latest --all | lines | each { |line| $line | split row ' ' } | table
+src
+asdf env 
+asdf exec 
+asdf exec cargo 
+asdf exec rust 
+asdf exec java
+asdf exec java -version
+asdf exec java '-version'
+src
+asdf exec java '-version'
+asdf exec java -version
+src
+asdf exec java -version
+ls
+asdf
+asdf shim-versions
+asdf shim-versions cargo
+^asdf shim-versions cargo
+src
+asdf
+asdf list awscli
+asdf list all awscli
+asdf list all awscli | lines
+killall kitty
+asdf list all awscli | lines
+asdf list all awscli | lines | table
+asdf list all awscli | lines | table | rename '#' version
+asdf list all awscli | lines | split column '' 
+asdf list all bazel
+asdf list all bazel | list 
+asdf list all bazel | lines | list
+asdf list all bazel | lines
+asdf list all bazel | lines | rename version
+asdf list all bazel | list
+asdf list all bazel | lines | into df
+asdf list all bazel | lines | into df | into nu
+asdf list all bazel | lines | into nu
+asdf list all bazel | lines | describe
+cargo search shells --limit 10
+cargo search shells --limit 10 | lines | parse "{create_name} = {version} #{description}" | str trim
+asdf list all bazel
+asdf list all bazel | lines | parse "{version}" | str trim
+src
+asdf list all bazel
+src
+asdf list all bazel
+asdf list
+asdf list kotlin 1.7.10
+asdf list kotlin
+asdf list
+asdf list | lines
+asdf list | lines | str trim
+asdf list 
+help agg-groups
+asdf list | lines | agg-groups 
+asdf list | lines | agg 
+ls
+ls | group Templates/ype
+ls | group type
+ls | group-by type
+asdf list | group-by ' '
+ls | group-by type | list
+ls | group-by type | get file
+asdf list
+ls .asdf/installs/
+la .asdf/installs/
+ls -a .asdf/installs/
+ls -a .asdf/
+cat .asdf/version.txt
+cat .asdf/.tool-versions
+cat .asdf/defaults
+ls -a .asdf/
+ls -a .asdf/plugins/
+ls -a .asdf/installs/
+ls -a .asdf/installs/*
+ls -a .asdf/installs/**
+asdf list
+asdf list | lines | when (str starts-with ' ') 1 | when not (str starts-with ' ') 0 
+asdf list | lines | if (str starts-with ' ') { 1 } else { 2 }
+asdf list | lines | each { |line| if ($line | str starts-with ' ') { 1 } else { 2 } }
+asdf list | lines | each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } }
+asdf list | lines | each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } } | from yaml
+asdf list | lines | each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } } | to yaml
+asdf list |  each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } }
+typeracer
+asdf list | lines |  each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } }
+asdf list | lines |  each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } } | to yaml 
+asdf list | lines |  each { |line| if ($line | str starts-with ' ') { $"- ($line | str trim)" } else { $"($line | str trim):" } } | to json
+ping 1.1.1.1
+exti
+(fetch https://api.chucknorris.io/jokes/random).value
+asdf list all
+^asdf list all
+src
+asdf list all
+asdf list all elm
+asdf plugin list
+asdf plugin list | lines | parse "{plugin}" | str trim
+asdf plugin list --help
+asdf help
+asdf
+src
+asdf plugin list
+^asdf plugin list --urls --refs
+^asdf plugin list --urls --refs | lines | split column " " plugin repository ref
+^asdf plugin list --urls --refs | lines | split column " " plugin repository branch ref
+^asdf plugin list --urls --refs | lines | parse "{plugin} {repository} {branch} {ref}" | str trim
+^asdf plugin list --urls --refs | lines | parse -r "(?P<plugin>\w+)\s+?(?P<repository>git@.+\.git)\s+?(?P<branch>\w+)\s(?P<ref>\w+)" | str trim
+^asdf plugin list --urls
+^asdf plugin list --urls | lines | parse -r "(?P<plugin>\w+)\s+(?P<repository>\w+)"
+^asdf plugin list --urls | lines | parse -r "(?P<plugin>\w+)\s+(?P<repository>\w+).*$"
+^asdf plugin list --urls | lines | parse -r "(?P<plugin>\w+)\s+(?P<repository>)"
+^asdf plugin list --urls | lines | parse -r '(?P<plugin>\w+)\s+(?P<repository>)'
+^asdf plugin list --urls | lines | parse -r '(?P<plugin>\w+)\s+(?P<repository>\w+)'
+^asdf plugin list --urls | lines | parse -r '(?P<plugin>\w+)\s+(?P<repository>\w+)$'
+^asdf plugin list --urls | lines | parse -r '(?P<plugin>\w+)\s+(?P<repository>.*)$'
+^asdf plugin list --urls | lines | parse -r '(?P<plugin>\w+)\s+(?P<repository>.*)$' | str trim
+^asdf plugin list --urls --refs | lines | parse -r '(?P<plugin>\w+)\s+?(?P<repository>git@.+\.git)\s+?(?P<branch>\w+)\s(?P<ref>\w+)' | str trim
+^asdf plugin list --refs
+let x = true
+echo $x
+^asdf plugin list (when ($x) --urls)
+^asdf plugin list '--urls'
+^asdf plugin list '--urls --refs'
+^asdf plugin list '--urls' '--refs'
+^asdf plugin list '--refs' '--urls'
+src
+asdf plugin list
+asdf plugin list --refs 
+asdf plugin list --urls 
+asdf plugin list --urls --refs 
+src
+asdf plugin list --urls --refs 
+src
+asdf plugin list --urls --refs 
+src
+asdf plugin list --urls --refs 
+src
+asdf plugin list --urls --refs 
+let y = [ {enabled: true, n: 1}, {enabled:false, n: 4}]
+echo $y
+['a', 'b'] | reduce { |it, acc| $"$acc $it" }
+['a', 'b'] | reduce { |it, acc| $acc + $it }
+['a', 'b'] | reduce { |it, acc| $acc + ' ' + $it }
+'list :' + ( ['a', 'b'] | reduce { |it, acc| $acc + ' ' + $it } )
+src
+asdf plugin list --urls --refs 
+$y
+$y | where enabled
+src
+asdf plugin list --urls --refs 
+src
+asdf plugin list --urls --refs 
+src
+asdf plugin list --urls --refs 
+asdf plugin list --urls
+src
+asdf plugin list --urls
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+src
+asdf plugin list 
+help default
+src
+asdf plugin list 
+src
+asdf plugin list 
+$y
+$y | get n
+$y | where enabled | get n
+$y | where n > 5 | get n
+$y | where n > 5
+($y | where n > 5).n
+($y | where n > 5).n | default ''
+$y | where n > 5 | get --ignore-error n
+$y | where n > 5 | get --ignore-errors n
+$y | where enabled | get --ignore-errors n
+src
+asdf plugin list 
+asdf plugin list --urls
+asdf plugin list --urls --refs
+src
+asdf plugin list --urls --refs
+src
+asdf plugin list
+asdf plugin list --urls
+asdf plugin list --urls --refs
+src
+asdf plugin list --urls --refs
+src
+asdf plugin list --urls --refs
+src
+asdf plugin list --urls --refs
+^asdf plugin list --urls --refs | lines | parse -r '(?P<plugin>\w+)\s+?(?P<repository>git@.+\.git)\s+?(?P<branch>\w+)\s+(?P<ref>\w+)'
+src
+asdf plugin list --urls --refs
+asdf plugin list --urls
+asdf plugin list --refs
+src
+asdf plugin list --refs
+asdf plugin list --urls
+asdf plugin list --urls --refs
+^asdf plugin list --urls --refs
+asdf plugin list --urls --refs
+src
+asdf plugin list --urls --refs
+^asdf plugin list --urls --refs
+^asdf plugin list '--urls --refs'
+^asdf plugin list ( '--urls --refs' | split-by ' ' )
+^asdf plugin list ( '--urls --refs' | explode )
+^asdf plugin list ( echo '--urls --refs' )
+^asdf plugin list
+^asdf plugin list --urls
+^asdf plugin list --urls --refs
+^asdf plugin list '--urls --refs'
+^asdf plugin list ('--urls --refs' | into string) 
+^asdf plugin list ('--urls --refs' | ansi strip) 
+^asdf plugin list ('--urls --refs' | build-string) 
+^asdf plugin list ('--urls --refs' | split words) 
+^asdf plugin list --urls=true
+^asdf plugin list --urls=false
+^asdf plugin list --urls
+['a', 'b'] | get 0
+['a', 'b'] | get 2
+['a', 'b'] | get --ignore-errors 2
+src
+asdf plugin list --urls --refs
+asdf plugin list --urls
+src
+asdf plugin list --urls
+asdf plugin list --refs
+asdf plugin list --refs --urls
+src
+asdf plugin list --refs --urls
+asdf plugin list --refs 
+asdf plugin list --urls
+asdf plugin list --refs --urls
+src
+asdf plugin list --refs --urls
+asdf plugin list all
+src
+asdf plugin list all
+^asdf plugin list all | lines
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)' 
+^asdf plugin list all | lines
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<repository>.+\.git)'
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<repository>.+\.git)' | str trim | first 3
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>\*)(?P<repository>.+\.git)' | str trim | first 3
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>\*)(?P<repository>.+\.git)' | str trim | first 10
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>\*)(?P<repository>(git|http).+\.git)' | str trim | first 10
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>.)(?P<repository>(git|http).+\.git)' | str trim | first 10
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>.)(?P<repository>(git|http).+\.git)' | str trim | first 10 | update installed (is-empty installed)
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>.)(?P<repository>(git|http).+\.git)' | str trim | first 10 | update installed (not is-empty installed)
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>.)(?P<repository>(git|http).+\.git)' | str trim | first 10 | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>*?)(?P<repository>(?:git|http).+\.git)' | str trim | first 10 | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>*)(?P<repository>(?:git|http).+\.git)' | str trim | first 10 | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>\*)(?P<repository>(?:git|http).+\.git)' | str trim | first 10 | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>\*)(?P<repository>(?:git|http).+\.git)' | str trim | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>.)(?P<repository>(?:git|http).+\.git)' | str trim | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed (not (is-empty installed))
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed (not (is-empty installed)) | where installed
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed (installed == '*') | where installed
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed { |row| row.installed == "*" } | where installed
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed { |row| row.installed == "*" } 
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed { |row| not (row.installed | str contains '*') } 
+^asdf plugin list all | lines | parse -r '(?P<plugin>\w+)\s+?(?P<installed>[*]?)(?P<repository>(?:git|http).+\.git)' | str trim | update installed { |row| $row.installed == "*" } 
+src
+asdf plugin list all
+src
+asdf plugin list all
+src
+asdf plugin list all
+src
+asdf plugin list all
+^asdf plugin list all
+src
+asdf plugin list all
+src
+asdf plugin list all
+asdf 
+asdf list 
+asdf list all
+asdf list all java
+asdf list 
+asdf list awscli
+asdf list aws-sam-cli
+asdf list java
+ls
+projects/
+./projects/
+ls
+./github.com/
+ls
+./fwfurtado/
+gcl git@github.com:fwfurtado/asdf.git
+home
+cd
+cat .config/nushell/env.nu
+cat .config/nushell/env.nu | pbcopy 
+echo $"$env.HOME/.asdf/bin"
+echo $"($env.HOME)/.asdf/bin"
+cat .config/nushell/asdf.nu | pbcopy
+('.' | path expand)
+('.' | path expand) | path dirname
+'.' | path dirname
+'.' | path expand | path dirname
+ls
+lvim .config/nushell/env.nu
+lvim .config/nushell/config.nu
+cp projects/github.com/fwfurtado/asdf/asdf.nu .asdf/
+cp projects/github.com/fwfurtado/asdf/completions/asdf.nu .asdf/completions/asdf.nu
+dc --help
+dkc --help
+dki search arch
+docker search arch
+dkcr -it archlinux
+$env.ASDF_HOME
+$env.ASDF_DIR
+$env.ASDF_DIR | default go/
+$env | get ASDF_DIR | default ''
+$env 
+$env | first
+$env | first 1
+$env.ANDROID_SDK
+env | where name == 'ASDF_DIR'
+env | where name == 'ASDF_DIR' | default ''
+['a', 'b', 'n', '']
+['a', 'b', 'n', ''] | where { |it| not ( $it | is-empty ) }
+dkcr -it --rm archlinux
+docker search macos
+dkcr -it --rm taylorcoffelt/macos-docker
+dkcls
+dkc --help
+dkc commit --help
+which asdf
+dkcls
+dkc commit bold_colden arch-with-nu
+dkcr -it --rm arch-with-nu
+dkcr -it --rm archlinux
+gsc add-support-for-nushell
+gs
+ga asdf.nu
+gs
+gcmsg "Add nu configuration file"
+gs
+ga .
+gcmsg "Add documentation for use nushell integration"
+gpsup
+gpsup | describe
+gps 
+gps  -u
+gps  -u origin add-support-for-nushell
+cd docs/
+npm install
+npm run build
+ls
+ls .vuepress/dist/
+open .vuepress/dist/index.html
+open .vuepress/dist/ 
+xdg-open .vuepress/dist/index.html
+ls .vuepress/dist/
+ls .vuepress/dist/guide/getting-started.html
+ls
+python -m http.server 8080
+cd .vuepress/dist/
+python -m http.server 8080
+..
+npm run build
+cd .vuepress/dist/
+python -m http.server 8080
+..
+gs
+ga .
+gcmsg "Put the warning about asdf scripts after last details Nushell section" 
+gps 
+typeracer
+ls
+asdf
+cp projects/github.com/fwfurtado/asdf/asdf.nu .asdf/
+lvim .config/nushell/config.nu
+"source " + ($env.HOME | path join '.asdf/asdf.nu')
+"\nsource " + ($env.HOME | path join '.asdf/asdf.nu') | save --append $nu.config-path
+src
+dkcr -it --rm arch-with-nu
+typeracer
+ls
+ll
+la
+typeracer
+ls
+ll
+la
+typeracer
+wil
+sudo pamac search willy
+sudo pamac search wally
+sudo pamac install zsa-wally-cli
+sudo pamac install zsa-wally-cli-bin
+wally-cli 
+sudo wally-cli ~/Downloads/moonlander_fwf-colemak-dh_lzY3G_XObGB.bin
+ii
+sudo wally-cli ~/Downloads/moonlander_fwf-colemak-dh_lzY3G_XObLx.bin
+ls
+asdf plugin list all   
+asdf list java
+which asdf 
+which asdf | get path 
+which brew  
+which asdf and asdf list 
+which asdf; asdf list 
+which asdf | complete 
+which asdf && asdf list 
+which asdf | do { asdf list } 
+which brew | do { asdf list } 
+sudo wally-cli ~/Downloads/moonlander_fwf-colemak-dh_lzY3G_3xvPw.bin
+sudo wally-cli ~/Downloads/moonlander_fwf-colemak-dh_lzY3G_XObo4.bin
+   
+600.80 - 15 
+ls 
+ls
+ll
+lll
+all
+true
+true | all 
+typeracer 
+sudo wally-cli ~/Downloads/moonlander_fwf-colemak-dh_lzY3G_qJnO6.bin
+ls -a 
+sudo wally-cli ~/Downloads/moonlander_fwf-colemak-dh_lzY3G_BdNLv.bin
+ls
+env
+env | where name =~ 'PAC' 
+env | where name =~ '.*PAC.*' 
+env | where {|name| $name | str contains 'P' } 
+env | where {|e| $e.name | str contains 'P' } 
+man pacman
+which brew | do { asdf list } 
+which ls | do { asdf list } 
+hash ls 
+hash
+^which 
+^which brew
+^which brew 
+^which brew | brew --prefix asdf
+^which brew and  brew --prefix asdf
+^which brew &&  brew --prefix asdf
+^which brew | complete
+^which brew | complete | get exit_code
+(^which brew) | complete | get exit_code
+(^which brew| complete) | get exit_code
+(^which brew| complete) | get exit_code | all 
+(^which brew| complete) | get exit_code | all { |it| $it == 0 }
+(^hash brew| complete) | get exit_code | all { |it| $it == 0 }
+^hash
+^hash bash
+^which hash
+^which --help
+describe git
+git | describe 
+type git
+which brew
+which brew; brew --prefix asdf
+which brew; 'brew' --prefix asdf
+which brew
+which git
+(which git).path
+(which 'git').path
+^command
+^hash 
+^type 
+ls
+true | not
+not true
+is-empty 
+is-empty ''
+is-empty 'a'
+is-empty 'araisotnarsioten'
+is-empty | describe
+which is-empty
+help is-empty
+let possible_dirs = [ <\n>                        (env | where name == 'ASDF_DIR' | default '') , <\n>                        '/opt/asdf-vm/asdf.nu', <\n>                        ($env.HOME | path join '.asdf/asdf.nu') <\n>                    ] 
+$possible_dirs
+let is_brew_installed = (which 'brew' | get path | trim | not (is-empty) )
+let is_brew_installed = (which 'brew' | get --ignore-errors path | trim | not (is-empty) )
+let is_brew_installed = (which 'brew' | get --ignore-errors path | default '' | str trim | not (is-empty) )
+let possible_dirs = ( $possible_dirs | append (if $is_brew_installed { (brew --prefix asdf | path join 'libexec/asdf.nu') } else { '' }) )                    
+$possible_dirs
+let filtered_dirs = ( $possible_dirs | <\n>                        where { |it| not ($it | is-empty) } )
+$filtered_dirs
+let asdf_dir = ( $filtered_dirs | <\n>                    where { |it| $it |path exists } | <\n>                    first |<\n>                    path dirname | <\n>                    path join 'bin' )
+let shims_dir = ( if ($asdf_dir | path join 'shims' | path exists) { $asdf_dir | path join 'shims' } else { $env.HOME | path join '.asdf/shims' } )
+$shims_dir
+$shims_dir | path exists 
+'' | is-not-null
+'' | is-not-null 
+'' | length 
+'' | length  | > 0
+'' | length
+'' | length | {|it| $it > 0}
+'' | length
+'' | is-empty 
+'' | is-empty  | not
+'' | not is-empty 
+'' | not (is-empty )
+'x' | not (is-empty )
+'x' | all 
+'x' | is-empty
+'' | is-empty
+'' | is-empty | expr-not 
+'' | str length 
+'x' | str length 
+'x' | str length | it
+'x' | str length | > 0
+'x' | str length | where {|x| $x > 0 }
+'' | str length | where {|x| $x > 0 }
+'' | str length 
+'' | str length | is-empty 
+'x' | str length | is-empty 
+'' | str length | is-empty 
+'' | str length | is-null 
+'' | str length | into bool 
+'x' | str length | into bool 
+$env.ASDF_DIR | default go/
+$env.ASDF_DIR 
+$env | get ASDF_DIRS
+$env | get ASDF_DIR
+$env | get --ignore-errors ASDF_DIR
+$env | get --ignore-errors ASDF_DIR | default ''
+gs
+ga .
+gcmsg "Fix homebrew shims directory"
+gps 
+-10 | into bool
+dkcr -it --rm arch-with-nu
+cd docs/
+npm run build
+ls
+cd .vuepress/dist/
+ls
+python -m http.server 8080
+lsusb 
+$nu.config-path
+"\nsource " + ($env.HOME | path join '.asdf/asdf.nu')
+gs
+ga .
+gcmsg "Improves the documentation of nushell configuration"
+gps 
+ls
+ll
+gs
+ga .
+gcmsg "Add logs and lambda deploy"
+gps 
+typeracer
+          - "appointments-booking-slot"
+gs
+ga .
+gcmsg "Fix homebrew documentation for nushell"
+gps 
+gs
+ga .
+gcmsg "Add logs"
+gps 
+gs
+ga .
+gcmsg "Add logs"
+gps
+typeracer
+typeracer
+gs
+ga .
+gcmsg "Remove hardcoded strings"
+gps 
+gs
+ga .
+gcmsg "Remove sensitive logs" 
+gps 
+gs
+ga .
+gcmsg "Add missing annotations for busy response"
+gps 
+typeracer
+gs
+gr .
+gs
+gpl 
+gs
+gsc add-dlq-for-event-bridge-rule-targets
+gs
+245-70
+245 - 70
+typeracer
+btop 
+typeracer
+typeracer 
+typeracer
+typeracer  
+gpl 
+gsc add-google-login-button
+yarn add react-google-button
+yarn dev
+gs
+ga .
+gcmsg "Add google login button according branding guide lines" 
+gps
+gpsup | describe
+gps -u origin add-google-login-button
+gsw main
+gpl 
+gsw add-google-login-button
+grb main
+gs
+rm yarn.lock
+gs
+yarn build
+gs
+ga .
+gs
+yarn lock 
+yarn --help
+yarn lockfile
+yarn install
+gs
+ga .
+gs
+grbc 
+gpsf 
+yarn dev
+gs
+ga .
+gcmsg "Fix favicon and build warning about dependecies of useMediaQuery hook" 
+gs
+gps 
+yarn dev
+gs
+ga .
+gcmsg "Update favicon to use transparent background" 
+gps 
+yarn build
+gs
+gsw main
+gpl 
+gs
+gsc fix-build
+gs
+ga .
+gcmsg "Fix typing compilation for custom session"
+gs
+gpsup 
+cat ~/.config/dotfiles/fish/functions.fish
+cat ~/.config/dotfiles/fish/alias.fish
+cat ~/.config/dotfiles/fish/abbreviations.fish
+git push --set-upstream (git remote) (git rev-parse --abbrev-ref HEAD)
+git remote
+git rev-parse --abbrev-ref HEAD
+git push --set-upstream (git remote) (git rev-parse --abbrev-ref HEAD | into string)
+git push --set-upstream (git remote) (git rev-parse --abbrev-ref HEAD | into string | str trim)
+$"git push --set-upstream (git remote) (git rev-parse --abbrev-ref HEAD | into string | str trim)"
+$"git push --set-upstream (git remote | into string) (git rev-parse --abbrev-ref HEAD | into string | str trim)"
+$"git push --set-upstream (git remote | into string | str trim) (git rev-parse --abbrev-ref HEAD | into string | str trim)"
+git push --set-upstream (git remote | into string | str trim) (git rev-parse --abbrev-ref HEAD | into string | str trim)
+...
+cd melvi-co/
+gcl git@github.com:melvi-co/terraform-operational-aws-lambda.git
+code terraform-operational-aws-lambda/
+gs
+gsc feat/add-dlq-support-for-event-rule
+gs
+ga .
+gcmsg "Add support to event rule dlq configuration"
+git push --set-upstream (git remote | into string | str trim) (git rev-parse --abbrev-ref HEAD | into string | str trim)
+code ~/.config/nushell/alias.nu
+ls
+gs
+gr .
+cd health-workload/
+gs
+gr .
+typeracer
+asdf latest rust
+asdf current rust
+asdf install rust latest
+asdf global rust latest
+rust --version
+rust -v
+rustc --version
+cd projects/poc/
+ls
+md rust 
+mkdir --help
+lvim ~/.config/nushell/alias.nu
+src
+md rust 
+cd rust/
+ls
+ll
+ls -l 
+ls -l  | select name
+help select
+ls -l  | select name | default ''
+ls -l
+help select
+ls 
+ls | select name
+ls | select name size
+ls
+ls -l
+ls -la
+ls
+cargo new hello
+ls
+code hello
+cd hello/
+rustup --help
+rustup 
+rustup  show
+asdf reshim rust
+code .
+rustc --print sysroot
+code .
+ls ~/.local/bin/pbr
+ls ~/.local/bin/
+ls ~/.local/bin/ | less 
+rustup
+rustup toolchain
+rustup toolchain list
+rustup toolchain install
+rustup toolchain install stable-x86_64
+asdf reshim rust
+rustup 
+rustup  completions
+rustup component add rust-analyzer
+rustup which --toolchain stable rust-analyzer
+asdf reshim rust
+ls ~/.cargo/bin
+sudo pamac search rust-analyzer
+sudo pamac install rust-analyzer
+rust-analyzer 
+typeracer
+cargo install typeracer
+cargo clippy
+cargo clippy --help
+cd projects/
+ls
+cd poc/
+ls
+lt 
+lsd --tree geometry/
+lsd
+typeracer
+asdf reshim rust
+typeracer
+ls geometry/src/
+ls geometry/src/Geometry/Cube.hs
+ls geometry/src/Main.hs
+cat geometry/src/Main.hs
+asdf list
+asdf reshim 
+cargo list
+cargo --help
+cargo --list
+cargo tree
+home
+cd
+typeracer
+cargo search typeracer
+cargo search bat
+cargo search ripgrep
+cargo search sd
+cargo search fd
+cargo search lsd
+cargo install lsd typeracer bat ripgrep sd fd-find
+typeracer
+asdf reshim 
+typeracer
+lvim ~/.config/nushell/env.nu
+src
+typeracer
+bat
+which rust 
+which cargo
+ls /usr/bin/cargo
+ls .asdf/shims/fd
+ls .cargo/bin/fd
+rustc --version
+asdf which rustc
+asdf uninstall rust latest
+asdf uninstall rust 1.64.0
+asdf uninstall rust 1.60.0
+fd
+cat
+src
+cat
+bat
+fd
+rustc 
+cargo 
+ls
+./.cargo/bin/typeracer
+./.cargo/bin/lsd
+./.cargo/bin/lsd --tree
+./.cargo/bin/lsd --tree .cargo/
+./.cargo/bin/lsd --tree .cargo/bin/
+$env.PATH
+src
+$env.PATH
+typeracer 
+bat
+fd
+sd
+rg
+cat ../../geometry/src/Geometry/Shapes.hs
+bat ../../geometry/src/Geometry/Shapes.hs
+bat ../../geometry/src/Geometry/Data.hs
+typeracer
+which cargo
+ls 
+ls *.wav
+mv *.wav ~/projects/poc/rust/invaders/
+ls *.wav
+cargo run 
+cd projects/poc/rust/invaders/src/
+..
+ls
+cargo run
+cd projects/poc/rust/invaders/
+cargo run
+typeracer
+2*2
+2 * 2
+2 * 2 + 2 * 2 
+2 * 2 + 2 * 2  | math sqrt 
+3 - 5
+4 - 6
+4 - 10
+-2 * -2 
+-6 * -6 
+40 | math sqrt 
+typeracer
+gs
+gsw main
+gpl 
+typeracer
+sudo pamac update 
+gs
+gsw main
+gpl 
+gs
+ls Makefile
+cat Makefile
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps
+docker build --build-arg="NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL=http://localhost:8080" -t gcr.io/bidurk/github.com/virtualdoo/xray-frontend .
+typeracer
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+docker build --build-arg="NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL=http://localhost:8080" -t gcr.io/bidurk/github.com/virtualdoo/xray-frontend .
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+gs
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL"
+gps 
+sudo pacman -Syu fish-fzf jetbrains-toolbox postman-bin
+sudo pamac update --help
+sudo pamac update --force-refresh 
+sudo pamac update --force-refresh --ignore python2
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_BFF_URL"
+docker build --build-arg="NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL=http://localhost:8080" -t gcr.io/bidurk/github.com/virtualdoo/xray-frontend .
+docker build --build-arg="NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL=http://localhost:8080" --build-arg="NEXT_PUBLIC_BFF_URL=http://localhost:8081" -t gcr.io/bidurk/github.com/virtualdoo/xray-frontend .
+gs
+ga .
+gcmsg "Fix docker build to bind env var NEXT_PUBLIC_BFF_URL"
+gps 
+typeracer
+exi
+typeracer
+gdb --help
+ping 1.1.1.1
+exti
+rustup 
+rustup
+rustup --help
+ping 1.1.1.1
+typeracer
+ping 1.1.1.1
+i
+which cargo
+which rustup
+sudo pamac search rustup 
+which rustc
+sudo pamac install rustup 
+sudo pamac install --help
+sudo pamac install rustup --ignore python2
+sudo pamac install rustup --ignore python2 --no-upgrade
+which rustup
+rustup --help
+which rustup
+rustup update
+rustup toolchain install stable-x86_64
+rustup toolchain
+rustup toolchain list
+ping 1.1.1.1
+ping 8.8.8.8
+exti
+typeracer
+gs
+gsc fix/fix-summary-when-insert-event
+gs
+ga .
+gcmsg "Rename field from title to summary when insert an event"
+gpsup
+typeracer
+btop
+typeracer
+cd projects/poc/rust/term/
+cargo run
+code ../invaders/
+cargo run
+cd projects/poc/rust/term/
+cargo run
+cd projects/poc/rust/term/
+cargo run
+cd projects/poc/rust/term/
+cargo run
+cd projects/poc/rust/term/
+cargo run
+typeracer
+cd projects/poc/rust/term/
+cargo run
+lt
+cargo run
+ls
+cargo run
+35 * 22
+typeracer
+ls
+ll
+sudo pamac update 
+typeracer
+headsetcontrol 
+headsetcontrol  -b
+headsetcontrol  -h
+headsetcontrol  -?
+headsetcontrol  -s
+headsetcontrol  -s 128
+typeracer
+typeracer
+code Downloads/demo/
+cd Downloads/demo/
+curl http://localhost:8080/
+curl http://localhost:8080/people
+./gradlew run 
+cd ..
+rm -rf demo.zip
+rm -rf demo/
+ls
+ls demo
+code demo - 
+curl http://localhost:8080/
+asdf plugin list all   
+asdf plugin list all   | where name =~ 'rus'
+typeracer
+git --version
+sudo pamac update  --ignore python2
+sudo pacman -Syu git
+git --version
+sudo pacman -Syu git
+sudo pacman -S git
+sudo pamac install git
+git --version
+typeracer
+ls
+cd Downloads/
+ls
+cat bidurk-51adf6a91ea6.json
+cat bidurk-51adf6a91ea6.json | pbcopy
+cat bidurk-51adf6a91ea6.json | docker login -u _json_key --password-stdin https://gcr.io
+docker pull http://gcr.io/bidurk/github.com/virtualdoo/xray-frontend@sha256:1a6d230f862c85148d0cb6c6dfe5c4c4b471974aa29590dda8530aa9a63a45ff
+docker pull gcr.io/bidurk/github.com/virtualdoo/xray-frontend@sha256:1a6d230f862c85148d0cb6c6dfe5c4c4b471974aa29590dda8530aa9a63a45ff
+docker go/
+docker
+docker login --help
+cat ~/.docker/config.json
+# docker pull us.gcr.io/viewability-329021/xray-frontend/xray-frontend:007288cfbd123035483a18f228c4f47342e256d7
+j
+docker image tag gcr.io/bidurk/github.com/virtualdoo/xray-frontend@sha256:1a6d230f862c85148d0cb6c6dfe5c4c4b471974aa29590dda8530aa9a63a45ff  us.gcr.io/viewability-329021/xray-frontend/xray-frontend@sha256:prod
+docker image tag gcr.io/bidurk/github.com/virtualdoo/xray-frontend@sha256:1a6d230f862c85148d0cb6c6dfe5c4c4b471974aa29590dda8530aa9a63a45ff  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+cat adbuyersclubdev-82e45a2e88a7.json
+cat adbuyersclubdev-82e45a2e88a7.json | docker login -u _json_key --password-stdin https://us.gcr.io
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+docker image ls us.gcr.io/viewability-329021/xray-frontend/xray-frontend
+lvim ~/.docker/config.json
+cat adbuyersclubdev-82e45a2e88a7.json | docker login -u _json_key --password-stdin https://gcr.io
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+cat adbuyersclubdev-82e45a2e88a7.json | docker login -u _json_key --password-stdin https://us.gcr.io
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+lvim ~/.docker/config.json
+cat adbuyersclubdev-82e45a2e88a7.json #| docker login -u _json_key --password-stdin https://us.gcr.io
+cat viewability-329021-bbe8a1884d58.json | docker login -u _json_key --password-stdin https://us.gcr.io
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+lvim ~/.docker/config.json
+cat viewability-329021-763b3e2a8cb8.json | docker login -u _json_key --password-stdin https://us.gcr.io
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+docker container ls
+docker container rm -f cranky-cerf
+docker container run -P  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+docker container rm -f 4f803b4c4e9b
+docker container run -it -p 3000:3000  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+cd projects/github.com/VirtualDOO/xray-frontend/
+ls
+code
+code .
+docker build --build-arg="NEXT_PUBLIC_TERMS_AND_CONDITIONS_URL=https://www.bidurk.com/servicetermsandconditions" --build-arg="NEXT_PUBLIC_BFF_URL=https://xray-frontend-llgfgznx3a-uc.a.run.app" -t us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod .
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+lvim ~/.docker/config.json
+cat ~/Downloads/viewability-329021-f2bde63208aa.json | docker login -u _json_key --password-stdin https://us.gcr.io
+docker push  us.gcr.io/viewability-329021/xray-frontend/xray-frontend:prod
+typeracer
+xeit
+exti
+typeracer
+ls
+typeracer
+sudo pamac update  --ignore python2
+sudo pamac update  -a --ignore python2
+52.948.645 - 51.908.090
+52948645 - 51908090
+cd projects/github.com/fwfurtado/
+ls
+gcl git@github.com:manning-lp/fwfurtado-fundamentals-and-accounting-lp.git
+fleet fwfurtado-fundamentals-and-accounting-lp/
+ls
+cargo build
+gs
+ga .
+gcmsg "Solution for 1.1 Setting up accounts" 
+gps 
+rustup component --help
+rustup component list
+rustup component add clippy
+rustup component add rustfmt
+gpl 
+cargo run
+gs
+ga .
+gcmsg "Solution for 2.1 Interactive account" 
+gps
+cargo run
+cargo check
+cargo clippy
+cargo run 
+gs
+ga .
+gs
+cargo fmt
+cargo build
+cargo test
+gs
+ga .
+gcmsg "Solution for 3.1 Setting Techinical Debt" 
+gps 
+typeracer
+cargo run
+typeracer
+git --version
+typeracer
+cd projects/github.com/
+ls
+md Bidurk
+cd Bidurk/
+gcl git@github.com:Bidurk/xray-frontend.git
+gcl git@github.com:Bidurk/xray-service.git
+fleet xray-frontend/
+yarn install --help
+yarn install -D @types/node
+yarn add -D @types/node
+yarn install 
+gs
+gsc fix/send-remove-suggestion-email-and-name
+gs
+ga .
+gcmsg "Remove suggestion name/email from logged user, send both emails from logged user and provided by the user input"
+gpsup 
+fleet --help
+fleet launch projects/github.com/Bidurk/xray-service/
+fleet projects/github.com/Bidurk/xray-service/ launch 
+cd projects/github.com/fwfurtado/
+gcl git@github.com:manning-lp/fwfurtado-core-algorithms-and-data-structures-lp.git
+fleet fwfurtado-core-algorithms-and-data-structures-lp/ & 
+start 
+fleet --help
+fleet dock
+fleet dock --help
+fleet dock start
+fleet --help
+fleet launch --help
+fleet launch workspace --help
+fleet --help
+fleet -d projects/github.com/fwfurtado/fwfurtado-core-algorithms-and-data-structures-lp/
+jobs
+fg 
+bg --help
+bg
+help
+help commands
+help commands | where is_custom ==  false
+tutor
+tutor list
+tutor begin
+ls | select name size
+tutor begin
+tutor list
+tutor table
+tutor cells
+tutor expression
+tutor list
+tutor cells
+tutor expressions
+tutor echo
+tutor each
+tutor blocks
+tutor variables
+tutor cells
+tutor shorthands
+tutor list
+tutor expr
+tutor list
+tutor var
+tutor list
+ls
+ll
+lvim update
+lvim --help
+lvim
+lvim 
+bash ~/.local/share/lunarvim/lvim/utils/installer/uninstall.sh
+bash <(curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh)
+curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh | bash
+lvim
+lvim ~/.docker/config.json
+lvim ~/.config/nushell/env.nu
+typeracer
+.gs
+.gdf .config/lvim/config.lua
+ls
+lvim .config/kitty/kitty.conf
+ls
+typeracer
+rfkill 
+ip a s
+ip link set wlp0s20f3
+ip link  wlp0s20f3
+ip link help
+ip link set wlp0s20f3 up
+sudo ip link set wlp0s20f3 up
+ip a s
+systemctl status
+systemctl status NetworkManager
+lspci -k
+iw go/
+iw
+iwd 
+iw
+iw list
+iw dev list
+iw phy0 info
+iw dev phy0 
+ip a s
+iw wlp0s20f3 info
+iw dev wlp0s20f3 on 
+iw
+sudo shutdown -r now
+sudo shutdown --help
+sudo shutdown --show
+sudo shutdown -c
+sudo shutdown -r now
+loginctl 
+loginctl --help
+init 0
+sudo init 0
+^init
+^init 3
+^init 0
+reboot 
+reboot  --help
+reboot  -f --reboot
+typeracer
+sudo pamac install leftwm
+sudo pamac search leftwm
+sudo pamac search leftwm-git
+sudo pamac install leftwm-git
+sudo pamac install paru
+cargo install leftwm
+leftwm-command 
+leftwm-command  --help
+leftwm-command  --list
+leftwm-state --help
+leftwm-check --h
+leftwm-check --help
+leftwm-theme
+cargo search leftwm
+sudo pamac install leftwm-theme
+sudo pamac install leftwm-themes
+sudo pamac search leftwm
+sudo pamac install leftwm-theme-git
+cd Downloads/
+git clone https://github.com/leftwm/leftwm-theme
+cd leftwm-theme/
+cargo build --release
+sudo install -s -Dm755 ./target/release/leftwm-theme -t /usr/bin/ src/
+install --help
+sudo install -s -Dm755 ./target/release/leftwm-theme -t /usr/bin
+cd
+leftwm-theme 
+leftwm-theme update
+typeracer
+leftwm-theme list 
+leftwm-theme install community/Epitaph
+leftwm-theme install Epitaph
+leftwm-theme install "Epitaph"
+leftwm-theme
+sudo leftwm-theme install Epitaph
+sudo leftwm-theme update
+sudo leftwm-theme install Epitaph
+sudo leftwm-theme apply Epitaph
+typeracer
+lsusb
+watch 
+watch --help
+typeracer
+open .
+xdg-open .
+xdg-open --help
+623 - 302
+cp .env.local ../../Bidurk/xray-frontend/
+gs
+yarn dev
+code ../../VirtualDOO/xray-frontend/.env.local
+yarn dev
+gs
+gr pages/api/channels/[id].ts
+gs
+sudo pamac update  -a --ignore python2
+ls
+ll
+la
+typeracer
+lse
+typeracer
+ls
+typeracer
+48 + 615
+663 - 800
+typeracer
+cargo test
+ls
+cargo test
+gs
+ga .
+gcmsg "Solution for 1.1 Starting the matching Engine" 
+gps 
+cargo build
+typeracer
+exti
+typeracer
+cargo test
+gs
+gh 
+gh browse
+gs
+ga .
+gcmsg "Solution for 2.1 Building the Trading Platform" 
+gps 
+gs
+ga .
+gcmsg "Solution for 3.1 Starting to Trade" 
+gps 
+gh browse
+cd projects/github.com/fwfurtado/fwfurtado-fundamentals-and-accounting-lp/
+gh browse
+..
+gcl git@github.com:manning-lp/fwfurtado-shared-marketplace-api-lp.git
+cargo new --lib octopus-common
+cargo new octopus-cli
+cargo build
+cargo check
+cargo new octopus-web
+gs
+ga .
+gcmsg "Solution for 1.1 Moving code around" 
+gps 
+gh browse
+cargo test
+cargo build
+RUST_LOG=info cargo run
+cd octopus-web/
+RUST_LOG=info cargo run
+cargo run
+..
+cargo build
+cd octopus-web/
+RUST_LOG=info cargo run
+curl -X POST -d '{"signer": "Fernando",, "amount": 100}' localhost:8080/account/deposit
+curl -X POST -d '{"signer": "Fernando", "amount": 100}' -H "Content-Type: application/json" localhost:8080/account/deposit
+trace google.com
+tracert google.com
+ss 
+ss --help
+ip route 
+ip route --help
+ip route help
+show ip route google.com
+ip route google.com
+ip route --help
+ip route help
+ip route get google.com
+traceroute google.com
+pamac search traceroute 
+sudo pamac install traceroute 
+ls
+ip route
+ping 8.8.8.8
+ip route
+sudo pamac update
+1300 / 22
+typeracer
+ping 8.8.8.8
+ping 1.1.1.1
+typeracer
+cargo build
+cargo run
+RUST_LOG=info cargo run
+gs
+RUST_LOG=info cargo run
+gs
+ga .
+gcmsg "Solution for 2.1 Setting " 
+gcmsg "Solution for 2.1 Setting up the service" 
+gps 
+cargo run
+cd octopus-cli/
+ls
+RUST_LOG=info cargo run
+gs
+ga .
+cd ..
+gs
+ga .
+gs
+gcmsg "Solution for 3.1 Connecting to Your Service" 
+gps 
+ls
+ll
+ls
+gsc feat/confirmation-page
+gpsup 
+gs
+ga .
+gcmsg "Add missing pages for apponitments flow"
+make lint
+ga .
+gcmsg "Fix lint issues" 
+gps 
+sudo pamac update
+ion
+sudo pamac search ion
+typeracer
+typeracer
+sudo pamac update  -a --ignore python2
+sudo pamac update  -a --ignore python2 gnome-terminal-transparency
+sudo pamac update  -a --ignore python2 --ignore gnome-terminal-transparency
+sudo pamac update --help
+sudo pamac update  -a --ignore python2,gnome-terminal-transparency
+sudo pamac update  --ignore python2,gnome-terminal-transparency
+term 
+sudo shutdown -r now
+cat .config/nushell/starship.nu
+starship init nu
+^term 
+term
+fish
+ll
+ls
+la
+term
+term size
+term size --help
+(term size).columns
+term size | get columns
+lvim .config/nushell/starship.nu
+$nu
+lvim $nu.config-path
+src
+typeracer
+cd projects/github.com/Bidurk/
+ls
+gs
+gpl 
+gpl --rebase
+gsc feat/add-download-csv-link-generator
+go build
+go --help
+go build cmd/main.go
+gs
+ga .
+gs
+ga .
+gcmsg "Add endpoint to generate temporary link for download file" 
+gpsup 
+typeracer
+md domain
+cd Downloads/
+md x
+cd x
+cargo new --lib octopus-common
+ls
+cargs
+gs
+cargo new --lib domain
+gs
+cargo new --lib bookstore-domain
+cargo new --lib bookstore-api
+cargo build
+cd
+cd projects/github.com/fwfurtado/fwfurtado-shared-marketplace-api-lp/
+ls
+cat octopus-common/src/core.rs
+cargo build
+cargo test
+cargo build
+curl http://localhost:8080/authors
+curl http://localhost:8000/authors
+curl -v http://localhost:8000/authors
+cd bookstore-api/
+cargo run 
+curl -v http://localhost:8000/authors/1
+curl -v http://localhost:8000/authors
+curl -v http://localhost:8000/authors/1/
+curl -v http://localhost:8000/authors/1
+curl http://localhost:8000/authors/1
+curl http://localhost:8000/authors
+curl -X POST -d '{"name": "Fernando", "age": 32, "bio": "Developer lover"}' http://localhost:8000/authors
+curl -X PATCH -d '{"name": "Fernando", "age": 32, "bio": "Developer lover"}' http://localhost:8000/authors/32
+cargo run 
+curl -X PATCH -d '{"name": "Fernando", "age": 32, "bio": "Developer lover"}' http://localhost:8000/authors/32
+cargo run 
+curl http://localhost:8000/books/1
+cargo run 
+ls
+gs
+..
+echo .idea/ | save --append .gitignore
+gs
+cargo install diesel_cli
+cargo install diesel_cli --no-default-features --features postgres
+cargo new --lib bookstore-persistence
+cd bookstore-persistence/
+sudo pamac search postgresql-libs
+sudo pamac install postgresql-libs
+sudo pamac install postgresql-libs --ignore python2
+cd /var/cache/private/
+sudo cd /var/cache/private/
+sudo git init /var/cache/private/
+sudo pamac install postgresql-libs --ignore python2,gnome-terminal-transparency,google-chrome
+sudo pamac update 
+sudo pamac search openssl-1
+sudo pamac search openssl-1.1
+sudo pacman -Rcns python2
+sudo pamac update
+sudo pamac searsh libnautilus-extension-4
+sudo pamac search libnautilus-extension-4
+sudo pamac search libnautilus-extension
+sudo pamac install libnautilus-extension
+sudo pamac update 
+sudo pacman -S --needed base-devel
+cargo install diesel_cli --no-default-features --features postgres
+diesel --help
+diesel setup
+diesel migration generate create_authors
+diesel migration generate create_books
+diesel migration run 
+diesel 
+diesel print-schema
+diesel migration run 
+diesel migration redo
+diesel migration run
+diesel setup
+diesel migration redo
+diesel migration redo --help
+diesel migration redo -a
+dcd -v
+dcu -d
+diesel migration run
+..
+cd bookstore-api/
+curl -X POST -d '{"name": "Fernando", "age": 32, "bio": "Developer lover"}' http://localhost:8000/authors
+cargo run 
+curl -X POST -d '{"name": "Fernando", "age": 32, "bio": "Developer lover"}' http://localhost:8000/authors
+curl -X POST -H "Content-type: application/json"  -d '{"name": "Fernando", "age": 32, "bio": "Developer lover"}' http://localhost:8000/authors
+typeracer
+sudo pamac update 
+sudo pamac update --ignore gnome-terminal-transparency
+sudo pamac search ion 
+sudo pamac search "Ion Shell"
+sudo pamac install ion
+sudo pamac install ion-git
+ion
+nh
+ls
+ll
+lr
+ll
+la
+cat font.txt
+rm font*.txt
+ls
+cat launch
+rm launch
+rm cap_%d
+ls
+rm *message*
+ls
+lt 
+ls dist-newstyle/
+ls dist-newstyle/cache/compiler
+rm -rf dist-newstyle/
+ls
+rm files.mp4
+ls
+ll
+ls qmk_firmware/
+ls
+ls Documents/
+ls
+ls Downloads/
+cd Downloads/
+ls *.zip
+rm *.zip
+ls
+ls *.json
+cat updatestack1.json
+rm updatestack*.json
+ls
+ls src/
+ls src/main/
+rm src/
+rm -rf src
+ls
+rm -rf x
+ls
+sudo pamac update 
+gs
+gsw main
+gpl 
+gs
+sudo pamac update --ignore gnome-terminal-transparency
+ssh -i ~/melvi-bastion.pem -f -N -l ec2-user -L 5433:healthcare-db.ckok6aczw0eg.us-east-2.rds.amazonaws.com:5432 18.188.136.81 -v
+sudo killall ssh
+ssh-list
+ss -a 
+ss -a | grep ssh
+ss -a | grep ssh | grep ESTAB
+typeracer
+sudo pamac search kmonad
+sudo pamac install kmonad-bin
+kmonad 
+wget https://raw.githubusercontent.com/ColemakMods/mod-dh/master/kmonad/colemak-dh-extend-ansi.kbd
+kmonad -d colemak-dh-extend-ansi.kbd
+kmonad
+kmonad colemak-dh-extend-ansi.kbd
+sudo kmonad colemak-dh-extend-ansi.kbd
+ls /dev/input/by-id/
+lvim colemak-dh-extend-ansi.kbd
+kmonad colemak-dh-extend-ansi.kbd\
+kmonad colemak-dh-extend-ansi.kbd
+ls
+lvim .local/bin/colemak-dh
+chmod +x .local/bin/colemak-dh
+colemak-dh
+lvim .config/autostart/kmonad.desktop
+ps
+ps aux
+ps -aux
+pgrep 
+pgrep kmonad
+ps --long 
+ps --long | where name =~ kmonad
+kmonad colemak-dh-extend-ansi.kbd
+kmonad --hlep
+kmonad -l INFO colemak-dh-extend-ansi.kbd
+kmonad -l info colemak-dh-extend-ansi.kbd
+asd
+lvim .config/autostart/kmonad.desktop
+ls
+ll
+sudo pamac update 
+gs
+.gs
+cd projects/github.com/fwfurtado/
+ls
+gpl git@github.com:fwfurtado/dotfiles.git
+gcl git@github.com:fwfurtado/dotfiles.git
+cd dotfiles/
+ls
+./dotdrop.sh
+cd dotdrop/
+ls
+cd ..
+ls
+pip3 install -r dotdrop/requirements.txt
+ls
+rm dotdrop.sh
+git submodule deinit  --help
+git help submodule deinit
+ls
+git submodule
+git submodule deinit -f -- dotdrop/
+rm -rf .git/modules/dotdrop/
+git rm -f dotdrop/
+gs
+ga .
+gcmsg "Remove dotdrop submodule" 
+git -c commit.gpgsign=false commit -m "Remove dotdrop submodule" 
+gs
+gps 
+gs
+ls
+sudo pamac instal dotdrop
+sudo pamac install dotdrop
+dotdrop --help
+dotdrop files
+ls
+cat config.yaml
+lvim config.yaml
+dotdrop files
+dotdrop files -p default
+dotdrop compare -p default
+gs
+ga .
+git -c commit.gpgsign=false commit -m "Rename profile" 
+gs
+dotdrop --help
+dotdrop import ~/.config/nushell/ 
+gs
+ga .
+cat config.yaml
+gs
+gr --staged .
+gs
+cat config.yaml
+gs
+gr .
+gs
+ls dotfiles/config/nushell/
+rm -rf dotfiles/config/nushell/
+gs

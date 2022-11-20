@@ -12,9 +12,13 @@ dotfiles:
   f_config.toml:
     src: config/typeracer/config.toml
     dst: ~/.config/typeracer/config.toml
+  d_nushell:
+    src: config/nushell
+    dst: ~/.config/nushell
 profiles:
   default:
     dotfiles:
     - f_starship.toml
     - f_kitty.conf
     - f_config.toml
+    - d_nushell
