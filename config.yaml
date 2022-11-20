@@ -13,7 +13,7 @@ dotfiles:
     src: config/typeracer/config.toml
     dst: ~/.config/typeracer/config.toml
 profiles:
-  nan-pc:
+  default:
     dotfiles:
     - f_starship.toml
     - f_kitty.conf
