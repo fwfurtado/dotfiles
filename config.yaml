@@ -3,7 +3,7 @@ config:
   create: true
   dotpath: dotfiles
   impignore:
-  - "*/nushell/history.txt"
+  - '*/nushell/history.txt'
 dotfiles:
   f_starship.toml:
     src: config/starship.toml
@@ -14,9 +14,13 @@ dotfiles:
   f_config.toml:
     src: config/typeracer/config.toml
     dst: ~/.config/typeracer/config.toml
+  d_nushell:
+    src: config/nushell
+    dst: ~/.config/nushell
 profiles:
   default:
     dotfiles:
     - f_starship.toml
     - f_kitty.conf
     - f_config.toml
+    - d_nushell
