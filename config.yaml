@@ -2,6 +2,8 @@ config:
   backup: true
   create: true
   dotpath: dotfiles
+  impignore:
+  - "*/nushell/history.txt"
 dotfiles:
   f_starship.toml:
     src: config/starship.toml
@@ -18,4 +20,3 @@ profiles:
     - f_starship.toml
     - f_kitty.conf
     - f_config.toml
-    - d_nushell
