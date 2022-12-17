@@ -1,0 +1,22 @@
+# Global configs
+scroll_down: u
+scroll_up: y
+buttons: h , .
+screen_chars: neioarstg
+
+# Normal Mode
+left: M-n
+up: M-i
+down: M-e
+right: M-o
+
+# Hint Mode 
+hint2_chars: mneioarstgqwfpbjluy;zxcdv
+
+# Grid Mode
+grid_up: M-i
+grid_down: M-e
+grid_left: M-n
+grid_right: M-o
+grid_keys: l u n e
+

@@ -17,6 +17,18 @@ dotfiles:
   d_nushell:
     src: config/nushell
     dst: ~/.config/nushell
+  f_config:
+    src: config/warpd/config
+    dst: ~/.config/warpd/config
+  f_warpd.service:
+    src: config/systemd/user/warpd.service
+    dst: ~/.config/systemd/user/warpd.service
+  f_colemak.service:
+    src: config/systemd/user/colemak.service
+    dst: ~/.config/systemd/user/colemak.service
+  f_colemak-dh-extend-ansi.kbd:
+    src: colemak-dh-extend-ansi.kbd
+    dst: ~/colemak-dh-extend-ansi.kbd
 profiles:
   default:
     dotfiles:
@@ -24,3 +36,7 @@ profiles:
     - f_kitty.conf
     - f_config.toml
     - d_nushell
+    - f_config
+    - f_warpd.service
+    - f_colemak.service
+    - f_colemak-dh-extend-ansi.kbd

@@ -1,0 +1,10 @@
+[Unit]
+Description="Colemak DH"
+
+[Service]
+Type=simple
+StandardOutput=journal
+ExecStart=kmonad -l info /home/anonymous/colemak-dh-extend-ansi.kbd
+
+[Install]
+WantedBy=default.target
