@@ -9,6 +9,9 @@ left: M-n
 up: M-i
 down: M-e
 right: M-o
+top: T
+middle: M
+bottom: B
 
 # Hint Mode 
 hint2_chars: mneioarstgqwfpbjluy;zxcdv
