@@ -1,0 +1,8 @@
+eval $(starship init ion)
+
+export ASDF_DIR=$HOME/.asdf/
+
+export PATH=$PATH:$ASDF_DIR/bin
+export PATH=$PATH:$ASDF_DIR/shims
+
+source $HOME/.config/ion/alias.ion
