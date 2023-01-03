@@ -29,6 +29,12 @@ dotfiles:
   f_colemak-dh-extend-ansi.kbd:
     src: colemak-dh-extend-ansi.kbd
     dst: ~/colemak-dh-extend-ansi.kbd
+  f_alacritty.yml:
+    src: config/alacritty/alacritty.yml
+    dst: ~/.config/alacritty/alacritty.yml
+  d_ion:
+    src: config/ion
+    dst: ~/.config/ion
 profiles:
   default:
     dotfiles:
@@ -40,3 +46,5 @@ profiles:
     - f_warpd.service
     - f_colemak.service
     - f_colemak-dh-extend-ansi.kbd
+    - f_alacritty.yml
+    - d_ion
