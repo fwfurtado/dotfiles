@@ -51,23 +51,6 @@ alias gb  = git branch
 
 alias gt = git tag
 
-# git dotfiles
-alias .g     = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME
-alias .ga    = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME add
-alias .gash  = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME stash
-alias .gashl = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME stash list
-alias .gashp = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME stash pop
-alias .gashu = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME stash --include-untracked
-alias .gcmsg = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME commit -m
-alias .gdf   = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME diff --
-alias .gpl   = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME pull
-alias .gplr  = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME pull --rebase
-alias .gps   = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME push
-alias .grb   = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME rebase
-alias .grs   = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME reset --
-alias .gs    = git --git-dir $env.DOTFILES_REPO --work-tree $env.HOME status
-
-
 #Docker
 alias dk   = docker
 alias dkc  = docker container
