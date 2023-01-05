@@ -35,6 +35,9 @@ dotfiles:
   d_ion:
     src: config/ion
     dst: ~/.config/ion
+  f_rc.elv:
+    src: config/elvish/rc.elv
+    dst: ~/.config/elvish/rc.elv
 profiles:
   default:
     dotfiles:
@@ -48,3 +51,4 @@ profiles:
     - f_colemak-dh-extend-ansi.kbd
     - f_alacritty.yml
     - d_ion
+    - f_rc.elv
