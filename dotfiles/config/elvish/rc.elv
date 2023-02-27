@@ -22,6 +22,15 @@ set E:BROWSER = 'google-chrome-stable'
 set E:ANDROID_SDK = $E:HOME'/Android/Sdk' 
 set E:GOPATH = $E:HOME'/go' 
 set E:GOPRIVATE = "go.buf.build"
+set E:PERSONAL_ACCESS_TOKEN = "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"
+
+use path
+
+if ( path:is-regular (asdf which java) ) {
+    set E:JAVA_HOME = ( path:dir ( path:dir (asdf which java) ) )
+    set E:JDK_HOME = $E:JAVA_HOME
+}
+
 
 set paths = [
     $@paths
@@ -47,6 +56,7 @@ alias:new md mkdir
 alias:new ls exa --group-directories-first --icons $@args 
 alias:new ll exa --group-directories-first --icons -l
 alias:new la exa --group-directories-first --icons -a 
+alias:new lt exa --group-directories-first --icons -t 
 
 
 # git
@@ -115,3 +125,28 @@ alias:new dcex  docker-compose exec
 
 
 alias:save &all
+
+use str
+
+fn gbrm { |name|
+    var OLD_NAME = (str:trim-space (git rev-parse --abbrev-ref HEAD))
+    var NEW_NAME = $name
+    var REMOTE = (str:trim-space (git remote))
+
+
+
+    # Rename local branch
+    git branch -M $OLD_NAME $NEW_NAME
+    
+    # Delete old branch on remote
+    git push $REMOTE :$OLD_NAME
+
+    # Remove upstream of new branch (this avoid that git uses the old name when push)
+    git branch --unset-upstream $NEW_NAME
+
+    # Push new branch to remote 
+    git push $REMOTE $NEW_NAME 
+
+    # Set upstream to new branch
+    git push $REMOTE -u $NEW_NAME
+}
