@@ -22,7 +22,7 @@ set E:BROWSER = 'google-chrome-stable'
 set E:ANDROID_SDK = $E:HOME'/Android/Sdk' 
 set E:GOPATH = $E:HOME'/go' 
 set E:GOPRIVATE = "go.buf.build"
-set E:PERSONAL_ACCESS_TOKEN = "***REDACTED***"
+set E:PERSONAL_ACCESS_TOKEN = "<TOKEN>"
 
 use path
 
