@@ -38,6 +38,15 @@ dotfiles:
   f_rc.elv:
     src: config/elvish/rc.elv
     dst: ~/.config/elvish/rc.elv
+  f_xprofile:
+    src: xprofile
+    dst: ~/.xprofile
+  f_nitrogen.cfg:
+    src: config/nitrogen/nitrogen.cfg
+    dst: ~/.config/nitrogen/nitrogen.cfg
+  d_fw:
+    src: config/leftwm/themes/fw
+    dst: ~/.config/leftwm/themes/fw
 profiles:
   default:
     dotfiles:
@@ -52,3 +61,8 @@ profiles:
     - f_alacritty.yml
     - d_ion
     - f_rc.elv
+    - f_nitrogen.cfg
+    - d_fw
+  laptop:
+    dotfiles:
+    - f_xprofile
