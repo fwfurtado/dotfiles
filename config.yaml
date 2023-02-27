@@ -61,8 +61,8 @@ profiles:
     - f_alacritty.yml
     - d_ion
     - f_rc.elv
-    - f_nitrogen.cfg
     - d_fw
   laptop:
     dotfiles:
     - f_xprofile
+    - f_nitrogen.cfg
