@@ -47,6 +47,9 @@ dotfiles:
   d_fw:
     src: config/leftwm/themes/fw
     dst: ~/.config/leftwm/themes/fw
+  d_rofi:
+    src: config/rofi
+    dst: ~/.config/rofi
 profiles:
   default:
     dotfiles:
@@ -62,6 +65,7 @@ profiles:
     - d_ion
     - f_rc.elv
     - d_fw
+    - d_rofi
   laptop:
     dotfiles:
     - f_xprofile
