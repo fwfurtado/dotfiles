@@ -50,6 +50,9 @@ dotfiles:
   d_rofi:
     src: config/rofi
     dst: ~/.config/rofi
+  f_config.ron:
+    src: config/leftwm/config.ron
+    dst: ~/.config/leftwm/config.ron
 profiles:
   default:
     dotfiles:
@@ -66,6 +69,7 @@ profiles:
     - f_rc.elv
     - d_fw
     - d_rofi
+    - f_config.ron
   laptop:
     dotfiles:
     - f_xprofile

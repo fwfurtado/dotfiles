@@ -56,10 +56,11 @@ alias:new md mkdir
 alias:new ls exa --group-directories-first --icons $@args 
 alias:new ll exa --group-directories-first --icons -l
 alias:new la exa --group-directories-first --icons -a 
-alias:new lt exa --group-directories-first --icons -t 
+alias:new lt exa --icons --tree
 
 
 # git
+alias:new ginit  git init
 alias:new ga  git add
 
 alias:new gcl  git clone
