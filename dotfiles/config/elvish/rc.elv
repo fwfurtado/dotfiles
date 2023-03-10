@@ -57,10 +57,9 @@ alias:new ls exa --group-directories-first --icons $@args
 alias:new ll exa --group-directories-first --icons -l
 alias:new la exa --group-directories-first --icons -a 
 alias:new lt exa --icons --tree
-
+alias:new lta exa --icons --tree -a
 
 # git
-alias:new ginit  git init
 alias:new ga  git add
 
 alias:new gcl  git clone
@@ -150,4 +149,24 @@ fn gbrm { |name|
 
     # Set upstream to new branch
     git push $REMOTE -u $NEW_NAME
+}
+
+
+var melvi_address = [ &dev="3.142.52.149" &prod="18.188.136.81"]
+
+fn connect-bastion { |env|
+    var normalized_env = (str:trim-space (str:to-lower $env))
+    var address = $melvi_address[$normalized_env]
+
+    ssh -i ~/bastion.pem ec2-user@$address
+}
+
+fn bind-bastion {|env host port &lport=$nil| 
+    var normalized_env = (str:trim-space (str:to-lower $env))
+    var address = $melvi_address[$normalized_env]
+
+    var local_port = (coalesce $lport $port)
+    var bind = $local_port":"$host":"$port
+
+    ssh -i ~/bastion.pem -L $bind ec2-user@$address
 }
