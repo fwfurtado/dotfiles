@@ -53,6 +53,12 @@ dotfiles:
   f_config.ron:
     src: config/leftwm/config.ron
     dst: ~/.config/leftwm/config.ron
+  f_config.ini:
+    src: config/polybar/config.ini
+    dst: ~/.config/polybar/config.ini
+  f_xmonad.hs:
+    src: config/xmonad/xmonad.hs
+    dst: ~/.config/xmonad/xmonad.hs
 profiles:
   default:
     dotfiles:
@@ -70,6 +76,8 @@ profiles:
     - d_fw
     - d_rofi
     - f_config.ron
+    - f_config.ini
+    - f_xmonad.hs
   laptop:
     dotfiles:
     - f_xprofile
