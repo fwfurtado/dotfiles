@@ -59,6 +59,9 @@ dotfiles:
   f_xmonad.hs:
     src: config/xmonad/xmonad.hs
     dst: ~/.config/xmonad/xmonad.hs
+  d_xmobar:
+    src: config/xmobar
+    dst: ~/.config/xmobar
 profiles:
   default:
     dotfiles:
@@ -78,6 +81,7 @@ profiles:
     - f_config.ron
     - f_config.ini
     - f_xmonad.hs
+    - d_xmobar
   laptop:
     dotfiles:
     - f_xprofile

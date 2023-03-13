@@ -8,20 +8,23 @@
 --
 
 import XMonad
-import XMonad.Util.SpawnOnce
-import Data.Monoid
+import System.IO (hClose, hPutStr, hPutStrLn)
 import System.Exit
-import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
+
+import Data.Monoid
+import Data.Maybe (fromJust)
+
 
 import XMonad.Actions.MouseResize
 
+import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.WindowSwallowing
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 
 
 import XMonad.Layout.Spacing
 import XMonad.Layout.ResizableTile
-
 import XMonad.Layout.LayoutModifier
 import XMonad.Layout.LimitWindows (limitWindows, increaseLimit, decreaseLimit)
 import XMonad.Layout.WindowNavigation
@@ -35,13 +38,14 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.WindowArranger (windowArrange, WindowArrangerMsg(..))
 import XMonad.Layout.MultiToggle (mkToggle, single, EOT(EOT), (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers(NBFULL, MIRROR, NOBORDERS))
-import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
+import qualified XMonad.Layout.ToggleLayouts as T (toggleLayouts, ToggleLayout(Toggle))
 
 import XMonad.Util.Hacks (windowedFullscreenFixEventHook, javaHack, trayerAboveXmobarEventHook, trayAbovePanelEventHook, trayerPaddingXmobarEventHook, trayPaddingXmobarEventHook, trayPaddingEventHook)
-
+import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
+import XMonad.Util.SpawnOnce
 
 colorScheme = "nord"
 
@@ -317,7 +321,7 @@ myEventHook = windowedFullscreenFixEventHook <> swallowEventHook (className =? "
 -- Perform an arbitrary action on each internal state change or X event.
 -- See the 'XMonad.Hooks.DynamicLog' extension for examples.
 --
-myLogHook = return ()
+-- myLogHook = return () 
 
 ------------------------------------------------------------------------
 -- Startup hook
@@ -329,50 +333,80 @@ myLogHook = return ()
 -- By default, do nothing.
 myStartupHook :: X ()
 myStartupHook = do 
+    spawn     "killall trayer"
     spawnOnce "lxsession -n -a"
     spawnOnce "nitrogen --random --set-zoom-fill"
+    spawnOnce "nm-applet"
+    spawnOnce "blueman-applet"
+    spawnOnce "pasystray"
     spawnOnce "picom"
-    spawnOnce "wmsystray"
-    spawn "polybar"
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
 
+
+
+--    spawn "polybar"
+
+myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] 
+
+clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
+    where i = fromJust $ M.lookup ws myWorkspaceIndices
+
+
+windowCount :: X (Maybe String)
+windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 ------------------------------------------------------------------------
 -- Now run xmonad with all the defaults we set up.
 
 -- Run xmonad with the settings you specify. No need to modify this.
 --
-main =  xmonad 
-        $ docks . ewmh
-        $ defaults
+main :: IO()
+main =  do 
 
--- A structure containing your configuration settings, overriding
--- fields in the default config. Any you don't override, will
--- use the defaults defined in xmonad/XMonad/Config.hs
---
--- No need to modify this.
---
-defaults = def {
-      -- simple stuff
-        terminal           = myTerminal,
-        focusFollowsMouse  = myFocusFollowsMouse,
-        clickJustFocuses   = myClickJustFocuses,
-        borderWidth        = myBorderWidth,
-        modMask            = myModMask,
-        workspaces         = myWorkspaces,
-        normalBorderColor  = myNormalBorderColor,
-        focusedBorderColor = myFocusedBorderColor,
+  myBar <- spawnPipe ("xmobar")
+  xmonad $ docks . ewmh $ def {
+    -- simple stuff
+    terminal           = myTerminal,
+    focusFollowsMouse  = myFocusFollowsMouse,
+    clickJustFocuses   = myClickJustFocuses,
+    borderWidth        = myBorderWidth,
+    modMask            = myModMask,
+    workspaces         = myWorkspaces,
+    normalBorderColor  = myNormalBorderColor,
+    focusedBorderColor = myFocusedBorderColor,
 
-      -- key bindings
-        keys               = myKeys,
-        mouseBindings      = myMouseBindings,
+  -- key bindings
+    keys               = myKeys,
+    mouseBindings      = myMouseBindings,
 
-      -- hooks, layouts
-        layoutHook         = myLayoutHook,
-        manageHook         = myManageHook,
-        handleEventHook    = myEventHook,
-        logHook            = myLogHook,
-        startupHook        = myStartupHook
+  -- hooks, layouts
+    layoutHook         = myLayoutHook,
+    manageHook         = myManageHook,
+    handleEventHook    = myEventHook,
+    startupHook        = myStartupHook,
+    logHook            = dynamicLogWithPP $ xmobarPP {
+      ppOutput = \x -> hPutStrLn myBar x 
+    , ppCurrent = xmobarColor color06 "" . wrap
+                  ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
+      -- Visible but not current workspace
+    , ppVisible = xmobarColor color06 "" . clickable
+      -- Hidden workspace
+    , ppHidden = xmobarColor color05 "" . wrap
+                 ("<box type=Top width=2 mt=2 color=" ++ color05 ++ ">") "</box>" . clickable
+      -- Hidden workspaces (no windows)
+    , ppHiddenNoWindows = xmobarColor color05 ""  . clickable
+      -- Title of active window
+    , ppTitle = xmobarColor color16 "" . shorten 60
+      -- Separator character
+    , ppSep =  "<fc=" ++ color09 ++ "> <fn=1>|</fn> </fc>"
+      -- Urgent workspace
+    , ppUrgent = xmobarColor color02 "" . wrap "!" "!"
+      -- Adding # of windows on current workspace to the bar
+    , ppExtras  = [windowCount]
+      -- order of things in xmobar
+    , ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
     }
+  }
 
 -- | Finally, a copy of the default bindings in simple textual tabular format.
 help :: String
