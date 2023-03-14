@@ -113,6 +113,11 @@ myWorkspaces    = ["1","2","3","4","5","6","7","8","9"]
 myNormalBorderColor  = "#dddddd"
 myFocusedBorderColor = "#ff0000"
 
+
+--- masks
+altMask = mod1Mask
+rAltMask = mod3Mask
+
 ------------------------------------------------------------------------
 -- Key bindings. Add, modify or remove key bindings here.
 --
@@ -200,7 +205,14 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
         , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
 
-
+    ++
+    --
+    -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
+    -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
+    --
+    [((m .|. modm, key), screenWorkspace sc >>= flip whenJust (windows . f))
+        | (key, sc) <- zip [xK_F1, xK_F2, xK_F3] [0..]
+        , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 ------------------------------------------------------------------------
 -- Mouse bindings: default actions bound to mouse events
 --
@@ -340,7 +352,7 @@ myStartupHook = do
     spawnOnce "blueman-applet"
     spawnOnce "pasystray"
     spawnOnce "picom"
-    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
+    spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 16 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22 --iconspacing 12")
 
 
 
@@ -363,7 +375,8 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 main :: IO()
 main =  do 
 
-  myBar <- spawnPipe ("xmobar")
+  myBar0 <- spawnPipe ("xmobar -x 0 $HOME/.config/xmobar/xmobarrc")
+  myBar1 <- spawnPipe ("xmobar -x 1 $HOME/.config/xmobar/xmobarrc_2nd")
   xmonad $ docks . ewmh $ def {
     -- simple stuff
     terminal           = myTerminal,
@@ -385,7 +398,8 @@ main =  do
     handleEventHook    = myEventHook,
     startupHook        = myStartupHook,
     logHook            = dynamicLogWithPP $ xmobarPP {
-      ppOutput = \x -> hPutStrLn myBar x 
+      ppOutput = \x -> hPutStrLn myBar0 x 
+                    >> hPutStrLn myBar1 x
     , ppCurrent = xmobarColor color06 "" . wrap
                   ("<box type=Bottom width=2 mb=2 color=" ++ color06 ++ ">") "</box>"
       -- Visible but not current workspace
@@ -450,8 +464,8 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "",
     "-- Workspaces & screens",
     "mod-Shift-[1..9]   Move client to workspace N",
-    "mod-{w,e,r}        Switch to physical/Xinerama screens 1, 2, or 3",
-    "mod-Shift-{w,e,r}  Move client to screen 1, 2, or 3",
+    "mod-{F1, F2, F3}        Switch to physical/Xinerama screens 1, 2, or 3",
+    "mod-Shift-{F1, F2, F3}  Move client to screen 1, 2, or 3",
     "",
     "-- Mouse bindings: default actions bound to mouse events",
     "mod-button1  Set the window to floating mode and move by dragging",

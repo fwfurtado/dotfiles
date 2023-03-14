@@ -38,7 +38,7 @@ Config { font            = "Ubuntu Bold 9"
                         -- Cpu usage in percent
                     , Run Cpu ["-t", "cpu: (<total>%)","-H","50","--high","red"] 20
                         -- Ram used number and percent
-                    , Run Memory ["-t", "mem: <used>Gb (<usedratio>%)", "-d", "1", "--", "--scale", "1024"] 20
+                    , Run Memory ["-t", "mem: <used>M (<usedratio>%)"] 20
                         -- Disk space free
                     , Run DiskU [("/", "hdd: <free> free")] [] 60
                         -- Echos an "up arrow" icon in front of the uptime output.
@@ -62,5 +62,5 @@ Config { font            = "Ubuntu Bold 9"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader% } <box type=Bottom width=2 mb=2 color=#8FBCBB><fc=#8FBCBB>%date%</fc></box>    <box type=Bottom width=2 mb=2 color=#A3BE8C><fc=#A3BE8C><action=`alacritty -e htop`>%cpu%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#81A1C1><fc=#81A1C1><action=`alacritty -e htop`>%memory%</action></fc></box>    <box type=Bottom width=2 mb=2 color=#EBCB8B><fc=#EBCB8B>%disku%</fc></box>    <box type=Bottom width=2 mb=2 color=#B48EAD><fc=#B48EAD>%uparrow%  %uptime%</fc></box>  <box type=Bottom width=2 mb=2 color=#BF616A><fc=#BF616A>%baticon%  %battery%</fc></box> { %trayerpad%"
+       , template = " %UnsafeStdinReader% "
        }
