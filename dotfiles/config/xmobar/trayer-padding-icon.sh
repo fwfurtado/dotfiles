@@ -24,7 +24,7 @@ static char * trayer_pad_xpm[] = {
 /* by xmobar.                                     */
 /* Created: ${timestamp} */
 /* <w/cols>  <h/rows>  <colors>  <chars per pixel> */
-"$1 1 1 1",
+"$1 1 1 5",
 /* Colors (none: transparent) */
 ". c none",
 /* Pixels */
