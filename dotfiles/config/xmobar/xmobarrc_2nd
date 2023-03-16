@@ -62,5 +62,5 @@ Config { font            = "Ubuntu Bold 9"
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = " %UnsafeStdinReader% "
+       , template = " %UnsafeStdinReader% }<box type=Bottom width=2 mb=2 color=#8FBCBB><fc=#8FBCBB>%date%</fc></box>{"
        }
