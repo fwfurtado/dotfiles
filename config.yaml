@@ -62,6 +62,9 @@ dotfiles:
   d_xmobar:
     src: config/xmobar
     dst: ~/.config/xmobar
+  f_xmobarrc_2nd:
+    src: config/xmobar/xmobarrc_2nd
+    dst: ~/.config/xmobar/xmobarrc_2nd
 profiles:
   default:
     dotfiles:
@@ -86,3 +89,6 @@ profiles:
     dotfiles:
     - f_xprofile
     - f_nitrogen.cfg
+  anywhere:
+    dotfiles:
+    - f_xmobarrc_2nd
