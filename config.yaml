@@ -65,6 +65,12 @@ dotfiles:
   f_xmobarrc_2nd:
     src: config/xmobar/xmobarrc_2nd
     dst: ~/.config/xmobar/xmobarrc_2nd
+  f_config.fish:
+    src: config/fish/config.fish
+    dst: ~/.config/fish/config.fish
+  d_completions:
+    src: config/fish/completions
+    dst: ~/.config/fish/completions
 profiles:
   default:
     dotfiles:
@@ -85,6 +91,8 @@ profiles:
     - f_config.ini
     - f_xmonad.hs
     - d_xmobar
+    - f_config.fish
+    - d_completions
   laptop:
     dotfiles:
     - f_xprofile
