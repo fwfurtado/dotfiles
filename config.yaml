@@ -104,3 +104,6 @@ profiles:
   anywhere:
     dotfiles:
     - f_xmobarrc_2nd
+  pc:
+    dotfiles:
+    - d_wallpapers
