@@ -74,6 +74,9 @@ dotfiles:
   d_wallpapers:
     src: Pictures/wallpapers
     dst: ~/Pictures/wallpapers
+  d_conf.d:
+    src: config/fish/conf.d
+    dst: ~/.config/fish/conf.d
 profiles:
   default:
     dotfiles:
@@ -96,6 +99,7 @@ profiles:
     - d_xmobar
     - f_config.fish
     - d_completions
+    - d_conf.d
   laptop:
     dotfiles:
     - f_xprofile
