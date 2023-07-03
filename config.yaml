@@ -77,6 +77,9 @@ dotfiles:
   d_conf.d:
     src: config/fish/conf.d
     dst: ~/.config/fish/conf.d
+  d_laptop:
+    src: Pictures/wallpapers/laptop
+    dst: ~/Pictures/wallpapers/laptop
 profiles:
   default:
     dotfiles:
@@ -105,6 +108,7 @@ profiles:
     - f_xprofile
     - f_nitrogen.cfg
     - d_wallpapers
+    - d_laptop
   anywhere:
     dotfiles:
     - f_xmobarrc_2nd

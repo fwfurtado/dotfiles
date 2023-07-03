@@ -27,5 +27,5 @@ end
 abbr --add !! --position anywhere --function bang_bang
 
 alias please='sudo' 
-
+alias cat='bat'
 

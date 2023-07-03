@@ -6,3 +6,7 @@ if status is-interactive
     starship init fish | source
     source ~/.asdf/asdf.fish
 end
+
+# Wasmer
+export WASMER_DIR="/var/home/anyone/.wasmer"
+[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
