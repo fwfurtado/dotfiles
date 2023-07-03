@@ -1,0 +1,1 @@
+export PERSONAL_ACCESS_TOKEN="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"

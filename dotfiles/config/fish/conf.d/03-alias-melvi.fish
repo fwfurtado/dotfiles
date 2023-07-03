@@ -1,10 +1,10 @@
 function _bastion-ip
 	if test "$argv[1]" = "prod"
-		echo "<PROD-IP>"
+		echo "18.188.136.81"
 		return
 	end
 
-	echo "<DEV-IP>"
+	echo "3.142.52.149"
 end
 
 function _bastion-bind-help
@@ -47,12 +47,12 @@ function bastion-bind
 	set -l local_port $_flag_remote_port
 
 
-	if not set -ql _flag_local_port 
+	if set -ql _flag_local_port 
 		set local_port $_flag_local_port
 	end
 
 	set -l bind_addr "$local_port:$host:$remote_port"
 	set -l bastion_ip (_bastion-ip $env)
 
-	ssh -i <PEM-FILE> -L $bind_addr ec2-user@$bastion_ip
+	ssh -i ~/bastion.pem -L $bind_addr ec2-user@$bastion_ip
 end
