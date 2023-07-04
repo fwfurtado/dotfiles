@@ -89,8 +89,6 @@ profiles:
     - d_nushell
     - f_config
     - f_warpd.service
-    - f_colemak.service
-    - f_colemak-dh-extend-ansi.kbd
     - f_alacritty.yml
     - d_ion
     - f_rc.elv
@@ -98,8 +96,6 @@ profiles:
     - d_rofi
     - f_config.ron
     - f_config.ini
-    - f_xmonad.hs
-    - d_xmobar
     - f_config.fish
     - d_completions
     - d_conf.d
@@ -108,9 +104,6 @@ profiles:
     - f_xprofile
     - f_nitrogen.cfg
     - d_laptop
-  anywhere:
-    dotfiles:
-    - f_xmobarrc_2nd
   pc:
     dotfiles:
     - d_wallpapers
