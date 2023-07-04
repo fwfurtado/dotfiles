@@ -71,9 +71,6 @@ dotfiles:
   d_completions:
     src: config/fish/completions
     dst: ~/.config/fish/completions
-  d_wallpapers:
-    src: Pictures/wallpapers
-    dst: ~/Pictures/wallpapers
   d_conf.d:
     src: config/fish/conf.d
     dst: ~/.config/fish/conf.d
@@ -104,6 +101,3 @@ profiles:
     - f_xprofile
     - f_nitrogen.cfg
     - d_laptop
-  pc:
-    dotfiles:
-    - d_wallpapers
