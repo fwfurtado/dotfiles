@@ -77,9 +77,6 @@ dotfiles:
   d_laptop:
     src: Pictures/wallpapers/laptop
     dst: ~/Pictures/wallpapers/laptop
-  d_pc:
-    src: Pictures/pc
-    dst: ~/Pictures/pc
 profiles:
   default:
     dotfiles:
@@ -104,6 +101,3 @@ profiles:
     - f_xprofile
     - f_nitrogen.cfg
     - d_laptop
-  pc:
-    dotfiles:
-    - d_pc
