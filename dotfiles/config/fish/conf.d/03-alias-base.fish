@@ -16,7 +16,7 @@ function md
 		return $stauts
 	end
 	
-	cd $argv
+	z $argv
 end
 
 
@@ -28,4 +28,15 @@ abbr --add !! --position anywhere --function bang_bang
 
 alias please='sudo' 
 alias cat='bat'
+alias ls='exa'
+alias la='exa -a'
+alias ll='exa -l --git'
 
+export LS_TREE_IGNORE="cache|log|logs|node_modules|vendor"
+
+alias lt='exa --tree -D -L 2 -I "$LS_TREE_IGNORE"'
+alias ltt='exa --tree -D -L 3 -I "$LS_TREE_IGNOR"'
+alias lttt='exa --tree -D -L 4 -I "$LS_TREE_IGNORE"'
+alias ltttt='exa --tree -D -L 5 -I "$LS_TREE_IGNORE"'
+
+alias k='kubectl'
