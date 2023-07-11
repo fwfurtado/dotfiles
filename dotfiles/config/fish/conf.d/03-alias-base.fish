@@ -1,21 +1,21 @@
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 
-function md 
+function md
 
-	argparse 'k/keep' -- $argv 
+	argparse 'k/keep' -- $argv
 	or return
 
 	mkdir -p $argv
 
-	if set -ql _flag_k 
+	if set -ql _flag_k
 		return $status
-	end 
+	end
 
-	if test $status -ne 0 
+	if test $status -ne 0
 		return $stauts
 	end
-	
+
 	z $argv
 end
 
@@ -26,7 +26,7 @@ end
 
 abbr --add !! --position anywhere --function bang_bang
 
-alias please='sudo' 
+alias please='sudo'
 alias cat='bat'
 alias ls='exa'
 alias la='exa -a'

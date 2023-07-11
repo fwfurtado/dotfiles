@@ -40,14 +40,14 @@ function bastion-bind
 		_bastion-bind-help
 		return
 	end
-	
+
 	set -l env $_flag_env
 	set -l host $_flag_host
 	set -l remote_port $_flag_remote_port
 	set -l local_port $_flag_remote_port
 
 
-	if set -ql _flag_local_port 
+	if set -ql _flag_local_port
 		set local_port $_flag_local_port
 	end
 
