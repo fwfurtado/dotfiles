@@ -27,6 +27,7 @@ end
 abbr --add !! --position anywhere --function bang_bang
 
 alias please='sudo'
+alias pls='sudo'
 alias cat='bat'
 alias ls='exa --icons'
 alias la='exa --icons -a'

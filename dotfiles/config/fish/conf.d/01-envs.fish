@@ -4,7 +4,7 @@ fish_add_path $HOME/bin
 fish_add_path $HOME/.dotnet/tools
 fish_add_path $HOME/.krew/bin
 
-export NGROK_AUTHTOKEN=2Pa5ptPpM3O73pIKheOPFaCIa0I_3t74WcesewaVy2D9GYRVC
-export DOCKER_HOST=unix:///run/user/1000/docker.sock
+# export DOCKER_HOST=unix:///run/user/1000/docker.sock # only for rootless docker
 export SYSTEMD_EDITOR=nvim
+export EDITOR=nvim
 
