@@ -80,6 +80,9 @@ dotfiles:
   d_pc:
     src: Pictures/wallpapers/pc
     dst: ~/Pictures/wallpapers/pc
+  d_alacritty:
+    src: config/alacritty
+    dst: ~/.config/alacritty
 profiles:
   default:
     dotfiles:
@@ -101,9 +104,10 @@ profiles:
     - d_conf.d
   laptop:
     dotfiles:
-    - f_xprofile
-    - f_nitrogen.cfg
     - d_laptop
   pc:
     dotfiles:
     - d_pc
+  anywhere:
+    dotfiles:
+    - d_alacritty
