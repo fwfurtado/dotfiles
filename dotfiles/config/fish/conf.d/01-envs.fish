@@ -8,6 +8,7 @@ export EDITOR=nvim
 fish_add_path $HOME/.cargo/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/bin
+fish_add_path $HOME/.pulumi/bin
 fish_add_path $DOTNET_ROOT
 fish_add_path $DOTNET_ROOT/tools
 fish_add_path $HOME/.krew/bin
