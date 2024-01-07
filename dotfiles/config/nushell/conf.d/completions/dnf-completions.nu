@@ -1,5 +1,5 @@
 # Manage aliases
-extern "dnf" [
+export extern "dnf" [
 
 	...args
 ]

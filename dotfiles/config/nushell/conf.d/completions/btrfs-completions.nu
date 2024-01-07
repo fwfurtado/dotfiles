@@ -1,11 +1,11 @@
 # Display help information
-extern "btrfs" [
+export extern "btrfs" [
 
 	...args
 ]
 
 # Check structural integrity of a filesystem (unmounted).
-extern "btrfs check" [
+export extern "btrfs check" [
 	--super(-s)					# Use this SUPERBLOCK copy
 	--backup(-b)					# Use the first valid BACKUP root copy
 	--tree-root(-r)					# Use the given bytenr for the TREE root
@@ -25,7 +25,7 @@ extern "btrfs check" [
 ]
 
 # Try to restore files from a damaged filesystem (unmounted)
-extern "btrfs restore" [
+export extern "btrfs restore" [
 	--snapshots(-s)					# Get snapshots
 	--xattr(-x)					# Restore extended attributes
 	--metadata(-m)					# Restore owner, mode and times
@@ -42,7 +42,7 @@ extern "btrfs restore" [
 ]
 
 # Send the subvolume(s) to stdout.
-extern "btrfs send" [
+export extern "btrfs send" [
 	--no-data					# send in NO_FILE_DATA mode
 	--verbose(-v)					# Enable verbose output to stderr
 	--quiet(-q)					# Suppress all messages, except errors
@@ -50,7 +50,7 @@ extern "btrfs send" [
 ]
 
 # Receive subvolumes from a stream
-extern "btrfs receive" [
+export extern "btrfs receive" [
 	--quiet(-q)					# Suppress all messages, except errors
 	--chroot(-C)					# Confine the process to <mount> using chroot
 	--max-errors(-E)					# Terminate when NUMBER errors occur
@@ -59,20 +59,20 @@ extern "btrfs receive" [
 ]
 
 # Display help information
-extern "btrfs help" [
+export extern "btrfs help" [
 	--full					# Display detailed help on every command
 	--box					# Show list of built-in tools (busybox style)
 	...args
 ]
 
 # Display btrfs-progs version
-extern "btrfs version" [
+export extern "btrfs version" [
 
 	...args
 ]
 
 # manage subvolumes: create, delete, list, etc
-extern "btrfs subvolume" [
+export extern "btrfs subvolume" [
 	--commit-after(-c)					# Wait for transaction commit at the end of the operation
 	--commit-each(-C)					# Wait for transaction commit after deleting each subvolume
 	--verbose(-v)					# Verbose output of operations
@@ -91,7 +91,7 @@ extern "btrfs subvolume" [
 ]
 
 # overall filesystem tasks and information
-extern "btrfs filesystem" [
+export extern "btrfs filesystem" [
 	--raw(-b)					# Show raw numbers in bytes
 	--human-readable(-h)					# Show human friendly numbers, base 1024
 	--iec					# Use 1024 as a base (KiB, MiB, GiB, TiB)
@@ -131,14 +131,14 @@ extern "btrfs filesystem" [
 ]
 
 # balance data across devices, or change block groups using filters
-extern "btrfs balance" [
+export extern "btrfs balance" [
 	--full-balance					# Do not print warning and do not delay start
 	--bg					# Run the balance as a background process
 	...args
 ]
 
 # manage and query devices in the filesystem
-extern "btrfs device" [
+export extern "btrfs device" [
 	--nodiscard(-K)					# Do not perform TRIM on DEVICES
 	--force(-f)					# Force overwrite existing filesystem on the disk
 	--all-devices(-d)					# Enumerate and register all devices
@@ -157,19 +157,19 @@ extern "btrfs device" [
 ]
 
 # verify checksums of data and metadata
-extern "btrfs scrub" [
+export extern "btrfs scrub" [
 
 	...args
 ]
 
 # toolbox for specific rescue operations
-extern "btrfs rescue" [
+export extern "btrfs rescue" [
 
 	...args
 ]
 
 # query various internal information
-extern "btrfs inspect-internal" [
+export extern "btrfs inspect-internal" [
 	--id					# Specify the DEVICE-ID to query
 	--extents(-e)					# Print only extent info: extent and device trees
 	--device(-d)					# Print only device info: tree root, chunk and device trees
@@ -191,19 +191,19 @@ extern "btrfs inspect-internal" [
 ]
 
 # modify properties of filesystem objects
-extern "btrfs property" [
+export extern "btrfs property" [
 
 	...args
 ]
 
 # manage filesystem quota settings
-extern "btrfs quota" [
+export extern "btrfs quota" [
 
 	...args
 ]
 
 # manage quota groups
-extern "btrfs qgroup" [
+export extern "btrfs qgroup" [
 	--rescan					# Schedule qutoa rescan if needed
 	--no-rescan					# Dont schedule quota rescan
 	--raw					# Show raw numbers in bytes
@@ -220,19 +220,19 @@ extern "btrfs qgroup" [
 ]
 
 # replace a device in the filesystem
-extern "btrfs replace" [
+export extern "btrfs replace" [
 
 	...args
 ]
 
 # Create a subvolume
-extern "btrfs create" [
+export extern "btrfs create" [
 
 	...args
 ]
 
 # Delete subvolume(s)
-extern "btrfs delete" [
+export extern "btrfs delete" [
 	--commit-after(-c)					# Wait for transaction commit at the end of the operation
 	--commit-each(-C)					# Wait for transaction commit after deleting each subvolume
 	--verbose(-v)					# Verbose output of operations
@@ -240,37 +240,37 @@ extern "btrfs delete" [
 ]
 
 # List subvolumes and snapshots in the filesystem.
-extern "btrfs list" [
+export extern "btrfs list" [
 	--sort					# List the subvolume in order
 	...args
 ]
 
 # Create a snapshot of the subvolume
-extern "btrfs snapshot" [
+export extern "btrfs snapshot" [
 
 	...args
 ]
 
 # Get the default subvolume of a filesystem
-extern "btrfs get-default" [
+export extern "btrfs get-default" [
 
 	...args
 ]
 
 # Set the default subvolume of the filesystem mounted as default.
-extern "btrfs set-default" [
+export extern "btrfs set-default" [
 
 	...args
 ]
 
 # List the recently modified files in a filesystem
-extern "btrfs find-new" [
+export extern "btrfs find-new" [
 
 	...args
 ]
 
 # Show more information about the subvolume
-extern "btrfs show" [
+export extern "btrfs show" [
 	--rootid(-r)					# Show rootid of the subvolume
 	--uuid(-u)					# Show uuid of the subvolume
 	--raw(-b)					# Show raw numbers in bytes
@@ -305,19 +305,19 @@ extern "btrfs show" [
 ]
 
 # Wait until given subvolume(s) are completely removed from the filesystem.
-extern "btrfs sync" [
+export extern "btrfs sync" [
 
 	...args
 ]
 
 # List the subvolume in order
-extern "btrfs {gen,ogen,rootid,path}" [
+export extern "btrfs {gen,ogen,rootid,path}" [
 
 	...args
 ]
 
 # Show space usage information for a mount point
-extern "btrfs df" [
+export extern "btrfs df" [
 	--raw(-b)					# Show raw numbers in bytes
 	--human-readable(-h)					# Show human friendly numbers, base 1024
 	--iec					# Use 1024 as a base (KiB, MiB, GiB, TiB)
@@ -330,7 +330,7 @@ extern "btrfs df" [
 ]
 
 # Summarize disk usage of each file.
-extern "btrfs du" [
+export extern "btrfs du" [
 	--summarize(-s)					# Display only a total for each argument
 	--raw					# Show raw numbers in bytes
 	--human-readable					# Show human friendly numbers, base 1024
@@ -360,25 +360,25 @@ extern "btrfs du" [
 ]
 
 # Defragment a file or a directory
-extern "btrfs defragment" [
+export extern "btrfs defragment" [
 
 	...args
 ]
 
 # Resize a filesystem
-extern "btrfs resize" [
+export extern "btrfs resize" [
 
 	...args
 ]
 
 # Get or change the label of a filesystem
-extern "btrfs label" [
+export extern "btrfs label" [
 
 	...args
 ]
 
 # Show detailed information about internal filesystem usage.
-extern "btrfs usage" [
+export extern "btrfs usage" [
 	--raw(-b)					# Show raw numbers in bytes
 	--human-readable(-h)					# Show human friendly numbers, base 1024
 	--iec					# Use 1024 as a base (KiB, MiB, GiB, TiB)
@@ -399,125 +399,125 @@ extern "btrfs usage" [
 ]
 
 # Balance chunks across the devices
-extern "btrfs start" [
+export extern "btrfs start" [
 	--full-balance					# Do not print warning and do not delay start
 	--bg					# Run the balance as a background process
 	...args
 ]
 
 # Pause running balance
-extern "btrfs pause" [
+export extern "btrfs pause" [
 
 	...args
 ]
 
 # Cancel running or paused balance
-extern "btrfs cancel" [
+export extern "btrfs cancel" [
 
 	...args
 ]
 
 # Resume interrupted balance
-extern "btrfs resume" [
+export extern "btrfs resume" [
 
 	...args
 ]
 
 # Show status of running or paused balance
-extern "btrfs status" [
+export extern "btrfs status" [
 
 	...args
 ]
 
 # Add one or more devices to a mounted filesystem.
-extern "btrfs add" [
+export extern "btrfs add" [
 	--nodiscard(-K)					# Do not perform TRIM on DEVICES
 	--force(-f)					# Force overwrite existing filesystem on the disk
 	...args
 ]
 
 # Remove a device from a filesystem
-extern "btrfs remove" [
+export extern "btrfs remove" [
 
 	...args
 ]
 
 # Scan or forget (unregister) devices of btrfs filesystems
-extern "btrfs scan" [
+export extern "btrfs scan" [
 	--all-devices(-d)					# Enumerate and register all devices
 	--forget(-u)					# Unregister a given device or all stale devices
 	...args
 ]
 
 # Check and wait until a group of devices of a filesystem is ready for mount
-extern "btrfs ready" [
+export extern "btrfs ready" [
 
 	...args
 ]
 
 # Show device IO error statistics
-extern "btrfs stats" [
+export extern "btrfs stats" [
 	--check(-c)					# Return non-zero if any stat counter is not zero
 	--reset(-z)					# Show current stats and reset values to zero
 	...args
 ]
 
 # Recover the chunk tree by scanning the devices one by one.
-extern "btrfs chunk-recover" [
+export extern "btrfs chunk-recover" [
 
 	...args
 ]
 
 # Recover bad superblocks from good copies
-extern "btrfs super-recover" [
+export extern "btrfs super-recover" [
 
 	...args
 ]
 
 # Clear the tree log. Usable if its corrupted and prevents mount.
-extern "btrfs zero-log" [
+export extern "btrfs zero-log" [
 
 	...args
 ]
 
 # Re-align device and super block sizes. Usable if newer kernel refuse to mount it due to mismatch super size
-extern "btrfs fix-device-size" [
+export extern "btrfs fix-device-size" [
 
 	...args
 ]
 
 # Get file system paths for the given inode
-extern "btrfs inode-resolve" [
+export extern "btrfs inode-resolve" [
 
 	...args
 ]
 
 # Get file system paths for the given logical address
-extern "btrfs logical-resolve" [
+export extern "btrfs logical-resolve" [
 
 	...args
 ]
 
 # Get file system paths for the given subvolume ID.
-extern "btrfs subvolid-resolve" [
+export extern "btrfs subvolid-resolve" [
 
 	...args
 ]
 
 # Get tree ID of the containing subvolume of path.
-extern "btrfs rootid" [
+export extern "btrfs rootid" [
 
 	...args
 ]
 
 # Get the minimum size the device can be shrunk to. (Default: 1)
-extern "btrfs min-dev-size" [
+export extern "btrfs min-dev-size" [
 	--id					# Specify the DEVICE-ID to query
 	...args
 ]
 
 # Dump tree structures from a given device
-extern "btrfs dump-tree" [
+export extern "btrfs dump-tree" [
 	--extents(-e)					# Print only extent info: extent and device trees
 	--device(-d)					# Print only device info: tree root, chunk and device trees
 	--roots(-r)					# Print only short root node info
@@ -533,7 +533,7 @@ extern "btrfs dump-tree" [
 ]
 
 # Dump superblock from a device in a textual form
-extern "btrfs dump-super" [
+export extern "btrfs dump-super" [
 	--full(-f)					# Print full superblock information, backup roots etc.
 	--all(-a)					# Print information about all superblocks
 	--super(-s)					# Specify which SUPER-BLOCK copy to print out
@@ -543,62 +543,62 @@ extern "btrfs dump-super" [
 ]
 
 # Print various stats for trees
-extern "btrfs tree-stats" [
+export extern "btrfs tree-stats" [
 
 	...args
 ]
 
 # Get a property value of a btrfs object
-extern "btrfs get" [
+export extern "btrfs get" [
 
 	...args
 ]
 
 # Set a property on a btrfs object
-extern "btrfs set" [
+export extern "btrfs set" [
 
 	...args
 ]
 
 # Enable subvolume quota support for a filesystem.
-extern "btrfs enable" [
+export extern "btrfs enable" [
 
 	...args
 ]
 
 # Disable subvolume quota support for a filesystem.
-extern "btrfs disable" [
+export extern "btrfs disable" [
 
 	...args
 ]
 
 # Trash all qgroup numbers and scan the metadata again with the current config.
-extern "btrfs rescan" [
+export extern "btrfs rescan" [
 
 	...args
 ]
 
 # Assign SRC as the child qgroup of DST
-extern "btrfs assign" [
+export extern "btrfs assign" [
 	--rescan					# Schedule qutoa rescan if needed
 	--no-rescan					# Dont schedule quota rescan
 	...args
 ]
 
 # Destroy a quota group.
-extern "btrfs destroy" [
+export extern "btrfs destroy" [
 
 	...args
 ]
 
 # Set the limits a subvolume quota group.
-extern "btrfs limit" [
+export extern "btrfs limit" [
 
 	...args
 ]
 
 # List qgroups sorted by specified items
-extern "btrfs {qgroupid,rfer,excl,max_rfer,max_excl}" [
+export extern "btrfs {qgroupid,rfer,excl,max_rfer,max_excl}" [
 
 	...args
 ]

@@ -1,5 +1,5 @@
 # Show examples in command line mode
-extern "godoc" [
+export extern "godoc" [
 	--ex					# Show examples in command line mode
 	--html					# Print HTML in command-line mode
 	--index					# Enable search index

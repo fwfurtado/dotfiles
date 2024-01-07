@@ -1,11 +1,11 @@
 # Path containing probing policy and assemblies to probe
-extern "dotnet" [
+export extern "dotnet" [
 
 	...args
 ]
 
 # Add a package/reference
-extern "dotnet add" [
+export extern "dotnet add" [
 	--no-restore(-n)					# Add the reference without performing restore preview and compatibility check
 	--source(-s)					# NuGet package source to use during the restore
 	--package-directory					# Directory to restore packages
@@ -31,7 +31,7 @@ extern "dotnet add" [
 ]
 
 # Build a .NET project
-extern "dotnet build" [
+export extern "dotnet build" [
 	--output(-o)					# Output directory to place built artifacts
 	--no-incremental					# Don't use incremental building
 	--no-dependencies					# Don't build P2P references
@@ -46,7 +46,7 @@ extern "dotnet build" [
 ]
 
 # Interact with build servers
-extern "dotnet build-server" [
+export extern "dotnet build-server" [
 	--msbuild					# Shutdown the MSBuild build server
 	--vbcscompiler					# Shutdown the VB/C# compiler build server
 	--razor					# Shutdown the Razor build server
@@ -54,7 +54,7 @@ extern "dotnet build-server" [
 ]
 
 # Clean build outputs
-extern "dotnet clean" [
+export extern "dotnet clean" [
 	--output(-o)					# Directory containing the build artifacts to clean
 	--nologo					# Don't display the startup banner or the copyright message
 	--interactive					# Allow interactive input/action
@@ -62,13 +62,13 @@ extern "dotnet clean" [
 ]
 
 # Show help
-extern "dotnet help" [
+export extern "dotnet help" [
 
 	...args
 ]
 
 # List project references
-extern "dotnet list" [
+export extern "dotnet list" [
 	--outdated					# List packages that have newer versions
 	--deprecated					# List packages that have been deprecated
 	--include-transitive					# List transitive and top-level packages
@@ -87,13 +87,13 @@ extern "dotnet list" [
 ]
 
 # Run MSBuild commands
-extern "dotnet msbuild" [
+export extern "dotnet msbuild" [
 
 	...args
 ]
 
 # Create a new .NET project
-extern "dotnet new" [
+export extern "dotnet new" [
 	--list(-l)					# List templates containing the specified name
 	--name(-n)					# Name for the output being created
 	--output(-o)					# Location to place the generated output
@@ -109,7 +109,7 @@ extern "dotnet new" [
 ]
 
 # Run additional NuGet commands
-extern "dotnet nuget" [
+export extern "dotnet nuget" [
 	--version					# Show version
 	--package-source(-s)					# Package source name
 	--path					# Path to certificate file
@@ -165,7 +165,7 @@ extern "dotnet nuget" [
 ]
 
 # Create a NuGet package
-extern "dotnet pack" [
+export extern "dotnet pack" [
 	--no-restore(-n)					# Add the reference without performing restore preview and compatibility check
 	--source(-s)					# NuGet package source to use during the restore
 	--package-directory					# Directory to restore packages
@@ -195,7 +195,7 @@ extern "dotnet pack" [
 ]
 
 # Publish a .NET project for deployment
-extern "dotnet publish" [
+export extern "dotnet publish" [
 	--output(-o)					# Output directory to place the published artifacts
 	--manifest					# Path to a target manifest file
 	--no-build					# Don't build the project before publishing
@@ -209,7 +209,7 @@ extern "dotnet publish" [
 ]
 
 # Remove a package/reference
-extern "dotnet remove" [
+export extern "dotnet remove" [
 	--package-source(-s)					# Package source name
 	--configfile					# NuGet configuration file
 	--configfile					# NuGet configuration file
@@ -218,7 +218,7 @@ extern "dotnet remove" [
 ]
 
 # Restore dependencies
-extern "dotnet restore" [
+export extern "dotnet restore" [
 	--source(-s)					# NuGet package source to use for the restore
 	--packages					# Directory to restore packages
 	--disable-parallel					# Prevent restoring multiple projects in parallel
@@ -243,7 +243,7 @@ extern "dotnet restore" [
 ]
 
 # Run the application from source
-extern "dotnet run" [
+export extern "dotnet run" [
 	--project(-p)					# Path to the project file to run
 	--no-launch-profile					# Don't attempt to use launchSettings.json
 	--no-build					# Don't build the project before running
@@ -255,14 +255,14 @@ extern "dotnet run" [
 ]
 
 # Modify Visual Studio solution files
-extern "dotnet sln" [
+export extern "dotnet sln" [
 	--in-root					# Place project in root of the solution
 	--solution-folder(-s)					# Destination solution folder path to add the projects
 	...args
 ]
 
 # Store assemblies
-extern "dotnet store" [
+export extern "dotnet store" [
 	--source(-s)					# NuGet package source to use for the restore
 	--packages					# Directory to restore packages
 	--disable-parallel					# Prevent restoring multiple projects in parallel
@@ -292,7 +292,7 @@ extern "dotnet store" [
 ]
 
 # Run unit tests
-extern "dotnet test" [
+export extern "dotnet test" [
 	--settings(-s)					# Settings file to use
 	--list-tests(-t)					# List the discovered tests
 	--test-adapter-path(-a)					# Path to the custom adapters to use
@@ -311,7 +311,7 @@ extern "dotnet test" [
 ]
 
 # Manage .NET tool
-extern "dotnet tool" [
+export extern "dotnet tool" [
 	--source(-s)					# NuGet package source to use for the restore
 	--packages					# Directory to restore packages
 	--disable-parallel					# Prevent restoring multiple projects in parallel
@@ -372,13 +372,13 @@ extern "dotnet tool" [
 ]
 
 # Run VSTest commands
-extern "dotnet vstest" [
+export extern "dotnet vstest" [
 
 	...args
 ]
 
 # Add a NuGet package reference
-extern "dotnet package" [
+export extern "dotnet package" [
 	--no-restore(-n)					# Add the reference without performing restore preview and compatibility check
 	--source(-s)					# NuGet package source to use during the restore
 	--package-directory					# Directory to restore packages
@@ -398,13 +398,13 @@ extern "dotnet package" [
 ]
 
 # Add a P2P reference
-extern "dotnet reference" [
+export extern "dotnet reference" [
 	--interactive					# Allow interactive input/action
 	...args
 ]
 
 # Add a client certificate configuration
-extern "dotnet client-cert" [
+export extern "dotnet client-cert" [
 	--package-source(-s)					# Package source name
 	--path					# Path to certificate file
 	--store-password-in-clear-text					# Enable storing password for the certificate
@@ -430,7 +430,7 @@ extern "dotnet client-cert" [
 ]
 
 # Add a NuGet source
-extern "dotnet source" [
+export extern "dotnet source" [
 	--name(-n)					# Name of the source
 	--store-password-in-clear-text					# Enable storing portable package source credentials
 	--valid-authentication-types					# Comma-separated list of valid authentication types
@@ -447,7 +447,7 @@ extern "dotnet source" [
 ]
 
 # Delete a package from the server
-extern "dotnet delete" [
+export extern "dotnet delete" [
 	--force-english-output					# Run the application with locale set to English
 	--source(-s)					# Package source to use
 	--non-interactive					# Don't prompt for user input or confirmations
@@ -457,19 +457,19 @@ extern "dotnet delete" [
 ]
 
 # Disable a NuGet source
-extern "dotnet disable" [
+export extern "dotnet disable" [
 	--configfile					# NuGet configuration file
 	...args
 ]
 
 # Enable a NuGet source
-extern "dotnet enable" [
+export extern "dotnet enable" [
 	--configfile					# NuGet configuration file
 	...args
 ]
 
 # Clear/List local NuGet resources
-extern "dotnet locals" [
+export extern "dotnet locals" [
 	--force-english-output					# Run the application with locale set to English
 	--clear(-c)					# Clear the selected local resources or cache location
 	--list(-l)					# List the selected local resources or cache location
@@ -477,7 +477,7 @@ extern "dotnet locals" [
 ]
 
 # Push a package to the server
-extern "dotnet push" [
+export extern "dotnet push" [
 	--force-english-output					# Run the application with locale set to English
 	--source(-s)					# Package source to use
 	--symbol-source					# Symbol server URL to use
@@ -490,7 +490,7 @@ extern "dotnet push" [
 ]
 
 # Update a NuGet source
-extern "dotnet update" [
+export extern "dotnet update" [
 	--package-source(-s)					# Package source name
 	--path					# Path to certificate file
 	--store-password-in-clear-text					# Enable storing password for the certificate
@@ -518,13 +518,13 @@ extern "dotnet update" [
 ]
 
 # Verify a signed NuGet package
-extern "dotnet verify" [
+export extern "dotnet verify" [
 	--all					# Specify that all verifications possible should be performed
 	...args
 ]
 
 # Install global/local tool
-extern "dotnet install" [
+export extern "dotnet install" [
 	--global(-g)					# Specify that the installation is user-wide
 	--local					# Specify a local tool installation
 	--tool-path					# Directory where the tool will be installed
@@ -543,7 +543,7 @@ extern "dotnet install" [
 ]
 
 # Uninstall a global/local tool
-extern "dotnet uninstall" [
+export extern "dotnet uninstall" [
 	--global(-g)					# Specify that the tool to be removed is from a user-wide installation
 	--local					# Specify that the tool to be removed is a local tool
 	--tool-path					# Directory containing the tool to uninstall
@@ -552,14 +552,14 @@ extern "dotnet uninstall" [
 ]
 
 # Search .NET tools in NuGet.org
-extern "dotnet search" [
+export extern "dotnet search" [
 	--detail					# Show detail result of the query
 	--prerelease					# Include pre-release packages
 	...args
 ]
 
 # Shutdown build servers
-extern "dotnet shutdown" [
+export extern "dotnet shutdown" [
 	--msbuild					# Shutdown the MSBuild build server
 	--vbcscompiler					# Shutdown the VB/C# compiler build server
 	--razor					# Shutdown the Razor build server

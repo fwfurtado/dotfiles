@@ -1,60 +1,60 @@
 # 
-extern "apt list" [
+export extern "apt list" [
 
 	...args
 ]
 
-extern "apt search" [
+export extern "apt search" [
 
 	...args
 ]
 
-extern "apt show" [
+export extern "apt show" [
 
 	...args
 ]
 
-extern "apt install" [
+export extern "apt install" [
 
 	...args
 ]
 
-extern "apt reinstall" [
+export extern "apt reinstall" [
 
 	...args
 ]
 
-extern "apt remove" [
+export extern "apt remove" [
 
 	...args
 ]
 
-extern "apt autoremove" [
+export extern "apt autoremove" [
 
 	...args
 ]
 
-extern "apt update" [
+export extern "apt update" [
 
 	...args
 ]
 
-extern "apt upgrade" [
+export extern "apt upgrade" [
 
 	...args
 ]
 
-extern "apt full-upgrade" [
+export extern "apt full-upgrade" [
 
 	...args
 ]
 
-extern "apt edit-sources" [
+export extern "apt edit-sources" [
 
 	...args
 ]
 
-extern "apt satisfy" [
+export extern "apt satisfy" [
 
 	...args
 ]
