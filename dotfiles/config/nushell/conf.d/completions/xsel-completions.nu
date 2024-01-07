@@ -1,5 +1,5 @@
 # Append input to selection
-extern "xsel" [
+export extern "xsel" [
 	--append(-a)					# Append input to selection
 	--follow(-f)					# Append to selection as input grows
 	--input(-i)					# Read into selection

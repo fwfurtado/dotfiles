@@ -1,5 +1,5 @@
 # (HTTP) Connect through an abstract Unix domain socket
-extern "curl" [
+export extern "curl" [
 	--abstract-unix-socket					# (HTTP) Connect through an abstract Unix domain socket
 	--anyauth					# (HTTP) Use most secure authentication method automatically
 	--append(-a)					# (FTP SFTP) Upload: append to the target file

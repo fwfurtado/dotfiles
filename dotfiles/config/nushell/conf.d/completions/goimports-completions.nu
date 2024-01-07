@@ -1,5 +1,5 @@
 # Display diffs instead of rewriting files
-extern "goimports" [
+export extern "goimports" [
 	--help(-h)					# Show help
 	...args
 ]

@@ -1,5 +1,5 @@
 # Make a backup of each existing destination file
-extern "ln none off numbered t existing nil simple never" [
+export extern "ln none off numbered t existing nil simple never" [
 	--backup					# Make a backup of each existing destination file
 	--directory(-d)					# Allow superuser to attempt to hard link directories
 	--force(-f)					# Remove existing destination files
@@ -18,7 +18,7 @@ extern "ln none off numbered t existing nil simple never" [
 ]
 
 # Make a backup of each existing destination file
-extern "ln" [
+export extern "ln" [
 	--backup					# Make a backup of each existing destination file
 	--directory(-d)					# Allow superuser to attempt to hard link directories
 	--force(-f)					# Remove existing destination files

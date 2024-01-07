@@ -1,5 +1,5 @@
 # Decode data
-extern "base64" [
+export extern "base64" [
 	--decode(-d)					# Decode data
 	--ignore-garbage(-i)					# When decoding, ignore non-alphabet characters
 	--help					# Display help
