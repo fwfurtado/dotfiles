@@ -1,7 +1,7 @@
 export-env {
   $env.PATH = ($env.PATH | prepend '')
   $env.RTX_SHELL = "nu"
-  
+
   $env.config = ($env.config | upsert hooks {
       pre_prompt: ($env.config.hooks.pre_prompt ++
       [{
@@ -17,14 +17,14 @@ export-env {
       }
   })
 }
-  
+
 def "parse vars" [] {
   $in | lines | parse "{op},{name},{value}"
 }
-  
+
 def --wrapped rtx [command?: string, --help, ...rest: string] {
   let commands = ["shell", "deactivate"]
-  
+
   if ($command == null) {
     ^"rtx"
   } else if ($command == "activate") {
@@ -37,7 +37,7 @@ def --wrapped rtx [command?: string, --help, ...rest: string] {
     ^"rtx" $command $rest
   }
 }
-  
+
 def --env "update-env" [] {
   for $var in $in {
     if $var.op == "set" {
@@ -47,7 +47,7 @@ def --env "update-env" [] {
     }
   }
 }
-  
+
 def --env rtx_hook [] {
   ^"rtx" hook-env -s nu
     | parse vars

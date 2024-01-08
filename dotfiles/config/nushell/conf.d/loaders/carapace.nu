@@ -1,4 +1,4 @@
-export-env { 
+export-env {
     $env.PATH = ($env.PATH | split row (char esep) | prepend "~/.config/carapace/bin")
 
 
@@ -31,4 +31,4 @@ $current.completions.external = ($current.completions.external
 
     $env.config = $current
 }
-    
+

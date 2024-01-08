@@ -4,7 +4,7 @@ export alias gcl = git clone
 
 export alias gcmsg = git commit -m
 export alias gcam = git commit --amend -C HEAD
-export alias gca = git commit --amend = 
+export alias gca = git commit --amend
 
 export alias gpl = git pull
 export alias gplr = git pull --rebase
