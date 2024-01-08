@@ -1,5 +1,5 @@
 export-env {
-    $env.config = ($env.config | upsert hooks {      
+    $env.config = ($env.config | upsert hooks {
       env_change: {
           PWD: ($env.config.hooks.env_change.PWD ++
           [{
