@@ -1,10 +1,9 @@
 export-env {
-    $env.PATH = ($env.PATH | split row (char esep) | prepend "~/.config/carapace/bin")
+$env.PATH = ($env.PATH | split row (char esep) | prepend "/home/anyone/.config/carapace/bin")
 
-
-export def --env get-env [name] { $env | get $name }
-export def --env set-env [name, value] { load-env { $name: $value } }
-export def --env unset-env [name] { hide-env $name }
+def --env get-env [name] { $env | get $name }
+def --env set-env [name, value] { load-env { $name: $value } }
+def --env unset-env [name] { hide-env $name }
 
 let carapace_completer = {|spans|
   # if the current command is an alias, get it's expansion
@@ -28,7 +27,6 @@ $current.completions.external = ($current.completions.external
 | default true enable
 | default $carapace_completer completer)
 
+$env.config = $current
 
-    $env.config = $current
 }
-

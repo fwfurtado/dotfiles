@@ -84,7 +84,6 @@ $env.GPG_TTY = (tty)
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 $env.PATH = ($env.PATH | append '/usr/local/bin')
-$env.PATH = ($env.PATH | append '/var/lib/snapd/bin')
 
 $env.PATH = ($env.PATH | append ($env.ANDROID_SDK | path join 'tools') )
 $env.PATH = ($env.PATH | append ($env.ANDROID_SDK | path join 'tools/bin') )
