@@ -761,4 +761,4 @@ $env.config = {
     ]
 }
 
-export use ~/.config/nushell/conf.d *
+source ~/.config/nushell/conf.d/init.nu
