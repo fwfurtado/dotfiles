@@ -1,13 +1,13 @@
 def "nu-complete make" [] {
-    ls 
+    ls
 	| find --ignore-case makefile
 	| open $in.0.name
-	| lines 
-	| find ':' 
-	| where ($it | str starts-with '.') == false 
-	| split column ' ' 
-	| get column1 
-	| find ':' 
+	| lines
+	| find ':'
+	| where ($it | str starts-with '.') == false
+	| split column ' '
+	| get column1
+	| find ':'
 	| str replace ':' ''
 }
 
@@ -23,7 +23,7 @@ def "nu-complete make dirs" [] {
 	ls **/* | where type == dir | get name
 }
 
-export extern "make" [
+export extern "main" [
 	command?: string@"nu-complete make"
 	--always-make(-B)                                 # Unconditionally make all targets.
 	--directory(-C): string@"nu-complete make dirs"   # Change to DIRECTORY before doing anything.

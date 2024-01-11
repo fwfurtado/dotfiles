@@ -1,5 +1,5 @@
 # Display help information
-export extern "btrfs" [
+export extern main [
 
 	...args
 ]
