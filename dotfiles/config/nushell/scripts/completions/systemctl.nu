@@ -53,7 +53,7 @@ export extern "systemctl set-property" [
 ]
 
 # List of unit types
-export extern "systemctl" [
+export extern "main" [
 
 	...args
 ]

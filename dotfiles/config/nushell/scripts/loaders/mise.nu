@@ -1,10 +1,5 @@
-use std
-
 export-env {
-  $env.PATH = ($env.PATH | prepend '')
   $env.MISE_SHELL = "nu"
-  $env.MISE_SHIMS_DIR = '~/.local/share/mise/shims'
-  std path add $env.MISE_SHIMS_DIR
 
   $env.config = ($env.config | upsert hooks {
       pre_prompt: ($env.config.hooks.pre_prompt ++
@@ -26,7 +21,7 @@ def "parse vars" [] {
   $in | lines | parse "{op},{name},{value}"
 }
 
-def --wrapped mise [command?: string, --help, ...rest: string] {
+export def --wrapped main [command?: string, --help, ...rest: string] {
   let commands = ["shell", "deactivate"]
 
   if ($command == null) {
