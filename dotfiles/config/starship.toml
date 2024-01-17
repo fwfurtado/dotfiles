@@ -13,7 +13,7 @@ format = """
 
 [╭─ ](bold #4E8278)$all
 [│ ](bold #4E8278)$directory$sudo
-[╰─ ](bold #4E8278)$character""" 
+[╰─ ](bold #4E8278)$character"""
 
 command_timeout=1000
 

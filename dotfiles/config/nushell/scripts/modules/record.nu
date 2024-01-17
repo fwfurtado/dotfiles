@@ -13,11 +13,11 @@ export def "filter-name predicate" [
     pred: closure  # Predicate closure that checks fields name
 ]: record -> record {
     let $obj_input = $in
-    $obj_input 
-        | columns 
+    $obj_input
+        | columns
         | where { $in | do $pred }
-        | each {|input| 
-            { $input: ($obj_input | get $input) } 
+        | each {|input|
+            { $input: ($obj_input | get $input) }
         }
         | list merge
 }
@@ -36,11 +36,11 @@ export def "filter-value predicate" [
     pred: closure # Predicate closure that checks fields value
 ]: record -> record {
     let $obj_input = $in
-    $obj_input 
-        | columns 
+    $obj_input
+        | columns
         | where {|col| $obj_input | get $col | do $pred }
-        | each {|input| 
-            { $input: ($obj_input | get $input) } 
+        | each {|input|
+            { $input: ($obj_input | get $input) }
         }
         | list merge
 }
