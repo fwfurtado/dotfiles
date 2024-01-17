@@ -1,3 +1,24 @@
+use nullability.nu *
+
+def "nu-completion fs component" [] {
+    [
+        {value: "filename"  , description: "The filename of given path"},
+        {value: "name"      , description: "Alias for filename"},
+        {value: "extension" , description: "The extension of given path"},
+        {value: "ext"       , description: "Alias for extension"},
+    ]
+}
+
+def "resolve component" [component: string@"nu-completion fs component"] {
+    let path_components = {
+        filename:   steam,
+        name:       steam,
+        ext:        extension,
+        extension:  extension,
+    }
+
+    $path_components | get $component
+}
 # rename a bulk of files in a directory using a closure
 #
 # the reason behind this command is quite simple
@@ -17,25 +38,60 @@
 #      }
 export def "file bulk-rename" [
     directory: path, # the path where files need to be renamed in bulk
-    stem_update: closure, # the code to run on the stem of the files: should start with parsing the format and end with reconstructing the same format
+    component: string@"nu-completion fs component" # the component to use for completion
+    fixed?: string, # the value to use for the update
+    --block(-b): closure, # the code to run on the path component of the files
     --verbose, # be verbose when moving the files around
+    --dry-run (-n) # do not actually move the files around
 ]: nothing -> nothing {
-    ls --full-paths $directory | insert new {
-        get name | path parse | update stem $stem_update | path join
+    let path_component = resolve component $component
+
+    if ($path_component | is-empty) {
+        error "unknown component: $component"
     }
-    | each {
-        if $verbose {
-            mv --force --verbose $in.name $in.new
-        } else {
-            mv --force $in.name $in.new
+
+    if ([$block $fixed] | all {|it| $it | is-null }) {
+        error "either a block or a fixed value must be provided"
+    }
+
+    if ([$block $fixed] | all {|it| $it | is-not-null }) {
+        error "either a block or a fixed value must be provided"
+    }
+
+    let update = if ($fixed | is-empty) {
+        $block
+    } else {
+        { |$it| $fixed }
+    }
+
+    let rename_action = ls --full-paths $directory
+        | insert after {|$it| $it
+        | get name
+        | path parse
+        | update $path_component {|$it| $it | get $path_component | do $update }
+        | path join
+        }
+    | rename --column {name: before}
+    | select before after
+
+    if $dry_run {
+        print $rename_action
+    } else {
+        $rename_action | each {
+            if $verbose {
+                mv --force --verbose $in.before $in.after
+            } else {
+                mv --force $in.before $in.after
+            }
         }
     }
+
 
     null
 }
 
 #[test]
-def test [] {
+def should_rename_stem [] {
     use std assert
 
     let test_dir = $nu.temp-path | path join (random uuid)
@@ -58,7 +114,7 @@ def test [] {
     let actual = glob $"($test_dir)/*" | str replace $test_dir "" | str trim --left --char "/"
     assert equal ($actual | sort) $expected
 
-    file bulk-rename $test_dir {
+    file bulk-rename $test_dir stem --block {
         parse "some_{i}_format"
             | get 0
             | update i { fill --alignment r --character 0 --width 3 }

@@ -17,7 +17,7 @@ def throw-error [
 export def "random-list bool" [
     list_length: int, # A length of the list
     --bias (-b): float = 0.5 # A probability of "true"
-] {
+] nothing -> bool {
     if $bias < 0 or $bias > 1 {
         throw-error "value_error" "must be between 0 and 1" (metadata $bias | get span)
     }
@@ -25,7 +25,7 @@ export def "random-list bool" [
         throw-error "value_error" "must be greater than 0" (metadata $list_length | get span)
     }
 
-    1..$list_length | each {|it|
+    1..$list_length | each {
         random bool --bias $bias
     }
 }
@@ -42,7 +42,7 @@ export def "random-list chars" [
         throw-error "value_error" "must be greater than 0" (metadata $length | get span)
     }
 
-    1..$list_length | each {|it|
+    1..$list_length | each {
         random chars --length $length
     }
 }
