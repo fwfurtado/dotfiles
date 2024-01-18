@@ -2,7 +2,6 @@
 # - overlay which can be loaded with `overlay use starship.nu`
 # - module which can be used with `use starship.nu`
 # - script which can be used with `source starship.nu`
-
 export-env { load-env {
     STARSHIP_SHELL: "nu"
     STARSHIP_SESSION_KEY: (random chars -l 16)

@@ -6,18 +6,17 @@
 #
 
 # Initialize hook to add new entries to the database.
-export-env {
-  if (not ($env | default false __zoxide_hooked | get __zoxide_hooked)) {
-    $env.__zoxide_hooked = true
-    $env.config = ($env | default {} config).config
-    $env.config = ($env.config | default {} hooks)
-    $env.config = ($env.config | update hooks ($env.config.hooks | default {} env_change))
-    $env.config = ($env.config | update hooks.env_change ($env.config.hooks.env_change | default [] PWD))
-    $env.config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|_, dir|
-      zoxide add -- $dir
-    }))
-  }
+if (not ($env | default false __zoxide_hooked | get __zoxide_hooked)) {
+  $env.__zoxide_hooked = true
+  $env.config = ($env | default {} config).config
+  $env.config = ($env.config | default {} hooks)
+  $env.config = ($env.config | update hooks ($env.config.hooks | default {} env_change))
+  $env.config = ($env.config | update hooks.env_change ($env.config.hooks.env_change | default [] PWD))
+  $env.config = ($env.config | update hooks.env_change.PWD ($env.config.hooks.env_change.PWD | append {|_, dir|
+    zoxide add -- $dir
+  }))
 }
+
 # =============================================================================
 #
 # When using zoxide with --no-cmd, alias these internal functions as desired.
@@ -44,8 +43,8 @@ def --env __zoxide_zi  [...rest:string] {
 # Commands for zoxide. Disable these using --no-cmd.
 #
 
-export alias z = __zoxide_z
-export alias zi = __zoxide_zi
+alias z = __zoxide_z
+alias zi = __zoxide_zi
 
 # =============================================================================
 #
