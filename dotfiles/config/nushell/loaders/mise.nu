@@ -21,7 +21,7 @@ def "parse vars" [] {
   $in | lines | parse "{op},{name},{value}"
 }
 
-export def --wrapped main [command?: string, --help, ...rest: string] {
+def --wrapped mise [command?: string, --help, ...rest: string] {
   let commands = ["shell", "deactivate"]
 
   if ($command == null) {

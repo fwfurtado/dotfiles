@@ -762,3 +762,5 @@ $env.config = {
 }
 
 use dotfiles.nu *
+
+source ~/.config/nushell/loaders/loaders.nu
