@@ -1,3 +1,12 @@
+
+export def gitignore [...args] {
+    let ignores = $args | str join ","
+    let baseUrl = "https://www.toptal.com/developers/gitignore/api/"
+    let url = $baseUrl | path join $ignores
+
+    http get $url | save -f .gitignore
+}
+
 export alias ga = git add
 
 export alias gcl = git clone
