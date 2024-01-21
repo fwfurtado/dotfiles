@@ -12,6 +12,7 @@ export use nullability *
 
 use completions
 export use make *
+export use zoxide *
 
 use envs
 export-env {
