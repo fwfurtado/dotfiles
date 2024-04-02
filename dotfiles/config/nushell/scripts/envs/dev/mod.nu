@@ -7,4 +7,6 @@ export-env {
     export use krew.nu *
     export use pulumi.nu *
     export use rust.nu *
+    export use gh.nu *
+    # export use nix.nu *
 }

@@ -26,18 +26,26 @@ end
 
 abbr --add !! --position anywhere --function bang_bang
 
-alias please='sudo'
-alias pls='sudo'
+
+function sudo_bang_bang
+	echo "sudo $history[1]"
+end
+
+abbr --add pls --function sudo_bang_bang
+
 alias cat='bat'
-alias ls='exa --icons'
-alias la='exa --icons -a'
-alias ll='exa --icons -l --git'
+
+alias l ='eza --icons'
+alias ls='eza --icons'
+alias la='eza --icons -a'
+alias ll='eza --icons -l --git --octal-permissions'
+alias lla='eza --icons -a -l --git --octal-permissions'
 
 export LS_TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
-alias lt='exa --icons --tree -D -L 2 -I "$LS_TREE_IGNORE"'
-alias ltt='exa --icons --tree -D -L 3 -I "$LS_TREE_IGNOR"'
-alias lttt='exa --icons --tree -D -L 4 -I "$LS_TREE_IGNORE"'
-alias ltttt='exa --icons --tree -D -L 5 -I "$LS_TREE_IGNORE"'
+alias lt='eza --icons --tree -D -L 2 -I "$LS_TREE_IGNORE"'
+alias ltt='eza --icons --tree -D -L 3 -I "$LS_TREE_IGNOR"'
+alias lttt='eza --icons --tree -D -L 4 -I "$LS_TREE_IGNORE"'
+alias ltttt='eza --icons --tree -D -L 5 -I "$LS_TREE_IGNORE"'
 
 alias k='kubectl'

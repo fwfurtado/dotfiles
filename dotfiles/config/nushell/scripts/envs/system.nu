@@ -9,5 +9,6 @@ export-env {
         FZF_DEFAULT_OPTS: '--height 40% --no-bold --layout reverse --border'
         GPG_TTY: (tty)
         OTHER_MIMI_ENV: "mimi"
+        SSH_AUTH_SOCK: ($env.HOME | path join '.1password/agent.sock')
     }
 }
