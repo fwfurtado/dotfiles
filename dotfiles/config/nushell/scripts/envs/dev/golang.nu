@@ -3,8 +3,9 @@ use std
 export-env {
 
     load-env {
+        GIT_TERMINAL_PROMPT: 1
         GOPATH: ($env | get HOME | path join 'go')
-        GOPRIVATE: "github.com/github.com/nsxbet/*"
+        GOPRIVATE: "github.com/NSXBet/*"
         GOPROXY: "https://proxy.golang.org,direct"
     }
 

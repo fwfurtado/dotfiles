@@ -83,6 +83,9 @@ dotfiles:
   d_alacritty:
     src: config/alacritty
     dst: ~/.config/alacritty
+  d_tmux:
+    src: config/tmux
+    dst: ~/.config/tmux
 profiles:
   default:
     dotfiles:
@@ -102,6 +105,7 @@ profiles:
     - f_config.fish
     - d_completions
     - d_conf.d
+    - d_tmux
   laptop:
     dotfiles:
     - d_laptop

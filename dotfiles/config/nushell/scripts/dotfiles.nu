@@ -6,13 +6,12 @@ export use random-list *
 export use record *
 export use sockets *
 export use str *
-export use background_task *
+export use btask
 export use nullability *
 
 
 use completions
 export use make *
-export use zoxide *
 
 use envs
 export-env {
