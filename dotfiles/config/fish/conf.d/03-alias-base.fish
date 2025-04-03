@@ -35,7 +35,7 @@ abbr --add pls --function sudo_bang_bang
 
 alias cat='bat'
 
-alias l ='eza --icons'
+alias l='eza --icons'
 alias ls='eza --icons'
 alias la='eza --icons -a'
 alias ll='eza --icons -l --git --octal-permissions'
@@ -49,3 +49,4 @@ alias lttt='eza --icons --tree -D -L 4 -I "$LS_TREE_IGNORE"'
 alias ltttt='eza --icons --tree -D -L 5 -I "$LS_TREE_IGNORE"'
 
 alias k='kubectl'
+

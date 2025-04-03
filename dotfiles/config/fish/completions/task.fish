@@ -10,7 +10,7 @@ function __task_get_tasks --description "Prints all available tasks with their d
   end
 
   # Grab names and descriptions (if any) of the tasks
-  set -l output (echo $rawOutput | sed -e '1d; s/\* \(.*\):\s*\(.*\)\s*(aliases.*/\1\t\2/' -e 's/\* \(.*\):\s*\(.*\)/\1\t\2/'| string split0)
+  set -l output (echo $rawOutput | sed -e '1d; s/\* \(.*\):\s*\(.*\)\s*(\(aliases.*\))/\1\t\2\t\3/' -e 's/\* \(.*\):\s*\(.*\)/\1\t\2/'| string split0)
   if test $output
     echo $output
   end
@@ -35,3 +35,4 @@ complete -c $GO_TASK_PROGNAME -s t -l taskfile  -d 'choose which Taskfile to run
 complete -c $GO_TASK_PROGNAME -s v -l verbose   -d 'enables verbose mode'
 complete -c $GO_TASK_PROGNAME      -l version   -d 'show Task version'
 complete -c $GO_TASK_PROGNAME -s w -l watch     -d 'enables watch of the given task'
+
