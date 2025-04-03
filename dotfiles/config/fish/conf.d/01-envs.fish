@@ -15,3 +15,8 @@ fish_add_path $HOME/.krew/bin
 fish_add_path $ANDROID_SDK/platform-tools
 fish_add_path $ANDROID_SDK/tools/bin
 fish_add_path $ANDROID_SDK/tools
+
+
+export TASK_X_REMOTE_TASKFILES=1
+export DOCKER_BUILDKIT=1
+export COMPOSE_DOCKER_CLI_BUILD=1

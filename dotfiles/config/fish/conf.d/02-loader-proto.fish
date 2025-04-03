@@ -1,4 +1,3 @@
-set fish_greeting
 
 # proto
 set -gx PROTO_HOME "$HOME/.proto";

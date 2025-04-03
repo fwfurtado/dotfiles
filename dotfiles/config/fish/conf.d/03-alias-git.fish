@@ -39,6 +39,14 @@ abbr --add gcmsg git commit -m
 abbr --add gamend git commit --amend -C HEAD
 
 abbr --add gcl gh repo clone
+abbr --add gsq 'git reset (git merge-base main (git rev-parse --abbrev-ref HEAD))'
+
+
+abbr --add gwl git worktree list
+abbr --add gwa git worktree add
+abbr --add gwr git worktree remove
+abbr --add gwrf git worktree remove --force
+
 
 function gclone
 	set -l name (path change-extension '' $argv | path basename)
