@@ -86,6 +86,9 @@ dotfiles:
   d_tmux:
     src: config/tmux
     dst: ~/.config/tmux
+  d_nvim:
+    src: config/nvim
+    dst: ~/.config/nvim
 profiles:
   default:
     dotfiles:
@@ -115,3 +118,6 @@ profiles:
   anywhere:
     dotfiles:
     - d_alacritty
+  me-pc:
+    dotfiles:
+    - d_nvim
