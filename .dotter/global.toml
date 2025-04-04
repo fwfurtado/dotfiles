@@ -12,5 +12,8 @@ default_target_type = "automatic"
 [nushell.files]
 "config/nushell" = "~/.config/nushell"
 
+[tmux.files]
+"config/tmux" = "~/.config/tmux"
+
 [wallpapers.files]
 wallpapers = "~/Pictures/wallpapers/"
