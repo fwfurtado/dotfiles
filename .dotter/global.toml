@@ -1,0 +1,16 @@
+[helpers]
+
+[settings]
+default_target_type = "automatic"
+
+[nvim.files]
+"config/nvim" = "~/.config/nvim/"
+
+[fish.files]
+"config/fish" = "~/.config/fish/" 
+
+[nushell.files]
+"config/nushell" = "~/.config/nushell"
+
+[wallpapers.files]
+wallpapers = "~/Pictures/wallpapers/"
