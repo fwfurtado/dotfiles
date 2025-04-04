@@ -1,0 +1,12 @@
+version: '3'
+
+tasks:
+  setup:
+    cmds:
+      - cargo binstall -y -q dotter
+  deploy:
+    cmds:
+      - dotter deploy --force
+  undeploy:
+    cmds: 
+      - dotter undeploy --force
