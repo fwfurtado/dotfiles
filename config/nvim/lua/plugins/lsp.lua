@@ -22,6 +22,7 @@ return {
           {name = 'path'},
           {name = 'lazydev'},
           {name = 'buffer'},
+          {name = 'copilot'},
         },
         mapping = cmp.mapping.preset.insert({
           ['<C-Space>'] = cmp.mapping.complete(),
