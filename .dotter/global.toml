@@ -15,5 +15,8 @@ default_target_type = "automatic"
 [tmux.files]
 "config/tmux" = "~/.config/tmux"
 
+[ghostty.files]
+"config/ghostty" = "~/.config/ghostty"
+
 [wallpapers.files]
 wallpapers = "~/Pictures/wallpapers/"
