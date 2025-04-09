@@ -51,6 +51,7 @@
 "config/nvim/lua/plugins/nvim-terminal.lua" = "/home/me/.config/nvim/lua/plugins/nvim-terminal.lua"
 "config/nvim/lua/plugins/rose-pine.lua" = "/home/me/.config/nvim/lua/plugins/rose-pine.lua"
 "config/nvim/lua/plugins/telescope.lua" = "/home/me/.config/nvim/lua/plugins/telescope.lua"
+"config/nvim/lua/plugins/tidy.lua" = "/home/me/.config/nvim/lua/plugins/tidy.lua"
 "config/nvim/lua/plugins/treesitter.lua" = "/home/me/.config/nvim/lua/plugins/treesitter.lua"
 "config/nvim/lua/plugins/undotree.lua" = "/home/me/.config/nvim/lua/plugins/undotree.lua"
 "config/nvim/lua/plugins/vim-repeat.lua" = "/home/me/.config/nvim/lua/plugins/vim-repeat.lua"
