@@ -1,14 +1,14 @@
-return { 
-	'nvim-telescope/telescope.nvim', 
-	tag = '0.1.8', 
-	dependencies = { 
+return {
+	'nvim-telescope/telescope.nvim',
+	tag = '0.1.8',
+	dependencies = {
         'nvim-lua/plenary.nvim',
         'BurntSushi/ripgrep',
         'sharkdp/fd',
         'nvim-treesitter/nvim-treesitter',
         'nvim-tree/nvim-web-devicons',
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
-    }, 
+    },
 
     config = function ()
         require('telescope').setup {
@@ -26,8 +26,8 @@ return {
     end,
 
 	keys = {
-		{ 
-			"<leader>pf", 
+		{
+			"<leader>pf",
 			function()
 				require("telescope.builtin").find_files()
 			end,
@@ -35,7 +35,7 @@ return {
 			mode = "n",
 		},
 		{
-			"<leader>ps", 
+			"<leader>ps",
 			function()
 				require("telescope.builtin").grep_string({ search = vim.fn.input("Grep > ") });
 			end,
