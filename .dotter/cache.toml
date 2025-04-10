@@ -57,6 +57,8 @@
 "config/nvim/lua/plugins/vim-repeat.lua" = "/home/me/.config/nvim/lua/plugins/vim-repeat.lua"
 "config/nvim/lua/plugins/vim-surround.lua" = "/home/me/.config/nvim/lua/plugins/vim-surround.lua"
 "config/nvim/lua/plugins/vim-tmux-navigator.lua" = "/home/me/.config/nvim/lua/plugins/vim-tmux-navigator.lua"
+"config/oh-my-posh/themes/rose-pine.json" = "/home/me/.config/oh-my-posh/themes/rose-pine.json"
+"config/starship.toml" = "/home/me/.config/starship.toml"
 "config/tmux/tmux.conf" = "/home/me/.config/tmux/tmux.conf"
 
 [templates]

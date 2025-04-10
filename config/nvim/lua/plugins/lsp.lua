@@ -100,15 +100,23 @@ return {
 		'rust_analyzer',
 		'bashls',
 
-	},
-        handlers = {
-          -- this first function is the "default handler"
-          -- it applies to every language server without a "custom handler"
-          function(server_name)
-            require('lspconfig')[server_name].setup({})
-          end,
-        }
-      })
+    },
+    handlers = {
+        -- this first function is the "default handler"
+        -- it applies to every language server without a "custom handler"
+        function(server_name)
+            if server_name == "rust_analyzer" then 
+                require('lspconfig')[server_name].setup({
+                    check_on_save = {
+                        command = "clippy",
+                    },
+                })
+            else
+                require('lspconfig')[server_name].setup({})
+            end
+        end,
+    }
+})
     end
-  }
+}
 }
