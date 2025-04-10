@@ -18,5 +18,11 @@ default_target_type = "automatic"
 [ghostty.files]
 "config/ghostty" = "~/.config/ghostty"
 
+[oh-my-posh.files]
+"config/oh-my-posh" = { target =  "~/.config/oh-my-posh", type = "symbolic" }
+
+[starship.files]
+"config/starship.toml" = "~/.config/starship.toml"
+
 [wallpapers.files]
 wallpapers = "~/Pictures/wallpapers/"
