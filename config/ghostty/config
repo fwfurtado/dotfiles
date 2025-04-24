@@ -1,4 +1,4 @@
 command = ~/.config/ghostty/command.sh
 theme = rose-pine
-background-opacity = 0.8
+background-opacity = 0.3
 background-blur = true

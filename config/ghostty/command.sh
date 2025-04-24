@@ -1,4 +1,11 @@
 #!/bin/bash
+
+current_so=$(uname -s | tr "[:upper:]" "[:lower:]")
+
+if [ $current_so == "darwin" ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 SESSION_NAME="ghostty"
 
 tmux has-session -t $SESSION_NAME 2>/dev/null
