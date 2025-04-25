@@ -38,7 +38,6 @@
 "config/ghostty/command.sh" = "/home/me/.config/ghostty/command.sh"
 "config/ghostty/config" = "/home/me/.config/ghostty/config"
 "config/nvim/init.lua" = "/home/me/.config/nvim/init.lua"
-"config/nvim/lazy-lock.json" = "/home/me/.config/nvim/lazy-lock.json"
 "config/nvim/lua/config/lazy.lua" = "/home/me/.config/nvim/lua/config/lazy.lua"
 "config/nvim/lua/config/remap.lua" = "/home/me/.config/nvim/lua/config/remap.lua"
 "config/nvim/lua/config/set.lua" = "/home/me/.config/nvim/lua/config/set.lua"
