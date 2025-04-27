@@ -5,6 +5,8 @@
 [core]
     autocrlf = input
     compression = 9
+    pager = bat
+    editor = nvim
 
 [diff]
     context = 3
