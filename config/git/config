@@ -1,0 +1,36 @@
+[user]
+    name = Mimi
+    email = fwfurtado@gmail.com
+
+[core]
+    autocrlf = input
+    compression = 9
+
+[diff]
+    context = 3
+    tool = nvimdiff
+
+[difftool]
+    prompt = true
+
+[merge]
+    tool = nvimdiff
+
+[mergetool]
+    prompt = true
+
+[init]
+    defaultBranch = main
+
+[log]
+    abbrevCommit = true
+    graphColors = blue,yellow,cyan,magenta,green,red
+
+[push]
+    autoSetupRemote = true
+    default = current
+    followTags = true
+
+[pull]
+    rebase = true
+    ff = only

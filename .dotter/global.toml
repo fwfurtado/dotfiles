@@ -26,3 +26,6 @@ default_target_type = "automatic"
 
 [wallpapers.files]
 wallpapers = "~/Pictures/wallpapers/"
+
+[git.files]
+"config/git" = "~/.config/git/"
