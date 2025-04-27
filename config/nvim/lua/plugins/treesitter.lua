@@ -26,6 +26,7 @@ return {
                 "yaml",
                 "toml",
                 "html",
+                "sql",
             },
             highlight = {
                 enable = true,

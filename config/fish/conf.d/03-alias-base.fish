@@ -50,3 +50,5 @@ alias ltttt='eza --icons --tree -D -L 5 -I "$LS_TREE_IGNORE"'
 
 alias k='kubectl'
 
+alias pbj='xsel --clipboard --output | jless'
+alias pby='xsel --clipboard --output | jless --yaml'
