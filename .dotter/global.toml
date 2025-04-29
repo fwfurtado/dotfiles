@@ -18,6 +18,9 @@ default_target_type = "automatic"
 [ghostty.files]
 "config/ghostty" = "~/.config/ghostty"
 
+[ghostty.variables]
+background_opacity = 0.3
+
 [oh-my-posh.files]
 "config/oh-my-posh" = { target =  "~/.config/oh-my-posh", type = "symbolic" }
 
