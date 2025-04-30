@@ -1,6 +1,8 @@
 abbr --add g git
 abbr --add ga git add
 
+abbr --add gd git diff
+
 abbr --add gint git init
 
 abbr --add grs  git reset
