@@ -1,5 +1,5 @@
 set fish_greeting
 
-# proto
-set -gx PROTO_HOME "$HOME/.proto";
-set -gx PATH "$PROTO_HOME/shims" "$PROTO_HOME/bin" $PATH;
+status is-interactive; and begin
+    set fish_tmux_autostart true
+end
