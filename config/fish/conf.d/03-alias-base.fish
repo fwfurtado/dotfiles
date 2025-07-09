@@ -43,12 +43,11 @@ alias lla='eza --icons -a -l --git --octal-permissions'
 
 export LS_TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
-alias lt='eza --icons --tree -D -L 2 -I "$LS_TREE_IGNORE"'
-alias ltt='eza --icons --tree -D -L 3 -I "$LS_TREE_IGNOR"'
-alias lttt='eza --icons --tree -D -L 4 -I "$LS_TREE_IGNORE"'
-alias ltttt='eza --icons --tree -D -L 5 -I "$LS_TREE_IGNORE"'
+alias lt='eza --icons --tree'
 
 alias k='kubectl'
 
 alias pbj='xsel --clipboard --output | jless'
 alias pby='xsel --clipboard --output | jless --yaml'
+
+alias docker-compose='docker compose'
