@@ -1,0 +1,16 @@
+name = "Test Pipeline"
+version = "0.1.0"
+
+[stages.build.steps]
+build = { command = "echo 'cargo build'" }
+
+
+[stages.lint.steps]
+clippy = { command = "echo 'cargo clippy'" }
+rustfmt = { command = "echo 'cargo fmt'" }
+machete = { command = "echo 'cargo machete'" }
+
+
+[stages.test.steps]
+test = { command = "echo 'cargo test'" }
+test_coverage = { command = "echo 'cargo test -- --nocapture'" }
