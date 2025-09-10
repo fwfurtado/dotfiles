@@ -1,34 +1,32 @@
-alias pbcopy="xsel --clipboard --input"
-alias pbpaste="xsel --clipboard --output"
+alias pbcopy="wl-copy -p"
+alias pbpaste="wl-paste -p"
 
 function md
 
-	argparse 'k/keep' -- $argv
-	or return
+    argparse k/keep -- $argv
+    or return
 
-	mkdir -p $argv
+    mkdir -p $argv
 
-	if set -ql _flag_k
-		return $status
-	end
+    if set -ql _flag_k
+        return $status
+    end
 
-	if test $status -ne 0
-		return $stauts
-	end
+    if test $status -ne 0
+        return $stauts
+    end
 
-	z $argv
+    cd $argv
 end
 
-
 function bang_bang
-	echo $history[1]
+    echo $history[1]
 end
 
 abbr --add !! --position anywhere --function bang_bang
 
-
 function sudo_bang_bang
-	echo "sudo $history[1]"
+    echo "sudo $history[1]"
 end
 
 abbr --add pls --function sudo_bang_bang
@@ -47,7 +45,7 @@ alias lt='eza --icons --tree'
 
 alias k='kubectl'
 
-alias pbj='xsel --clipboard --output | jless'
-alias pby='xsel --clipboard --output | jless --yaml'
+#alias pbj='xsel --clipboard --output | jless'
+#alias pby='xsel --clipboard --output | jless --yaml'
 
 alias docker-compose='docker compose'
