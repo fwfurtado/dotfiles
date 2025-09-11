@@ -1,16 +1,38 @@
 name = "Test Pipeline"
 version = "0.1.0"
 
-[stages.build.steps]
-build = { command = "echo 'cargo build'" }
+[trigger]
+on = "push"
 
+[stages.build]
+name = "Build"
 
-[stages.lint.steps]
-clippy = { command = "echo 'cargo clippy'" }
-rustfmt = { command = "echo 'cargo fmt'" }
-machete = { command = "echo 'cargo machete'" }
+[[stages.build.steps]]
+name = "Build"
+command = "echo 'cargo build'"
 
+[stages.lint]
+name = "Lint"
 
-[stages.test.steps]
-test = { command = "echo 'cargo test'" }
-test_coverage = { command = "echo 'cargo test -- --nocapture'" }
+[[stages.lint.steps]]
+name = "Clippy"
+command = "echo 'cargo clippy'"
+
+[[stages.lint.steps]]
+name = "Format"
+command = "echo 'cargo fmt'"
+
+[[stages.lint.steps]]
+name = "Machete"
+command = "echo 'cargo machete'"
+
+[stages.test]
+name = "Test"
+
+[[stages.test.steps]]
+name = "Test"
+command = "echo 'cargo test'"
+
+[[stages.test.steps]]
+name = "Coverage"
+command = "echo 'cargo test -- --nocapture'"
