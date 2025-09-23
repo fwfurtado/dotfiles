@@ -1,6 +1,8 @@
-# set -gx ATUIN_NOBIND "true"
-# atuin init fish | source
+if test -f ~/.atuin/bin/env.fish
+    source ~/.atuin/bin/env.fish
+    atuin init fish --disable-up-arrow | source
 
-# bind to ctrl-r in normal and insert mode, add any other bindings you want here too
-# bind \cr _atuin_search
-# bind -M insert \cr _atuin_search
+    if atuin status | grep -qi "you are not logged in"
+        atuin login -u "$(op read 'op://development/Atuin/username')" -p "$(op read 'op://development/Atuin/pass')" -k "$(op read 'op://development/Atuin/key')"
+    end
+end
