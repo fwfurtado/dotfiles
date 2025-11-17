@@ -31,7 +31,7 @@ end
 
 abbr --add pls --function sudo_bang_bang
 
-alias cat='bat'
+alias cat='batcat'
 
 alias l='eza --icons'
 alias ls='eza --icons'

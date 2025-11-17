@@ -46,3 +46,12 @@
 
 [url "https://github.com/"]
   insteadOf = "git@github.com:"
+
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[commit]
+	gpgsign = true
+[user]
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGnjxWt9XUWWnP0ilRlAugrqYs0RKgfzn/3ZiyEKEENo

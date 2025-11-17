@@ -92,13 +92,9 @@ return {
       require('mason-lspconfig').setup({
         ensure_installed = {
 		'elixirls',
-		'pylsp',
-		'eslint',
-		'ts_ls',
 		'lua_ls',
 		'gopls',
 		'rust_analyzer',
-		'bashls',
 
     },
     handlers = {
