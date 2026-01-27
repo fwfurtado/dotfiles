@@ -15,6 +15,7 @@ fish_add_path $HOME/.krew/bin
 fish_add_path $ANDROID_SDK/platform-tools
 fish_add_path $ANDROID_SDK/tools/bin
 fish_add_path $ANDROID_SDK/tools
+fish_add_path $GOPATH/bin
 
 
 export TASK_X_REMOTE_TASKFILES=1

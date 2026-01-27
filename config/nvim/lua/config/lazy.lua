@@ -27,6 +27,9 @@ require("lazy").setup({
     -- import your plugins
     { import = "plugins" },
   },
+  git = {
+    url_format = "https://github.com/%s.git",
+  },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },

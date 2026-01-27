@@ -52,23 +52,17 @@ return {
       {'williamboman/mason-lspconfig.nvim'},
     },
     init = function()
-      -- Reserve a space in the gutter
-      -- This will avoid an annoying layout shift in the screen
       vim.opt.signcolumn = 'yes'
     end,
     config = function()
       local lsp_defaults = require('lspconfig').util.default_config
 
-      -- Add cmp_nvim_lsp capabilities settings to lspconfig
-      -- This should be executed before you configure any language server
       lsp_defaults.capabilities = vim.tbl_deep_extend(
         'force',
         lsp_defaults.capabilities,
         require('cmp_nvim_lsp').default_capabilities()
       )
 
-      -- LspAttach is where you enable features that only work
-      -- if there is a language server active in the file
       vim.api.nvim_create_autocmd('LspAttach', {
         desc = 'LSP actions',
         callback = function(event)
@@ -91,28 +85,31 @@ return {
 
       require('mason-lspconfig').setup({
         ensure_installed = {
-		'elixirls',
-		'lua_ls',
-		'gopls',
-		'rust_analyzer',
-
-    },
-    handlers = {
-        -- this first function is the "default handler"
-        -- it applies to every language server without a "custom handler"
-        function(server_name)
-            if server_name == "rust_analyzer" then 
-                require('lspconfig')[server_name].setup({
-                    check_on_save = {
-                        command = "clippy",
+          'elixirls',
+          'lua_ls',
+          'gopls',
+          'rust_analyzer',
+        },
+        automatic_installation = true,
+        handlers = {
+          -- default handler
+          function(server_name)
+            if server_name == "rust_analyzer" then
+              require('lspconfig')[server_name].setup({
+                settings = {
+                  ['rust-analyzer'] = {
+                    check = {
+                      command = "clippy",
                     },
-                })
+                  },
+                },
+              })
             else
-                require('lspconfig')[server_name].setup({})
+              require('lspconfig')[server_name].setup({})
             end
-        end,
-    }
-})
+          end,
+        }
+      })
     end
-}
+  }
 }

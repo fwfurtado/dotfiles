@@ -44,8 +44,13 @@
 	helper = 
 	helper = !/usr/bin/gh auth git-credential
 
-[url "https://github.com/"]
-  insteadOf = "git@github.com:"
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
+    pushInsteadOf = "github:" 
+    pushInsteadOf = "git://github.com/"
+
+# [url "https://github.com/"]
+#  insteadOf = "git@github.com:"
 
 [gpg]
 	format = ssh

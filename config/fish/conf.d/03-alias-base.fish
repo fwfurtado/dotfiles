@@ -1,5 +1,5 @@
-alias pbcopy="wl-copy -p"
-alias pbpaste="wl-paste -p"
+alias pbcopy="xsel -ib"
+alias pbpaste="xsel -ob"
 
 function md
 
