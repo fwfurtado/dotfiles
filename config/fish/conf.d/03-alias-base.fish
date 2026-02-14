@@ -1,6 +1,9 @@
 alias pbcopy="xsel -ib"
 alias pbpaste="xsel -ob"
 
+alias teec="tee /dev/tty | fish_clipboard_copy"
+alias teep="fish_clipboard_paste | tee /dev/tty"
+
 function md
 
     argparse k/keep -- $argv
@@ -49,3 +52,5 @@ alias k='kubectl'
 #alias pby='xsel --clipboard --output | jless --yaml'
 
 alias docker-compose='docker compose'
+
+alias curp='cursor --user-data-dir="$HOME/.config/cursor/personal"'
