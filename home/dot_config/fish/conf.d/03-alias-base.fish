@@ -46,7 +46,7 @@ export LS_TREE_IGNORE="cache|log|logs|node_modules|vendor"
 
 alias lt='eza --icons --tree'
 
-alias k='kubectl'
+abbr --add k kubectl
 
 #alias pbj='xsel --clipboard --output | jless'
 #alias pby='xsel --clipboard --output | jless --yaml'

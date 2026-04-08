@@ -1,12 +1,15 @@
 version: '3'
 
 tasks:
-  setup:
+  init:
+    desc: Initialize chezmoi on a new machine
     cmds:
-      - cargo binstall -y -q dotter
+      - chezmoi init --source={{.TASKFILE_DIR}}/home
   deploy:
+    desc: Apply dotfiles to the current machine
     cmds:
-      - dotter deploy --force
-  undeploy:
-    cmds: 
-      - dotter undeploy --force
+      - chezmoi apply
+  diff:
+    desc: Show pending changes
+    cmds:
+      - chezmoi diff

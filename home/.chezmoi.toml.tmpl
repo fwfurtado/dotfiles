@@ -1,0 +1,12 @@
+{{- $machineClass := "" -}}
+{{- if eq .chezmoi.hostname "fw-minipc" -}}
+{{-   $machineClass = "minipc" -}}
+{{- else -}}
+{{-   $machineClass = promptStringOnce . "machineClass" "Machine class (minipc/laptop/desktop/server)" -}}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.workingTree | quote }}
+
+[data]
+    machineClass = {{ $machineClass | quote }}
+    background_opacity = {{ if eq $machineClass "laptop" }}0.5{{ else }}0.3{{ end }}
