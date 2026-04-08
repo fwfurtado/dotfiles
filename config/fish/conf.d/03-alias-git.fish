@@ -23,7 +23,7 @@ abbr --add gsw git switch
 abbr --add gsc git switch -c
 
 abbr --add gb git branch
-abbr --add gt git tag
+abbr --add gta git tag
 
 abbr --add gpl git pull
 abbr --add gplr git pull --rebase
