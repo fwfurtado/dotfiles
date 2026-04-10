@@ -1,6 +1,7 @@
 [user]
     name = Mimi
     email = fwfurtado@gmail.com
+    signingkey = {{ onepasswordRead "op://Private/Github SSH Key/public key" }}
 
 [core]
     autocrlf = input
@@ -55,8 +56,6 @@
 [gpg]
 	format = ssh
 [gpg "ssh"]
-	program = /opt/1Password/op-ssh-sign
+	allowedSignersFile = ~/.ssh/allowed_signers
 [commit]
 	gpgsign = true
-[user]
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGnjxWt9XUWWnP0ilRlAugrqYs0RKgfzn/3ZiyEKEENo

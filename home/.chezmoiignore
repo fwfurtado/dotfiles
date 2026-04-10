@@ -14,6 +14,7 @@
 
 {{- if eq .machineClass "server" }}
 # servers: minimal set (git, fish, starship, ssh)
+.config/fish/conf.d/ssh-agent.fish
 .config/nvim
 .config/nvim/**
 .config/nushell
