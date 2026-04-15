@@ -1,8 +1,9 @@
-alias pbcopy="xsel -ib"
-alias pbpaste="xsel -ob"
+{{ if eq .chezmoi.os "linux" }}
+alias pbcopy="fish_clipboard_copy"
+alias pbpaste="fish_clipboard_paste"
+{{ end }}
 
 alias teec="tee /dev/tty | fish_clipboard_copy"
-alias teep="fish_clipboard_paste | tee /dev/tty"
 
 function md
 
@@ -48,9 +49,4 @@ alias lt='eza --icons --tree'
 
 abbr --add k kubectl
 
-#alias pbj='xsel --clipboard --output | jless'
-#alias pby='xsel --clipboard --output | jless --yaml'
-
 alias docker-compose='docker compose'
-
-alias curp='cursor --user-data-dir="$HOME/.config/cursor/personal"'
