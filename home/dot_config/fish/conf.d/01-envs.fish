@@ -16,8 +16,10 @@ fish_add_path $ANDROID_SDK/platform-tools
 fish_add_path $ANDROID_SDK/tools/bin
 fish_add_path $ANDROID_SDK/tools
 fish_add_path $GOPATH/bin
+fish_add_path -U $HOME/.local/share/mise/shims
 
 
 export TASK_X_REMOTE_TASKFILES=1
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
+export PI_CODING_AGENT_SESSION_DIR="./.pi/sessions"

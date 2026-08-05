@@ -50,3 +50,21 @@ alias lt='eza --icons --tree'
 abbr --add k kubectl
 
 alias docker-compose='docker compose'
+
+function rec-session --argument arquivo
+    if test -z "$arquivo"
+        echo "Erro: Forneça um nome para o arquivo. Exemplo: gravar_sessao aula1.txt"
+        return 1
+    end
+
+    # Cria uma sessão limpa temporária do Fish executando a gravação
+    script -q -c "fish --init-command 'function fish_prompt; echo \"> \"; end'" $arquivo
+
+    # Remove códigos de cores ANSI residuais gerados por comandos como ls ou grep
+    if test -f $arquivo
+        set temp_file (mktemp)
+        sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,3})*)?[mGK]//g" $arquivo > $temp_file
+        mv $temp_file $arquivo
+        echo "Sessão gravada e limpa com sucesso em: $arquivo"
+    end
+end
