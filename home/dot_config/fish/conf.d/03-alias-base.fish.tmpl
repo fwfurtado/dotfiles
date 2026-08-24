@@ -6,21 +6,7 @@ alias pbpaste="fish_clipboard_paste"
 alias teec="tee /dev/tty | fish_clipboard_copy"
 
 function md
-
-    argparse k/keep -- $argv
-    or return
-
     mkdir -p $argv
-
-    if set -ql _flag_k
-        return $status
-    end
-
-    if test $status -ne 0
-        return $stauts
-    end
-
-    cd $argv
 end
 
 function bang_bang
