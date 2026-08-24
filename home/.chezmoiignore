@@ -1,5 +1,3 @@
-{{- if eq .machineClass "minipc" }}
-# minipc only uses: git, fish, starship, wallpapers, ssh, scripts
 .config/nvim
 .config/nvim/**
 .config/nushell
@@ -8,22 +6,16 @@
 .config/tmux/**
 .config/oh-my-posh
 .config/oh-my-posh/**
+
+{{- if eq .machineClass "minipc" }}
+# minipc only uses: git, fish, starship, wallpapers, ssh, scripts
 {{- end }}
 
 {{- if eq .machineClass "server" }}
 # servers: minimal set (git, fish, starship, ssh)
 .config/fish/conf.d/ssh-agent.fish
-.config/nvim
-.config/nvim/**
-.config/nushell
-.config/nushell/**
-.config/tmux
-.config/tmux/**
 .config/ghostty
 .config/ghostty/**
-.config/oh-my-posh
-.config/oh-my-posh/**
 Pictures/wallpapers
 Pictures/wallpapers/**
-.local/bin/remote-display.sh
 {{- end }}
