@@ -6,21 +6,18 @@
 [core]
     autocrlf = input
     compression = 9
-    pager = batcat
+    pager = "hunk pager"
     editor = nvim
 
 [diff]
     context = 3
-    tool = nvimdiff
+    tool = hunk
 
 [difftool]
-    prompt = true
+    prompt = false
 
-[merge]
-    tool = nvimdiff
-
-[mergetool]
-    prompt = true
+[difftool "hunk"]
+    cmd = hunk difftool \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
 
 [init]
     defaultBranch = main
