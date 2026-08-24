@@ -21,7 +21,8 @@ end
 
 abbr --add pls --function sudo_bang_bang
 
-alias cat='{{ get .tools.bat (default "default" .chezmoi.osRelease.id) | default .tools.bat.default }}'
+alias cat='{{ includeTemplate "tool" (dict "name" "bat" "ctx" .) }}'
+alias fd='{{ includeTemplate "tool" (dict "name" "fd" "ctx" .) }}'
 
 alias l='eza --icons'
 alias ls='eza --icons'

@@ -1,0 +1,5 @@
+{{- $rel  := .ctx.chezmoi.osRelease -}}
+{{- $id   := get $rel "id"     | default "" -}}
+{{- $like := get $rel "idLike" | default "" -}}
+{{- $map  := get .ctx.tools .name -}}
+{{- get $map $id | default (get $map $like) | default $map.default -}}
