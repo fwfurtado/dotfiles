@@ -8,6 +8,7 @@ fish_add_path -g /pkg/env/global/bin
 
 fish_add_path -g $HOME/.local/bin $HOME/.cargo/bin $HOME/go/bin $HOME/.krew/bin
 
+{{- $m := merge (dict) (get .machine .machineClass) .machine.defaults -}}
 {{ range $m.extraPaths }}
 fish_add_path -g {{ . }}
 {{- end }}
