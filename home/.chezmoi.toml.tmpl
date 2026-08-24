@@ -9,4 +9,3 @@ sourceDir = {{ .chezmoi.workingTree | quote }}
 
 [data]
     machineClass = {{ $machineClass | quote }}
-    background_opacity = {{ if eq $machineClass "laptop" }}0.5{{ else }}0.3{{ end }}

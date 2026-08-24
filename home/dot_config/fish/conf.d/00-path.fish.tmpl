@@ -7,3 +7,7 @@ fish_add_path -g /pkg/env/global/bin
 {{ end -}}
 
 fish_add_path -g $HOME/.local/bin $HOME/.cargo/bin $HOME/go/bin $HOME/.krew/bin
+
+{{ range $m.extraPaths }}
+fish_add_path -g {{ . }}
+{{- end }}

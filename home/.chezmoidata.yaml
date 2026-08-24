@@ -1,0 +1,23 @@
+# home/.chezmoidata.yaml
+tools:
+  bat:
+    default: bat
+    ubuntu: batcat
+  fd:
+    default: fd
+    ubuntu: fdfind
+machine:
+  defaults:
+    opacity: 0.3
+    wallpapers: pc
+    extraPaths: []
+  laptop:
+    opacity: 0.5
+    wallpapers: laptop
+  minipc:
+    extraPaths: []
+  server:
+    opacity: 1.0
+git:
+  email: fwfurtado@gmail.com
+  signingKey: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGnjxWt9XUWWnP0ilRlAugrqYs0RKgfzn/3ZiyEKEENo"

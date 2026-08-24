@@ -1,5 +1,6 @@
 mouse-scroll-multiplier = 1
-background-opacity = {{ .background_opacity }}
 background-blur = 10
 theme = Ubuntu
 keybind = alt+backspace=text:\x1b\x7f
+{{- $m := merge (dict) (get .machine .machineClass) .machine.defaults -}}
+background-opacity = {{ $m.opacity }}

@@ -1,7 +1,7 @@
 [user]
     name = Mimi
-    email = fwfurtado@gmail.com
-    signingkey = {{ onepasswordRead "op://Private/Github SSH Key/public key" }}
+    email = {{ .git.email }}
+    signingkey = key::{{ .git.signingKey }}
 
 [core]
     autocrlf = input
@@ -39,15 +39,15 @@
     ff = only
 
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 
 [url "git@github.com:"]
     insteadOf = "https://github.com/"
-    pushInsteadOf = "github:" 
+    pushInsteadOf = "github:"
     pushInsteadOf = "git://github.com/"
 
 [gpg]

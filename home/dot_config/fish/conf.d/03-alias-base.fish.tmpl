@@ -21,7 +21,7 @@ end
 
 abbr --add pls --function sudo_bang_bang
 
-alias cat='batcat'
+alias cat='{{ get .tools.bat (default "default" .chezmoi.osRelease.id) | default .tools.bat.default }}'
 
 alias l='eza --icons'
 alias ls='eza --icons'
