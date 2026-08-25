@@ -1,6 +1,11 @@
 version: '3'
 
 tasks:
+  setup:
+    cmds:
+      - mise install
+      - pre-commit install
+      - pre-commit run --all-files
   init:
     desc: Initialize chezmoi on a new machine
     cmds:

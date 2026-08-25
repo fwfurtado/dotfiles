@@ -1,0 +1,4 @@
+[tools]
+gitleaks = "latest"
+pre-commit = "4.6.2"
+task = "3.53.1"
