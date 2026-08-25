@@ -1,4 +1,4 @@
--- ~/.config/nvim/init.lua — Neovim 0.12+, zero plugins externos
+-- ~/.config/nvim/init.lua — Neovim 0.12+, um único plugin (nvim-treesitter)
 vim.loader.enable()
 
 vim.g.mapleader = ' '
@@ -50,15 +50,48 @@ end
 vim.cmd.colorscheme('default')
 
 --------------------------------------------------------------------------------
--- Treesitter (parsers do core: c, lua, markdown, query, vim, vimdoc)
+-- Plugins
 --------------------------------------------------------------------------------
--- Nas demais linguagens o realce cai nos arquivos de syntax do Vim, que existem
--- para rust, go, python, kotlin, dart e zig. Funciona; é menos preciso.
-vim.api.nvim_create_autocmd('FileType', {
+-- Hook precisa ser registrado ANTES do vim.pack.add, senão não roda na primeira
+-- instalação nem no bootstrap a partir do lockfile.
+vim.api.nvim_create_autocmd('PackChanged', {
     callback = function(ev)
-        pcall(vim.treesitter.start, ev.buf)
+        if ev.data.spec.name == 'nvim-treesitter' and ev.data.kind ~= 'delete' then
+            if not ev.data.active then vim.cmd.packadd('nvim-treesitter') end
+            vim.cmd('TSUpdate')
+        end
     end,
 })
+
+vim.pack.add({
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+})
+
+--------------------------------------------------------------------------------
+-- Treesitter
+--------------------------------------------------------------------------------
+local parsers = {
+    'bash', 'c', 'dart', 'diff', 'dockerfile', 'fish', 'go', 'gomod', 'gosum',
+    'gitcommit', 'hcl', 'json', 'kotlin', 'lua', 'make', 'markdown',
+    'markdown_inline', 'python', 'query', 'rust', 'sql', 'toml', 'vim',
+    'vimdoc', 'yaml', 'zig',
+}
+
+require('nvim-treesitter').install(parsers)
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = parsers,
+    callback = function()
+        -- realce, dobra e indentação baseados na árvore sintática
+        pcall(vim.treesitter.start)
+        vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end,
+})
+
+-- dobras existem mas começam todas abertas
+o.foldmethod = 'expr'
+o.foldlevelstart = 99
 
 --------------------------------------------------------------------------------
 -- LSP — definido à mão, sem nvim-lspconfig
@@ -100,7 +133,7 @@ local servers = {
         cmd = { 'ruff', 'server' },
         filetypes = { 'python' },
         root_markers = { 'pyproject.toml', 'ruff.toml', '.git' },
-    }
+    },
 }
 
 for name, config in pairs(servers) do
