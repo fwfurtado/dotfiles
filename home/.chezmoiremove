@@ -1,0 +1,13 @@
+.config/fish/conf.d/00-path.fish
+.config/fish/conf.d/01-envs.fish
+.config/fish/conf.d/02-loader-atuin.fish
+.config/fish/conf.d/02-loader-direnv.fish
+.config/fish/conf.d/02-loader-mise.fish
+.config/fish/conf.d/02-loader-starship.fish
+.config/fish/conf.d/02-loader-zoxide.fish
+.config/fish/conf.d/03-alias-aws.fish
+.config/fish/conf.d/03-alias-base.fish
+.config/fish/conf.d/03-alias-docker.fish
+.config/fish/conf.d/03-alias-git.fish
+.config/fish/conf.d/atuin.env.fish
+.config/fish/conf.d/ssh-agent.fish
