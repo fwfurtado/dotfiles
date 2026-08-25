@@ -16,3 +16,10 @@ sourceDir = {{ .chezmoi.workingTree | quote }}
 
 [data]
     machineClass = {{ $machineClass | quote }}
+
+[diff]
+    pager = "hunk pager"
+
+[merge]
+    command = "nvim"
+    args = ["-d", "{{ .Destination }}", "{{ .Source }}", "{{ .Target }}"]
