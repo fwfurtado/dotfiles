@@ -7,7 +7,9 @@
 # zoxide:   {{ output "sh" "-c" "command -v zoxide   >/dev/null 2>&1 && zoxide --version   2>/dev/null | head -1 || echo absent" | trim }}
 # direnv:   {{ output "sh" "-c" "command -v direnv   >/dev/null 2>&1 && direnv version     2>/dev/null | head -1 || echo absent" | trim }}
 # atuin:    {{ output "sh" "-c" "command -v atuin    >/dev/null 2>&1 && atuin --version    2>/dev/null | head -1 || echo absent" | trim }}
-
+# batman:  {{ output "sh" "-c" "command -v batman  >/dev/null 2>&1 && batman --version  2>/dev/null | head -1 || echo absent" | trim }}
+# batpipe: {{ output "sh" "-c" "command -v batpipe >/dev/null 2>&1 && batpipe --version 2>/dev/null | head -1 || echo absent" | trim }}
+#
 set -euo pipefail
 
 cache="${XDG_CACHE_HOME:-$HOME/.cache}/fish/init"
