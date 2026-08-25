@@ -95,7 +95,7 @@ local parsers = {
 
 require('nvim-treesitter').install(parsers)
 require('mini.surround').setup({
-    search_method = 'cover'
+    search_method = 'nearest'
 })
 
 vim.api.nvim_create_autocmd('FileType', {
