@@ -12,14 +12,11 @@ fish_add_path -g /pkg/env/global/bin
 # shims do mise antes de tudo, para valer também em shell não-interativo
 fish_add_path -g $HOME/.local/share/mise/shims
 
-fish_add_path -g $HOME/.local/bin $HOME/bin
-fish_add_path -g $HOME/.cargo/bin
-fish_add_path -g $GOPATH/bin
-fish_add_path -g $HOME/.krew/bin
-fish_add_path -g $HOME/.pulumi/bin
-fish_add_path -g $HOME/.opencode/bin
-fish_add_path -g $HOME/.lmstudio/bin
-fish_add_path -g $HOME/.toolhive/bin
+for dir in $HOME/.local/bin $HOME/bin $HOME/.cargo/bin $GOPATH/bin \
+           $HOME/.krew/bin $HOME/.pulumi/bin $HOME/.opencode/bin \
+           $HOME/.lmstudio/bin $HOME/.toolhive/bin
+    test -d $dir; and fish_add_path -g $dir
+end
 
 if test -d $DOTNET_ROOT
     fish_add_path -g $DOTNET_ROOT $DOTNET_ROOT/tools
