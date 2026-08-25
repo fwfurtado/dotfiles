@@ -2,7 +2,7 @@
 tools:
   bat:
     default: bat
-    ubuntu: batcat
+    ubuntu: bat
   fd:
     default: fd
     ubuntu: fdfind
