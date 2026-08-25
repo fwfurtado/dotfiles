@@ -98,7 +98,6 @@ require('nvim-treesitter').install(parsers)
 --------------------------------------------------------------------------------
 -- mini.nvim
 --------------------------------------------------------------------------------
-local parsers = {
 require('mini.icons').setup()
 require('mini.icons').mock_nvim_web_devicons()
 
