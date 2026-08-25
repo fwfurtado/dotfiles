@@ -49,6 +49,11 @@ end
 
 vim.cmd.colorscheme('default')
 
+-- usar clipboard do SO.
+vim.schedule(function()
+    vim.o.clipboard = 'unnamedplus'
+end)
+
 --------------------------------------------------------------------------------
 -- Plugins
 --------------------------------------------------------------------------------
