@@ -1,10 +1,3 @@
-{{ if eq .chezmoi.os "linux" -}}
-alias pbcopy="fish_clipboard_copy"
-alias pbpaste="fish_clipboard_paste"
-{{ end -}}
-
-alias teec="tee /dev/tty | fish_clipboard_copy"
-
 alias cat='{{ includeTemplate "tool" (dict "name" "bat" "ctx" .) }}'
 alias fd='{{ includeTemplate "tool" (dict "name" "fd" "ctx" .) }}'
 

@@ -8,6 +8,11 @@
 .config/oh-my-posh
 .config/oh-my-posh/**
 
+{{- if eq .chezmoi.os "darwin" }}
+.config/fish/functions/pbcopy.fish
+.config/fish/functions/pbpaste.fish
+{{- end }}
+
 {{- if eq .machineClass "minipc" }}
 # minipc only uses: git, fish, starship, wallpapers, ssh, scripts
 {{- end }}
