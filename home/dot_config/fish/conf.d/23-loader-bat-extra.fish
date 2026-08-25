@@ -1,9 +1,9 @@
 if status is-interactive
     cached-init batman; or begin
-        command -q batman; batman --export-env | source
+        command -q batman; and batman --export-env | source
     end
 
     cached-init batpipe; or begin
-        command -q batpipe; eval (batpipe)
+        command -q batpipe; and batpipe | source
     end
 end
