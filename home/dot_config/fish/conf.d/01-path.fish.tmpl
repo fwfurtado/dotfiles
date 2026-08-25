@@ -1,0 +1,31 @@
+# ~/.config/fish/conf.d/01-path.fish.tmpl  (chezmoi)
+{{ if eq .chezmoi.os "darwin" -}}
+if test -x /opt/homebrew/bin/brew
+    /opt/homebrew/bin/brew shellenv fish | source
+end
+fish_add_path -g /pkg/env/global/bin
+{{ end -}}
+
+# shims do mise antes de tudo, para valer também em shell não-interativo
+fish_add_path -g $HOME/.local/share/mise/shims
+
+fish_add_path -g $HOME/.local/bin $HOME/bin
+fish_add_path -g $HOME/.cargo/bin
+fish_add_path -g $GOPATH/bin
+fish_add_path -g $HOME/.krew/bin
+fish_add_path -g $HOME/.pulumi/bin
+fish_add_path -g $HOME/.opencode/bin
+fish_add_path -g $HOME/.lmstudio/bin
+fish_add_path -g $HOME/.toolhive/bin
+
+if test -d $DOTNET_ROOT
+    fish_add_path -g $DOTNET_ROOT $DOTNET_ROOT/tools
+end
+
+if test -d $ANDROID_SDK
+    fish_add_path -g $ANDROID_SDK/platform-tools $ANDROID_SDK/tools/bin $ANDROID_SDK/tools
+end
+{{- $m := merge (dict) (get .machine .machineClass) .machine.defaults }}
+{{ range $m.extraPaths -}}
+fish_add_path -g {{ . }}
+{{ end -}}

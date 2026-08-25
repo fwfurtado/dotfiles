@@ -50,13 +50,5 @@ abbr --add gwr git worktree remove
 abbr --add gwrf git worktree remove --force
 
 
-function gclone
-	set -l name (path change-extension '' $argv | path basename)
-	echo -e '\n'
-
-	git clone $argv
-
-	cd $name
-end
 
 abbr -a clone_git_repositories --position command --regex '.+\.git' --function gclone

@@ -13,7 +13,7 @@
 
 {{- if eq .machineClass "server" }}
 # servers: minimal set (git, fish, starship, ssh)
-.config/fish/conf.d/ssh-agent.fish
+.config/fish/conf.d/03-ssh-agent.fish
 .config/ghostty
 .config/ghostty/**
 Pictures/wallpapers
