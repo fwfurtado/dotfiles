@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Gera ~/.cache/fish/init/*.fish para o fish não spawnar um processo por loader
+# no startup. O hash deste arquivo muda quando qualquer versão abaixo muda, e aí
+# o chezmoi reexecuta o script sozinho.
+#
+# starship: {{ output "sh" "-c" "command -v starship >/dev/null 2>&1 && starship --version 2>/dev/null | head -1 || echo absent" | trim }}
+# zoxide:   {{ output "sh" "-c" "command -v zoxide   >/dev/null 2>&1 && zoxide --version   2>/dev/null | head -1 || echo absent" | trim }}
+# direnv:   {{ output "sh" "-c" "command -v direnv   >/dev/null 2>&1 && direnv version     2>/dev/null | head -1 || echo absent" | trim }}
+# atuin:    {{ output "sh" "-c" "command -v atuin    >/dev/null 2>&1 && atuin --version    2>/dev/null | head -1 || echo absent" | trim }}
+
+set -euo pipefail
+
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/fish/init"
+mkdir -p "$cache"
+
+gen() {
+    local name="$1"
+    shift
+
+    if ! command -v "$name" >/dev/null 2>&1; then
+        rm -f "$cache/$name.fish"
+        return 0
+    fi
+
+    if "$@" >"$cache/$name.fish.tmp" 2>/dev/null && [ -s "$cache/$name.fish.tmp" ]; then
+        mv "$cache/$name.fish.tmp" "$cache/$name.fish"
+    else
+        # falhou: remove o cache para o loader cair no fallback ao vivo
+        rm -f "$cache/$name.fish.tmp" "$cache/$name.fish"
+    fi
+}
+
+gen starship starship init fish --print-full-init
+gen zoxide zoxide init --cmd cd fish
+gen direnv direnv hook fish
+gen atuin atuin init fish --disable-up-arrow
