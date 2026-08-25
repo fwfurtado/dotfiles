@@ -5,6 +5,8 @@
 .config/tmux/**
 .config/oh-my-posh
 .config/oh-my-posh/**
+.config/nvim/spell
+.config/nvim/spell/**
 
 {{- if eq .chezmoi.os "darwin" }}
 .config/fish/functions/pbcopy.fish
