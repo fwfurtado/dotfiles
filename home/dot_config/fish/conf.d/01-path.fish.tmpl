@@ -11,17 +11,12 @@ fish_add_path -g /pkg/env/global/bin
 
 for dir in $HOME/.local/bin $HOME/bin $HOME/.cargo/bin $GOPATH/bin \
            $HOME/.krew/bin $HOME/.pulumi/bin $HOME/.opencode/bin \
-           $HOME/.lmstudio/bin $HOME/.toolhive/bin
+           $HOME/.lmstudio/bin $HOME/.toolhive/bin \
+           $DOTNET_ROOT $DOTNET_ROOT/tools \
+           $ANDROID_SDK/platform-tools $ANDROID_SDK/tools/bin $ANDROID_SDK/tools
     test -d $dir; and fish_add_path -g $dir
 end
 
-if test -d $DOTNET_ROOT
-    fish_add_path -g $DOTNET_ROOT $DOTNET_ROOT/tools
-end
-
-if test -d $ANDROID_SDK
-    fish_add_path -g $ANDROID_SDK/platform-tools $ANDROID_SDK/tools/bin $ANDROID_SDK/tools
-end
 
 # por último para ficar na frente: shims resolvem a versão certa das ferramentas
 fish_add_path -g $HOME/.local/share/mise/shims
