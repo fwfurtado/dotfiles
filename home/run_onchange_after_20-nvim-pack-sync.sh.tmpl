@@ -1,0 +1,13 @@
+# home/run_onchange_after_20-nvim-pack-sync.sh.tmpl
+#!/usr/bin/env bash
+# Roda quando o lockfile muda — ou seja, sempre que um chezmoi update trouxer
+# revisões novas de outra máquina.
+#
+# lockfile-hash: {{ include ".chezmoidata.yaml" | sha256sum }}
+{{ include "dot_config/exact_nvim/nvim-pack-lock.json" | sha256sum }}
+
+set -euo pipefail
+
+command -v nvim >/dev/null 2>&1 || exit 0
+
+nvim --headless -c 'lua vim.pack.update(nil, { target = "lockfile" })' -c 'quitall'
