@@ -7,6 +7,10 @@
 
 sourceDir = {{ .chezmoi.workingTree | quote }}
 
+[git]
+    autoCommit = true
+    autoPush = false
+
 [add]
     secrets = "error"
 
