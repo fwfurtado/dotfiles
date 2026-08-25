@@ -80,6 +80,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 
 vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    'https://github.com/nvim-mini/mini.surround',
 })
 
 --------------------------------------------------------------------------------
@@ -93,6 +94,7 @@ local parsers = {
 }
 
 require('nvim-treesitter').install(parsers)
+require('mini.surround').setup()
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = parsers,
