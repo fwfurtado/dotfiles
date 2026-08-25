@@ -1,10 +1,8 @@
-# home/run_onchange_after_20-nvim-pack-sync.sh.tmpl
 #!/usr/bin/env bash
-# Roda quando o lockfile muda — ou seja, sempre que um chezmoi update trouxer
+# Roda quando o lockfile muda — inclusive quando um chezmoi update traz
 # revisões novas de outra máquina.
 #
-# lockfile-hash: {{ include ".chezmoidata.yaml" | sha256sum }}
-{{ include "dot_config/exact_nvim/nvim-pack-lock.json" | sha256sum }}
+# lockfile: {{ include "dot_config/exact_nvim/nvim-pack-lock.json" | sha256sum }}
 
 set -euo pipefail
 
