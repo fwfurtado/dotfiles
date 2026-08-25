@@ -80,7 +80,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 
 vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
-    'https://github.com/nvim-mini/mini.surround',
+    'https://github.com/nvim-mini/mini.nvim',
 })
 
 --------------------------------------------------------------------------------
@@ -94,9 +94,33 @@ local parsers = {
 }
 
 require('nvim-treesitter').install(parsers)
+
+--------------------------------------------------------------------------------
+-- mini.nvim
+--------------------------------------------------------------------------------
+local parsers = {
+require('mini.icons').setup()
+require('mini.icons').mock_nvim_web_devicons()
+
 require('mini.surround').setup({
     search_method = 'nearest'
 })
+
+local ai = require('mini.ai')
+ai.setup({
+    n_lines = 500,
+    custom_textobjects = {
+        f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+        c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+        o = ai.gen_spec.treesitter({
+            a = { '@conditional.outer', '@loop.outer' },
+            i = { '@conditional.inner', '@loop.inner' },
+        }),
+    },
+})
+
+require('mini.pick').setup()
+require('mini.files').setup()
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = parsers,
@@ -185,13 +209,19 @@ vim.diagnostic.config({
 -- grr (references), gri (implementation), gO (symbols), CTRL-S (signature).
 local map = vim.keymap.set
 
-map('n', '<leader>ff', ':find ', { desc = 'Find file' })
-map('n', '<leader>fb', ':buffer ', { desc = 'Buffer' })
-map('n', '<leader>fg', ':silent grep ', { desc = 'Grep' })
-map('n', '<leader>fq', '<cmd>copen<cr>', { desc = 'Quickfix' })
-map('n', '<leader>fd', vim.diagnostic.setqflist, { desc = 'Diagnostics no quickfix' })
+map('n', '<leader>ff', '<cmd>Pick files<cr>', { desc = 'Find files' })
+map('n', '<leader>fb', '<cmd>Pick buffers<cr>', { desc = 'Buffers' })
+map('n', '<leader>fg', '<cmd>Pick grep_live<cr>', { desc = 'Live grep' })
+map('n', '<leader>fh', '<cmd>Pick help<cr>', { desc = 'Help' })
+map('n', '<leader>fd', '<cmd>Pick diagnostic<cr>', { desc = 'Diagnostics' })
+map('n', '<leader>fr', '<cmd>Pick resume<cr>', { desc = 'Retoma última busca' })
 
-map('n', '<leader>e', '<cmd>Explore<cr>', { desc = 'File explorer' })
+map('n', '<leader>fq', '<cmd>copen<cr>', { desc = 'Quickfix' })
+
+map('n', '<leader>e', function()
+    require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
+end, { desc = 'File explorer' })
+
 map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write' })
 map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
 
