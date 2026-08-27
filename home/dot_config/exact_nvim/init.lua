@@ -119,7 +119,12 @@ ai.setup({
 })
 
 require('mini.pick').setup()
-require('mini.files').setup()
+require('mini.files').setup({
+    mappings = {
+        go_in = '<Right>',
+        go_out = '<Left>',
+    }
+})
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = parsers,
