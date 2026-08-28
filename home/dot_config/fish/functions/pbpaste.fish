@@ -1,6 +1,6 @@
 function pbpaste --description 'lê o clipboard para stdout (compat macOS)'
     if set -q WAYLAND_DISPLAY; and type -q wl-paste
-        wl-paste -n
+        wl-paste | string collect -N
     else if set -q DISPLAY; and type -q xsel
         xsel --clipboard --output
     else if set -q DISPLAY; and type -q xclip
