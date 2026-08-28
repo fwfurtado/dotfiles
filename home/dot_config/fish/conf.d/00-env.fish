@@ -8,6 +8,5 @@ set -gx GOPATH $HOME/go
 
 set -gx DOCKER_BUILDKIT 1
 set -gx COMPOSE_DOCKER_CLI_BUILD 1
-set -gx PI_CODING_AGENT_SESSION_DIR "./.pi/sessions"
 set -gx OMP_PROFILE mimi
 set -gx LS_TREE_IGNORE "cache|log|logs|node_modules|vendor"
