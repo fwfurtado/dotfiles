@@ -307,7 +307,6 @@ map('n', '<leader>E', function()
     require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
 end, { desc = 'File explorer' })
 map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
-map('n', '<leader>O', '<cmd>horizontal Oil <cr>', { desc = 'Oil (horizontal)' })
 
 map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write' })
 map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
