@@ -47,7 +47,6 @@ if vim.fn.executable('rg') == 1 then
     o.grepformat = '%f:%l:%c:%m'
 end
 
-vim.cmd.colorscheme('default')
 
 -- usar clipboard do SO.
 vim.schedule(function()
@@ -82,6 +81,9 @@ vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     'https://github.com/nvim-mini/mini.nvim',
 })
+
+
+vim.cmd.colorscheme('minicyan')
 
 --------------------------------------------------------------------------------
 -- Treesitter
