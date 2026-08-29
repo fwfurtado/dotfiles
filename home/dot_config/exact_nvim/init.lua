@@ -120,6 +120,13 @@ ai.setup({
         -- nvim-treesitter (branch main só traz highlights/indents/folds/locals).
         -- Quem fornece é o nvim-treesitter-textobjects, no vim.pack.add acima.
         -- Sem ele: "Can not get query for buffer N and language X".
+
+        -- argumento/parâmetro (44 linguagens; substitui o `a` por patterns)
+        a = ai.gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
+
+        -- chamada de função — recupera o que o `f` built-in fazia
+        F = ai.gen_spec.treesitter({ a = '@call.outer', i = '@call.inner' }),
+
         f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
         c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
         o = ai.gen_spec.treesitter({
