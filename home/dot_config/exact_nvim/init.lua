@@ -78,6 +78,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 })
 
 vim.pack.add({
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     'https://github.com/nvim-mini/mini.nvim',
     'https://github.com/stevearc/oil.nvim',
@@ -115,6 +116,10 @@ local ai = require('mini.ai')
 ai.setup({
     n_lines = 500,
     custom_textobjects = {
+        -- Estes dependem de queries `textobjects.scm`, que NÃO vêm no
+        -- nvim-treesitter (branch main só traz highlights/indents/folds/locals).
+        -- Quem fornece é o nvim-treesitter-textobjects, no vim.pack.add acima.
+        -- Sem ele: "Can not get query for buffer N and language X".
         f = ai.gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
         c = ai.gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
         o = ai.gen_spec.treesitter({
