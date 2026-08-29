@@ -275,7 +275,8 @@ map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc
 map('n', '<leader>lg', '<cmd>Pick lsp scope="definition"<cr>', { desc = 'LSP definition' })
 map('n', '<leader>li', '<cmd>Pick lsp scope="implementation"<cr>', { desc = 'LSP implementation' })
 
-map('n', '<leader>e', function()
+map('n', '<leader>e', '<cmd>Pick explorer<cr>', { desc = 'Navegar' })
+map('n', '<leader>E', function()
     require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
 end, { desc = 'File explorer' })
 
