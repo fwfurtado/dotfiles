@@ -160,6 +160,43 @@ require('mini.move').setup({
 require('mini.animate').setup()
 require('mini.indentscope').setup()
 
+-- mini.clue — janela de dicas para prefixos de teclas.
+-- As descrições vêm do campo `desc` dos mapeamentos já existentes; os `clues`
+-- abaixo só nomeiam os GRUPOS (o que aparece antes da segunda tecla).
+local miniclue = require('mini.clue')
+miniclue.setup({
+    triggers = {
+        { mode = { 'n', 'x' }, keys = '<Leader>' },
+        { mode = 'n', keys = '<C-w>' },
+        { mode = { 'n', 'x' }, keys = 'g' },
+        { mode = { 'n', 'x' }, keys = 'z' },
+        { mode = { 'n', 'x' }, keys = "'" },
+        { mode = { 'n', 'x' }, keys = '`' },
+        { mode = { 'n', 'x' }, keys = '"' },
+        { mode = { 'n', 'x' }, keys = '[' },
+        { mode = { 'n', 'x' }, keys = ']' },
+        { mode = { 'i', 'c' }, keys = '<C-r>' },
+        { mode = 'i', keys = '<C-x>' },
+    },
+
+    clues = {
+        { mode = 'n', keys = '<Leader>f', desc = '+Find' },
+        { mode = 'n', keys = '<Leader>g', desc = '+Git' },
+        { mode = 'n', keys = '<Leader>l', desc = '+LSP' },
+
+        -- conjuntos prontos para teclas built-in do Vim
+        miniclue.gen_clues.g(),
+        miniclue.gen_clues.z(),
+        miniclue.gen_clues.marks(),
+        miniclue.gen_clues.registers(),
+        miniclue.gen_clues.windows(),
+        miniclue.gen_clues.builtin_completion(),
+        miniclue.gen_clues.square_brackets(),
+    },
+
+    window = { delay = 300 },
+})
+
 --------------------------------------------------------------------------------
 -- oil.nvim — em avaliação, convivendo com mini.files
 --------------------------------------------------------------------------------
@@ -257,6 +294,16 @@ vim.api.nvim_create_autocmd('LspAttach', {
         if client and client:supports_method('textDocument/completion') then
             vim.lsp.completion.enable(true, ev.data.client_id, ev.buf, { autotrigger = true })
         end
+
+        -- Triggers do mini.clue são mapeamentos buffer-local e precisam ser os
+        -- mais recentes. O LSP cria os seus no attach, então recria os triggers
+        -- depois (doc do mini.clue, "Triggers are implemented as special
+        -- buffer-local mappings").
+        vim.schedule(function()
+            if vim.api.nvim_buf_is_valid(ev.buf) then
+                MiniClue.ensure_buf_triggers(ev.buf)
+            end
+        end)
     end,
 })
 
