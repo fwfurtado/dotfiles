@@ -107,6 +107,9 @@ require('mini.surround').setup({
     search_method = 'nearest'
 })
 
+-- gen_ai_spec vive no módulo, não depende de MiniExtra.setup() ter rodado.
+local gen_ai_spec = require('mini.extra').gen_ai_spec
+
 local ai = require('mini.ai')
 ai.setup({
     n_lines = 500,
@@ -117,10 +120,21 @@ ai.setup({
             a = { '@conditional.outer', '@loop.outer' },
             i = { '@conditional.inner', '@loop.inner' },
         }),
+
+        -- os abaixo não dependem de parser treesitter: funcionam em qualquer buffer
+        B = gen_ai_spec.buffer(),
+        D = gen_ai_spec.diagnostic(),
+        I = gen_ai_spec.indent(),
+        L = gen_ai_spec.line(),
+        N = gen_ai_spec.number(),
     },
 })
 
 require('mini.pick').setup()
+
+-- Precisa vir DEPOIS de mini.pick: MiniExtra.setup() só registra os pickers em
+-- MiniPick.registry se o global MiniPick já existir (extra.lua, apply_config).
+require('mini.extra').setup()
 require('mini.files').setup({
     mappings = {
         go_in = '<Right>',
@@ -239,7 +253,27 @@ map('n', '<leader>fh', '<cmd>Pick help<cr>', { desc = 'Help' })
 map('n', '<leader>fd', '<cmd>Pick diagnostic<cr>', { desc = 'Diagnostics' })
 map('n', '<leader>fr', '<cmd>Pick resume<cr>', { desc = 'Retoma última busca' })
 
-map('n', '<leader>fq', '<cmd>copen<cr>', { desc = 'Quickfix' })
+-- pickers do mini.extra
+map('n', '<leader>fo', '<cmd>Pick oldfiles<cr>', { desc = 'Oldfiles' })
+map('n', '<leader>fl', '<cmd>Pick buf_lines scope="current"<cr>', { desc = 'Linhas do buffer' })
+map('n', '<leader>fk', '<cmd>Pick keymaps<cr>', { desc = 'Keymaps' })
+map('n', '<leader>fc', '<cmd>Pick colorschemes<cr>', { desc = 'Colorschemes' })
+map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
+map('n', '<leader>f:', '<cmd>Pick history scope=":"<cr>', { desc = 'Histórico de comandos' })
+
+map('n', '<leader>fq', '<cmd>Pick list scope="quickfix"<cr>', { desc = 'Quickfix' })
+
+map('n', '<leader>gf', '<cmd>Pick git_files<cr>', { desc = 'Git files' })
+map('n', '<leader>gh', '<cmd>Pick git_hunks<cr>', { desc = 'Git hunks' })
+map('n', '<leader>gH', '<cmd>Pick git_hunks scope="staged"<cr>', { desc = 'Git hunks (staged)' })
+map('n', '<leader>gc', '<cmd>Pick git_commits<cr>', { desc = 'Git commits' })
+map('n', '<leader>gb', '<cmd>Pick git_branches<cr>', { desc = 'Git branches' })
+
+map('n', '<leader>lr', '<cmd>Pick lsp scope="references"<cr>', { desc = 'LSP references' })
+map('n', '<leader>ls', '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = 'LSP symbols' })
+map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc = 'LSP workspace symbols' })
+map('n', '<leader>lg', '<cmd>Pick lsp scope="definition"<cr>', { desc = 'LSP definition' })
+map('n', '<leader>li', '<cmd>Pick lsp scope="implementation"<cr>', { desc = 'LSP implementation' })
 
 map('n', '<leader>e', function()
     require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
