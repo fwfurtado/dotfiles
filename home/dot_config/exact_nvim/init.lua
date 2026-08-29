@@ -80,6 +80,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
     'https://github.com/nvim-mini/mini.nvim',
+    'https://github.com/stevearc/oil.nvim',
 })
 
 
@@ -158,6 +159,32 @@ require('mini.move').setup({
 
 require('mini.animate').setup()
 require('mini.indentscope').setup()
+
+--------------------------------------------------------------------------------
+-- oil.nvim — em avaliação, convivendo com mini.files
+--------------------------------------------------------------------------------
+-- default_file_explorer = false enquanto isso for teste: assumir os buffers de
+-- diretório é irreversível dentro da sessão e mudaria o comportamento de
+-- `nvim .` sem você pedir. Vire para true se decidir adotar.
+require('oil').setup({
+    default_file_explorer = false,
+
+    -- mini.icons já está carregado e faz mock de nvim-web-devicons,
+    -- então a coluna de ícone funciona sem dependência nova.
+    columns = { 'icon' },
+
+    delete_to_trash = true,
+    watch_for_changes = true,
+
+    lsp_file_methods = {
+        enabled = true,
+        timeout_ms = 1000,   -- mesmo default do options.lsp_timeout do mini.files
+    },
+
+    view_options = {
+        show_hidden = true,
+    },
+})
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = parsers,
@@ -279,6 +306,7 @@ map('n', '<leader>e', '<cmd>Pick explorer<cr>', { desc = 'Navegar' })
 map('n', '<leader>E', function()
     require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
 end, { desc = 'File explorer' })
+map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
 
 map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write' })
 map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
