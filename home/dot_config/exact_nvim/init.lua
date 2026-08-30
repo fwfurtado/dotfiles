@@ -134,6 +134,10 @@ ai.setup({
             i = { '@conditional.inner', '@loop.inner' },
         }),
 
+        -- bloco e comentário
+        k = ai.gen_spec.treesitter({ a = '@block.outer', i = '@block.inner' }),
+        C = ai.gen_spec.treesitter({ a = '@comment.outer', i = '@comment.outer' }),
+
         -- os abaixo não dependem de parser treesitter: funcionam em qualquer buffer
         B = gen_ai_spec.buffer(),
         D = gen_ai_spec.diagnostic(),
