@@ -173,11 +173,7 @@ require('mini.move').setup({
     }
 })
 
-require('mini.animate').setup({
-    scrol = {
-        enable = false
-    }
-})
+require('mini.animate').setup()
 require('mini.indentscope').setup()
 require('mini.trailspace').setup()
 require('mini.statusline').setup()
