@@ -347,12 +347,13 @@ map('n', '<leader>fr', '<cmd>Pick resume<cr>', { desc = 'Retoma última busca' }
 map('n', '<leader>fo', '<cmd>Pick oldfiles<cr>', { desc = 'Oldfiles' })
 map('n', '<leader>fl', '<cmd>Pick buf_lines scope="current"<cr>', { desc = 'Linhas do buffer' })
 map('n', '<leader>fk', '<cmd>Pick keymaps<cr>', { desc = 'Keymaps' })
-map('n', '<leader>fc', '<cmd>Pick colorschemes<cr>', { desc = 'Colorschemes' })
+map('n', '<leader>fC', '<cmd>Pick colorschemes<cr>', { desc = 'Colorschemes' })
 map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
 map('n', '<leader>f:', '<cmd>Pick history scope=":"<cr>', { desc = 'Histórico de comandos' })
 
 map('n', '<leader>fq', '<cmd>Pick list scope="quickfix"<cr>', { desc = 'Quickfix' })
-map('n', '<leader>fj', '<cmd>Pick list scope="jumplist"<cr>', { desc = 'Histórico de jump' })
+map('n', '<leader>fj', '<cmd>Pick list scope="jump"<cr>', { desc = 'Jump list' })
+map('n', '<leader>fc', '<cmd>Pick list scope="change"<cr>', { desc = 'Change list' })
 
 map('n', '<leader>gf', '<cmd>Pick git_files<cr>', { desc = 'Git files' })
 map('n', '<leader>gh', '<cmd>Pick git_hunks<cr>', { desc = 'Git hunks' })
