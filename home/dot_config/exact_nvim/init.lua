@@ -176,7 +176,7 @@ require('mini.move').setup({
 })
 
 require('mini.animate').setup({
-    scroll = { 
+    scroll = {
         timing = function(_, n) return math.min(250 / n, 10) end,
     },
 })
@@ -219,7 +219,10 @@ miniclue.setup({
         miniclue.gen_clues.square_brackets(),
     },
 
-    window = { delay = 300 },
+    window = { 
+        delay = 300,
+        config = { width = 'auto' },
+    },
 })
 
 --------------------------------------------------------------------------------
@@ -390,6 +393,9 @@ map('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
 
 map('x', '<leader>p', [["_dP]], { desc = 'Paste keeping register' })
 
+map('i', '<Space>', '<C-g>u<Space>')
+map('i', '<CR>', '<C-g>u<CR>')
+
 --------------------------------------------------------------------------------
 -- Autocmds
 --------------------------------------------------------------------------------
@@ -402,3 +408,4 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
     pattern = { 'grep', 'grepadd' },
     command = 'cwindow',
 })
+
