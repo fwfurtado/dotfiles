@@ -352,6 +352,7 @@ map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
 map('n', '<leader>f:', '<cmd>Pick history scope=":"<cr>', { desc = 'Histórico de comandos' })
 
 map('n', '<leader>fq', '<cmd>Pick list scope="quickfix"<cr>', { desc = 'Quickfix' })
+map('n', '<leader>fj', '<cmd>Pick list scope="jumplist"<cr>', { desc = 'Histórico de jump' })
 
 map('n', '<leader>gf', '<cmd>Pick git_files<cr>', { desc = 'Git files' })
 map('n', '<leader>gh', '<cmd>Pick git_hunks<cr>', { desc = 'Git hunks' })
@@ -377,8 +378,6 @@ map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
 map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
 map('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
 
-map('v', 'J', ":m '>+1<cr>gv=gv", { desc = 'Move selection down' })
-map('v', 'K', ":m '<-2<cr>gv=gv", { desc = 'Move selection up' })
 map('x', '<leader>p', [["_dP]], { desc = 'Paste keeping register' })
 
 --------------------------------------------------------------------------------
