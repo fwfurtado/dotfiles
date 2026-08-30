@@ -175,6 +175,8 @@ require('mini.move').setup({
 
 require('mini.animate').setup()
 require('mini.indentscope').setup()
+require('mini.trailspace').setup()
+require('mini.statusline').setup()
 
 -- mini.clue — janela de dicas para prefixos de teclas.
 -- As descrições vêm do campo `desc` dos mapeamentos já existentes; os `clues`
