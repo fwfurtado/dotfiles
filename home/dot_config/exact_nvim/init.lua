@@ -174,7 +174,9 @@ require('mini.move').setup({
 })
 
 require('mini.animate').setup({
-    scroll = { enable = false },
+    scroll = { 
+        timing = function(_, n) return math.min(250 / n, 10) end,
+    },
 })
 require('mini.indentscope').setup()
 require('mini.trailspace').setup()
