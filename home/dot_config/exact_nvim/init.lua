@@ -33,6 +33,8 @@ o.updatetime = 250
 o.splitbelow = true
 o.splitright = true
 
+o.mousescroll = 'ver:1,hor:2'
+
 -- :find <Tab> vira um finder decente sem plugin
 o.path = '.,**'
 o.wildignore = '**/.git/*,**/node_modules/*,**/target/*,**/build/*,**/.venv/*'
