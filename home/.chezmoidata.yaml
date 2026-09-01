@@ -12,7 +12,7 @@ machine:
     wallpapers: pc
     extraPaths: []
   laptop:
-    opacity: 0.5
+    opacity: 0.8
     wallpapers: laptop
   minipc:
     extraPaths: []
