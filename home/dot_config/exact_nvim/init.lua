@@ -208,6 +208,7 @@ miniclue.setup({
         { mode = 'n', keys = '<Leader>f', desc = '+Find' },
         { mode = 'n', keys = '<Leader>g', desc = '+Git' },
         { mode = 'n', keys = '<Leader>l', desc = '+LSP' },
+        { mode = 'n', keys = '<Leader>t', desc = '+Trim' },
 
         -- conjuntos prontos para teclas built-in do Vim
         miniclue.gen_clues.g(),
@@ -378,6 +379,13 @@ map('n', '<leader>ls', '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = 'LS
 map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc = 'LSP workspace symbols' })
 map('n', '<leader>lg', '<cmd>Pick lsp scope="definition"<cr>', { desc = 'LSP definition' })
 map('n', '<leader>li', '<cmd>Pick lsp scope="implementation"<cr>', { desc = 'LSP implementation' })
+
+map('n', '<leader>tw', MiniTrailspace.trim, { desc = 'Trim trailing whitespace' })
+map('n', '<leader>tl', MiniTrailspace.trim_last_lines, { desc = 'Trim linhas finais' })
+map('n', '<leader>ta', function()
+    MiniTrailspace.trim()
+    MiniTrailspace.trim_last_lines()
+end, { desc = 'Trim all' })
 
 map('n', '<leader>e', '<cmd>Pick explorer<cr>', { desc = 'Navegar' })
 map('n', '<leader>E', function()
