@@ -44,32 +44,28 @@ PanelWindow {
                 implicitWidth: 18
                 implicitHeight: 18
 
-                // Image {
-                //     anchors.centerIn: parent
-                //     width: 16; height: 16
-                //     source: modelData.icon
-                //     smooth: true
-                //     fillMode: Image.PreserveAspectFit
-                // }
-
-                Item {
+                Image {
                     anchors.centerIn: parent
-                    width: 16
-                    height: 16
+                    width: 16; height: 16
+                    source: modelData.icon
+                    smooth: true
+                    fillMode: Image.PreserveAspectFit
 
-                    IconImage {
-                        id: trayIcon
-                        anchors.fill: parent
-                        source: modelData.icon
+                    source: {
+                        const icon = modelData.icon
+
+                        // Já é uma URL/source pronta do tray.
+                        if (icon.startsWith("image://") ||
+                        icon.startsWith("file://") ||
+                        icon.startsWith("/")) {
+                            return icon
+                        }
+
+                        // Nome de ícone do tema.
+                        return Quickshell.iconPath(icon, true)
                     }
 
-                    Text {
-                        anchors.centerIn: parent
-                        visible: trayIcon.status === Image.Error
-                        text: "?"
-                        color: Theme.muted
-                        font.pixelSize: 12
-                    }
+                    visible: source !== ""
                 }
 
                 MouseArea {
