@@ -42,12 +42,32 @@ PanelWindow {
                 implicitWidth: 18
                 implicitHeight: 18
 
-                Image {
+                // Image {
+                //     anchors.centerIn: parent
+                //     width: 16; height: 16
+                //     source: modelData.icon
+                //     smooth: true
+                //     fillMode: Image.PreserveAspectFit
+                // }
+
+                Item {
                     anchors.centerIn: parent
-                    width: 16; height: 16
-                    source: modelData.icon
-                    smooth: true
-                    fillMode: Image.PreserveAspectFit
+                    width: 16
+                    height: 16
+
+                    IconImage {
+                        id: trayIcon
+                        anchors.fill: parent
+                        source: modelData.icon
+                    }
+
+                    Text {
+                        anchors.centerIn: parent
+                        visible: trayIcon.status === Image.Error
+                        text: "?"
+                        color: Theme.muted
+                        font.pixelSize: 12
+                    }
                 }
 
                 MouseArea {
