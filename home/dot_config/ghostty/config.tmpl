@@ -6,5 +6,17 @@ keybind = alt+backspace=text:\x1b\x7f
 background-opacity = {{ $m.opacity }}
 {{ if eq .chezmoi.os "linux" }}
 keybind = global:ctrl+grave_accent=toggle_quick_terminal
+quick-terminal-position = top
+quick-terminal-size = 40%
+
+# Quero que fique acima das outras janelas.
+gtk-quick-terminal-layer = overlay
+
+# Recebe teclado quando está focado.
+quick-terminal-keyboard-interactivity = on-demand
+
+# Eu prefiro true para comportamento "quake":
+# clicou fora -> desaparece.
+quick-terminal-autohide = true
 {{ end }}
 
