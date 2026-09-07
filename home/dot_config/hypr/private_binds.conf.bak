@@ -1,0 +1,156 @@
+# ~/.config/hypr/binds.conf
+#
+# Nada de bind implícito. Tudo declarado aqui, na intenção de que
+# `hyprctl binds` seja a fonte da verdade — o equivalente ao seu `bspc`.
+#
+# Convenção:
+#   SUPER            -> foco e navegação
+#   SUPER + SHIFT    -> mover / reorganizar
+#   SUPER + CTRL     -> estado da janela
+#   SUPER + ALT      -> sistema
+
+$mod = SUPER
+$term = ghostty
+$browser = google-chrome
+$launcher = fuzzel
+
+# ---------------------------------------------------------------------------
+# Aplicações
+# ---------------------------------------------------------------------------
+bind = $mod, Return,       exec, $term
+bind = $mod SHIFT, Return, exec, $browser
+bind = $mod, E,            exec, nautilus
+bind = $mod, space,        exec, $launcher
+bind = $mod, V,            exec, cliphist list | $launcher --dmenu | cliphist decode | wl-copy
+
+# ---------------------------------------------------------------------------
+# Foco. hjkl porque você vem de tiling; setas espelhadas porque às vezes
+# a mão está no mouse.
+# ---------------------------------------------------------------------------
+bind = $mod, H, movefocus, l
+bind = $mod, J, movefocus, d
+bind = $mod, K, movefocus, u
+bind = $mod, L, movefocus, r
+bind = $mod, left,  movefocus, l
+bind = $mod, down,  movefocus, d
+bind = $mod, up,    movefocus, u
+bind = $mod, right, movefocus, r
+
+# Específicos do master layout — o que substitui o "rotate/balance" do bspwm.
+bind = $mod, M,        layoutmsg, focusmaster
+bind = $mod SHIFT, M,  layoutmsg, swapwithmaster
+bind = $mod, Tab,      layoutmsg, cyclenext
+bind = $mod SHIFT, Tab, layoutmsg, cycleprev
+bind = $mod, comma,    layoutmsg, addmaster
+bind = $mod, period,   layoutmsg, removemaster
+
+# ---------------------------------------------------------------------------
+# Mover janelas
+# ---------------------------------------------------------------------------
+bind = $mod SHIFT, H, movewindow, l
+bind = $mod SHIFT, J, movewindow, d
+bind = $mod SHIFT, K, movewindow, u
+bind = $mod SHIFT, L, movewindow, r
+bind = $mod SHIFT, left,  movewindow, l
+bind = $mod SHIFT, down,  movewindow, d
+bind = $mod SHIFT, up,    movewindow, u
+bind = $mod SHIFT, right, movewindow, r
+
+bindm = $mod, mouse:272, movewindow
+bindm = $mod, mouse:273, resizewindow
+
+# ---------------------------------------------------------------------------
+# Estado da janela
+# ---------------------------------------------------------------------------
+bind = $mod, Q,           killactive
+bind = $mod CTRL, F,      fullscreen, 0
+bind = $mod CTRL, M,      fullscreen, 1        # maximiza respeitando gaps
+bind = $mod CTRL, space,  togglefloating
+bind = $mod CTRL, P,      pin
+
+# Cinema mode: estreita a área útil para uma coluna central legível.
+# O item mais importante deste arquivo num monitor de 5120px.
+bind = $mod, F12, exec, ~/.local/bin/hypr-cinema
+
+# ---------------------------------------------------------------------------
+# Redimensionar: submap dedicado. Segurar acorde para redimensionar em 32:9
+# é desconfortável — melhor entrar num modo e sair com Esc.
+# ---------------------------------------------------------------------------
+bind = $mod, R, submap, resize
+submap = resize
+binde = , H, resizeactive, -80 0
+binde = , L, resizeactive,  80 0
+binde = , K, resizeactive, 0 -40
+binde = , J, resizeactive, 0  40
+binde = , left,  resizeactive, -80 0
+binde = , right, resizeactive,  80 0
+binde = , up,    resizeactive, 0 -40
+binde = , down,  resizeactive, 0  40
+bind = , escape, submap, reset
+bind = , Return, submap, reset
+submap = reset
+
+# ---------------------------------------------------------------------------
+# Workspaces
+# ---------------------------------------------------------------------------
+bind = $mod, 1, workspace, 1
+bind = $mod, 2, workspace, 2
+bind = $mod, 3, workspace, 3
+bind = $mod, 4, workspace, 4
+bind = $mod, 5, workspace, 5
+bind = $mod, 6, workspace, 6
+bind = $mod, 7, workspace, 7
+bind = $mod, 8, workspace, 8
+bind = $mod, 9, workspace, 9
+
+bind = $mod SHIFT, 1, movetoworkspacesilent, 1
+bind = $mod SHIFT, 2, movetoworkspacesilent, 2
+bind = $mod SHIFT, 3, movetoworkspacesilent, 3
+bind = $mod SHIFT, 4, movetoworkspacesilent, 4
+bind = $mod SHIFT, 5, movetoworkspacesilent, 5
+bind = $mod SHIFT, 6, movetoworkspacesilent, 6
+bind = $mod SHIFT, 7, movetoworkspacesilent, 7
+bind = $mod SHIFT, 8, movetoworkspacesilent, 8
+bind = $mod SHIFT, 9, movetoworkspacesilent, 9
+
+bind = $mod, bracketleft,  workspace, e-1
+bind = $mod, bracketright, workspace, e+1
+bind = $mod, grave,        workspace, previous
+
+# Scratchpad
+bind = $mod, S,       togglespecialworkspace, scratch
+bind = $mod SHIFT, S, movetoworkspace, special:scratch
+
+# ---------------------------------------------------------------------------
+# Screenshots
+# ---------------------------------------------------------------------------
+bind = , Print,          exec, grim -g "$(slurp -d)" - | swappy -f -
+bind = SHIFT, Print,     exec, grim - | wl-copy
+bind = $mod, Print,      exec, grim -g "$(slurp -d)" - | wl-copy
+
+# ---------------------------------------------------------------------------
+# Mídia e volume — tratados pelo Quickshell (OSD), aqui só os eventos.
+# ---------------------------------------------------------------------------
+bindel = , XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+
+bindel = , XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindl  = , XF86AudioMute,        exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindl  = , XF86AudioMicMute,     exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindl  = , XF86AudioPlay,        exec, playerctl play-pause
+bindl  = , XF86AudioNext,        exec, playerctl next
+bindl  = , XF86AudioPrev,        exec, playerctl previous
+bindel = , XF86MonBrightnessUp,   exec, brightnessctl set 5%+
+bindel = , XF86MonBrightnessDown, exec, brightnessctl set 5%-
+
+# Mute do microfone com tecla acessível — você está em call o dia todo.
+bindl = $mod, backslash, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+
+# ---------------------------------------------------------------------------
+# Sistema
+# ---------------------------------------------------------------------------
+bind = $mod ALT, L,      exec, hyprlock
+bind = $mod ALT, R,      exec, hyprctl reload
+bind = $mod ALT, Q,      exec, hyprctl dispatch exit
+bind = $mod ALT, D,      exec, ~/.local/bin/hypr-doctor
+
+# Cheatsheet dos próprios binds, gerada de hyprctl. Nada de doc desatualizada.
+bind = $mod SHIFT, slash, exec, qs -c cheatsheet ipc call cheatsheet toggle 
