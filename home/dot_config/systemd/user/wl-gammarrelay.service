@@ -1,0 +1,13 @@
+[Unit]
+Description=Wayland Gamma Relay
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/share/mise/shims/wl-gammarelay-rs
+Restart=on-failure
+RestartSec=1
+
+[Install]
+WantedBy=graphical-session.target
