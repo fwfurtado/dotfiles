@@ -6,6 +6,9 @@ keybind = alt+backspace=text:\x1b\x7f
 background-opacity = {{ $m.opacity }}
 {{ if eq .chezmoi.os "linux" }}
 keybind = global:super+ctrl+grave_accent=toggle_quick_terminal
+
+quit-after-last-window-closed = false
+
 quick-terminal-position = top
 quick-terminal-size = 40%
 
