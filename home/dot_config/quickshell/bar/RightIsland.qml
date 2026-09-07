@@ -1,3 +1,4 @@
+//@ pragma IconTheme Yaru
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
