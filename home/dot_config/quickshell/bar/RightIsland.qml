@@ -45,7 +45,8 @@ PanelWindow {
 
                 Image {
                     anchors.centerIn: parent
-                    width: 16; height: 16
+                    width: 16
+                    height: 16
                     smooth: true
                     fillMode: Image.PreserveAspectFit
 
