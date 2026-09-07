@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Io
 import Quickshell.Wayland
+import Quickshell.Widgets
 import Quickshell.Services.SystemTray
 
 // Ilha direita: bandeja do sistema e acesso ao control center.
