@@ -1,4 +1,3 @@
-//@ pragma IconTheme Yaru
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -47,7 +46,6 @@ PanelWindow {
                 Image {
                     anchors.centerIn: parent
                     width: 16; height: 16
-                    source: modelData.icon
                     smooth: true
                     fillMode: Image.PreserveAspectFit
 
