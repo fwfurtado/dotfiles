@@ -81,7 +81,7 @@ Scope {
             anchors { bottom: true }
             margins.bottom: 160
 
-            implicitWidth: 260
+            implicitWidth: 320
             implicitHeight: 52
             visible: root.showing
 
@@ -110,7 +110,7 @@ Scope {
                         return Math.round(root.sink.audio.volume * 100) + "%"
                     }
                     font.family: Theme.mono
-                    font.pixelSize: 12
+                    font.pixelSize: Theme.fsCaption
                     font.weight: Font.DemiBold
                     color: root.sink && root.sink.audio && root.sink.audio.muted
                         ? Theme.muted : Theme.text
@@ -123,10 +123,10 @@ Scope {
                     }
                     text: root.sink ? root.sink.description : ""
                     font.family: Theme.mono
-                    font.pixelSize: 10
+                    font.pixelSize: Theme.fsLabel
                     color: Theme.muted
                     elide: Text.ElideRight
-                    width: 140
+                    width: 170
                     horizontalAlignment: Text.AlignRight
                 }
 
