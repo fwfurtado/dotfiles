@@ -63,6 +63,8 @@ Scope {
                     model: server.trackedNotifications
 
                     Rectangle {
+                        id: card
+
                         // Qualificado com `card.` em todo o delegate: o
                         // PanelWindow acima também tem `modelData` (a tela do
                         // Variants), e depender de sombreamento por escopo
