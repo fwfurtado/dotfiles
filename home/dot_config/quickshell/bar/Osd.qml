@@ -10,13 +10,39 @@ import Quickshell.Services.Pipewire
 Scope {
     id: root
 
-    PwObjectTracker { objects: [Pipewire.defaultAudioSink] }
+    // ------------------------------------------------------------------
+    // NÃO leia Pipewire.* antes de `ready`.
+    //
+    // No login o pipewire cria um sink fantasma (`auto_null`) e o destrói
+    // assim que enumera o hardware real. O Quickshell 0.3.0 tem um
+    // use-after-free nessa transição: emite a mudança e o Qt reavalia os
+    // bindings que leem o singleton, caindo num ponteiro liberado —
+    // segfault dentro de QQmlTypeWrapper::lookupSingletonProperty, antes
+    // de qualquer null-check nosso rodar. Foi assim que o control center
+    // morreu num login.
+    //
+    // O rastreamento de dependências do QML é dinâmico: com o ramo falso,
+    // nenhuma dependência é registrada e o notifier não tem o que
+    // reavaliar. Dez segundos cobrem folgadamente a enumeração.
+    //
+    // Aqui o custo de um crash seria a barra INTEIRA — bar, notificações
+    // e OSD dividem processo.
+    // ------------------------------------------------------------------
+    property bool ready: false
 
-    readonly property var sink: Pipewire.defaultAudioSink
+    Timer {
+        interval: 10000
+        running: true
+        onTriggered: root.ready = true
+    }
+
+    PwObjectTracker { objects: root.ready ? [Pipewire.defaultAudioSink] : [] }
+
+    readonly property var sink: root.ready ? Pipewire.defaultAudioSink : null
     property bool showing: false
 
-    // Só mostra em MUDANÇA. Sem isto o OSD pisca no boot, quando o
-    // Pipewire publica o valor inicial.
+    // Só mostra em MUDANÇA. Sem isto o OSD pisca quando `ready` liga e o
+    // Pipewire publica o valor corrente pela primeira vez.
     property bool primed: false
 
     Connections {
