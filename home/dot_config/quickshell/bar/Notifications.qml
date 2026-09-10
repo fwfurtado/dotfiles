@@ -45,7 +45,7 @@ Scope {
                 right: Theme.sideMargin
             }
 
-            implicitWidth: 400
+            implicitWidth: 460
             implicitHeight: Math.max(1, column.implicitHeight)
             visible: server.trackedNotifications.values.length > 0
 
@@ -72,7 +72,7 @@ Scope {
                         required property var modelData
 
                         Layout.fillWidth: true
-                        implicitHeight: body.implicitHeight + 24
+                        implicitHeight: body.implicitHeight + 28
 
                         color: Theme.surface
                         radius: Theme.islandRadius
@@ -85,7 +85,7 @@ Scope {
                         Rectangle {
                             anchors { left: parent.left; top: parent.top; bottom: parent.bottom }
                             anchors.margins: 1
-                            width: 3
+                            width: 4
                             radius: 2
                             color: card.modelData.urgency === NotificationUrgency.Critical
                                 ? Theme.alert
@@ -96,15 +96,16 @@ Scope {
                         ColumnLayout {
                             id: body
                             anchors.fill: parent
-                            anchors.margins: 12
-                            anchors.leftMargin: 16
-                            spacing: 3
+                            anchors.margins: 14
+                            anchors.leftMargin: 20
+                            spacing: 4
 
                             Text {
                                 Layout.fillWidth: true
                                 text: card.modelData.appName
                                 font.family: Theme.mono
-                                font.pixelSize: 10
+                                font.pixelSize: Theme.fsCaption
+                                font.letterSpacing: 0.5
                                 color: Theme.muted
                                 elide: Text.ElideRight
                             }
@@ -113,7 +114,7 @@ Scope {
                                 Layout.fillWidth: true
                                 text: card.modelData.summary
                                 font.family: Theme.mono
-                                font.pixelSize: 12
+                                font.pixelSize: Theme.fsStrong
                                 font.weight: Font.DemiBold
                                 color: Theme.text
                                 wrapMode: Text.WordWrap
@@ -127,7 +128,7 @@ Scope {
                                 text: card.modelData.body
                                 textFormat: Text.MarkdownText
                                 font.family: Theme.mono
-                                font.pixelSize: 11
+                                font.pixelSize: Theme.fsBody
                                 color: Theme.muted
                                 wrapMode: Text.WordWrap
                                 maximumLineCount: 4
