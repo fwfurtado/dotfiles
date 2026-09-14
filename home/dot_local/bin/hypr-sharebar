@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+# Reposiciona a barra "stop sharing" do Meet/Slack.
+#
+# Window rule não serve: a janela é mapeada SEM o título final — o Chrome
+# só define "… is sharing …" depois — e regras são avaliadas uma única vez,
+# no mapeamento. Por isso reagimos ao evento de mudança de título.
+#
+# A janela não tem class nem initialClass (surface sem app_id), então o
+# título é o único identificador. Se o Google mudar o texto, isto para de
+# funcionar — daí o log em vez de falha silenciosa.
+set -uo pipefail
+
+SOCKET="$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock"
+PATTERN='is sharing'
+PIN=${PIN:-1}          # PIN=0 para não fixar a barra entre workspaces
+
+log() { printf '%s %s\n' "$(date +%H:%M:%S)" "$*" >&2; }
+
+# Um dispatcher por chamada, com a saída registrada. `hyprctl --batch` com
+# vários dispatchers numa string só falha inteiro e sem dizer qual parte
+# quebrou — foi assim que a primeira versão deste script não fez nada.
+dispatch() {
+    local out
+    out=$(hyprctl dispatch "$@" 2>&1)
+    if [[ "$out" != "ok" ]]; then
+        log "  FALHOU: dispatch $* -> $out"
+        return 1
+    fi
+    log "  ok: dispatch $*"
+}
+
+place() {
+    local addr=$1
+    local mon width x y
+    mon=$(hyprctl monitors -j) || { log "  hyprctl monitors falhou"; return 1; }
+    width=$(jq -r '.[0].width' <<<"$mon")
+    x=$(( width - 500 ))
+    y=60
+
+    # `setfloating` não aceita seletor em toda build; se falhar, seguimos
+    # mesmo assim — a barra já costuma nascer flutuante.
+    dispatch setfloating "address:0x$addr" || true
+    dispatch movewindowpixel "exact $x $y,address:0x$addr"
+    (( PIN )) && dispatch pin "address:0x$addr"
+}
+
+command -v jq    >/dev/null || { log "jq não encontrado"; exit 1; }
+command -v socat >/dev/null || { log "socat não encontrado"; exit 1; }
+
+log "escutando $SOCKET"
+
+socat -U - "UNIX-CONNECT:$SOCKET" | while IFS= read -r line; do
+    case "$line" in
+        windowtitlev2\>\>*) ;;
+        *) continue ;;
+    esac
+
+    payload=${line#windowtitlev2>>}
+    addr=${payload%%,*}
+    title=${payload#*,}
+
+    case "$title" in
+        *"$PATTERN"*) ;;
+        *) continue ;;
+    esac
+
+    log "barra detectada: $title (0x$addr)"
+
+    # O evento de título pode chegar antes de a janela estar posicionada.
+    # Um quadro de folga evita despachar contra um estado transitório.
+    sleep 0.1
+    place "$addr"
+
+    # Confirma o resultado real em vez de confiar no "ok" do dispatcher.
+    hyprctl clients -j \
+        | jq -c --arg a "0x$addr" '.[] | select(.address == $a) | {at, floating, pinned}' \
+        | while IFS= read -r st; do log "  estado: $st"; done
+done

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec /usr/bin/uwsm start -e -D Hyprland -N "Hyprland (Lua 0.56.2)" "/home/fwfurtado/.local/opt/hyprland-0.56.2/bin/start-hyprland" -- --path "/home/fwfurtado/.local/opt/hyprland-0.56.2/bin/Hyprland" -- --config "/home/fwfurtado/.config/hypr-lua/hyprland.lua"

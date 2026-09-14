@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Re-run when either managed Wayland session entry changes.
+# hyprland-legacy.desktop: {{ include "dot_local/share/wayland-sessions/hyprland-legacy.desktop" | sha256sum }}
+# hyprland-lua.desktop:   {{ include "dot_local/share/wayland-sessions/hyprland-lua.desktop" | sha256sum }}
+
+set -euo pipefail
+
+source_dir="$HOME/.local/share/wayland-sessions"
+target_dir="/usr/share/wayland-sessions"
+sessions=(
+    "$source_dir/hyprland-legacy.desktop"
+    "$source_dir/hyprland-lua.desktop"
+)
+
+for session in "${sessions[@]}"; do
+    if [[ ! -r "$session" ]]; then
+        printf 'Cannot install GDM sessions: managed source is missing or unreadable: %s\n' "$session" >&2
+        exit 1
+    fi
+done
+
+if [[ $EUID -eq 0 ]]; then
+    install_session() {
+        install "$@"
+    }
+else
+    if ! command -v sudo >/dev/null 2>&1; then
+        printf '%s\n' 'Cannot install GDM sessions: root privileges or noninteractive sudo are required.' >&2
+        printf '%s\n' "Run 'sudo -v' and rerun 'chezmoi apply', or run this apply as root." >&2
+        exit 1
+    fi
+
+    if ! sudo -n -v >/dev/null 2>&1; then
+        printf '%s\n' 'Cannot install GDM sessions: sudo cannot authenticate noninteractively.' >&2
+        printf '%s\n' "Run 'sudo -v' and rerun 'chezmoi apply', or run this apply as root." >&2
+        exit 1
+    fi
+
+    install_session() {
+        sudo -n install "$@"
+    }
+fi
+
+install_session -d -m 0755 "$target_dir"
+for session in "${sessions[@]}"; do
+    install_session -m 0644 "$session" "$target_dir/$(basename "$session")"
+done
+
+printf 'Installed managed Hyprland GDM sessions in %s\n' "$target_dir"

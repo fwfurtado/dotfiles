@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+# Alterna entre largura total e uma coluna central legível.
+#
+# Por que isto existe: em 5120x1440, uma janela sozinha tem 5120px de largura.
+# Nenhum editor, terminal ou navegador é usável assim — você acaba com linhas
+# de 400 colunas e a cabeça girando. Em vez de mudar de layout, apertamos a
+# área útil com gaps laterais, o que funciona em qualquer layout e é reversível
+# instantaneamente.
+set -euo pipefail
+
+STATE="${XDG_RUNTIME_DIR:-/tmp}/hypr-cinema.state"
+
+# Largura da coluna central, em px. 2560 = metade do monitor, ~140 colunas
+# de JetBrains Mono em 11pt. Ajuste ao seu gosto.
+COLUMN=2560
+
+width=$(hyprctl -j monitors | jq -r '.[] | select(.focused) | .width')
+scale=$(hyprctl -j monitors | jq -r '.[] | select(.focused) | .scale')
+logical=$(awk -v w="$width" -v s="$scale" 'BEGIN { printf "%d", w / s }')
+
+side=$(( (logical - COLUMN) / 2 ))
+(( side < 10 )) && side=10
+
+if [[ -f "$STATE" ]]; then
+    hyprctl keyword general:gaps_out 10
+    rm -f "$STATE"
+    notify-send -t 1200 -h string:x-canonical-private-synchronous:cinema \
+        "Largura total" "${logical}px"
+else
+    # gaps_out aceita 4 valores: topo, direita, baixo, esquerda.
+    hyprctl keyword general:gaps_out "10,${side},10,${side}"
+    touch "$STATE"
+    notify-send -t 1200 -h string:x-canonical-private-synchronous:cinema \
+        "Cinema" "coluna de ${COLUMN}px"
+fi
