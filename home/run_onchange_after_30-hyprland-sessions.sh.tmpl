@@ -6,10 +6,17 @@
 set -euo pipefail
 
 source_dir="$HOME/.local/share/wayland-sessions"
+# Keep authoritative entries in /usr/share: XDG_DATA_DIRS can put /usr/local/share
+# first, causing GDM to select stale managed entries from there.
 target_dir="/usr/share/wayland-sessions"
 sessions=(
     "$source_dir/hyprland-legacy.desktop"
     "$source_dir/hyprland-lua.desktop"
+)
+
+stale_sessions=(
+    "/usr/local/share/wayland-sessions/hyprland-lua.desktop"
+    "/usr/local/share/wayland-sessions/hyprland-legacy.desktop"
 )
 
 for session in "${sessions[@]}"; do
@@ -22,6 +29,10 @@ done
 if [[ $EUID -eq 0 ]]; then
     install_session() {
         install "$@"
+    }
+
+    remove_session() {
+        rm -f -- "$@"
     }
 else
     if ! command -v sudo >/dev/null 2>&1; then
@@ -39,11 +50,19 @@ else
     install_session() {
         sudo -n install "$@"
     }
+
+    remove_session() {
+        sudo -n rm -f -- "$@"
+    }
 fi
 
 install_session -d -m 0755 "$target_dir"
 for session in "${sessions[@]}"; do
     install_session -m 0644 "$session" "$target_dir/$(basename "$session")"
 done
+
+# Remove only the stale managed copies from the higher-priority directory; keep
+# the directory and every unrelated session entry intact.
+remove_session "${stale_sessions[@]}"
 
 printf 'Installed managed Hyprland GDM sessions in %s\n' "$target_dir"

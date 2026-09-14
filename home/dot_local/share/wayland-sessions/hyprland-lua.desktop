@@ -2,6 +2,5 @@
 Name=Hyprland (Lua 0.56.2)
 Comment=Hyprland 0.56.2 with the Lua profile
 Exec=/home/fwfurtado/.local/bin/hyprland-lua-session
-TryExec=/home/fwfurtado/.local/bin/hyprland-lua-session
 DesktopNames=Hyprland
 Type=Application
