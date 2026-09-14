@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "chezmoi",
+  "project_id": "62b06951-8c9f-4cd3-be85-52251119edf8"
+}
