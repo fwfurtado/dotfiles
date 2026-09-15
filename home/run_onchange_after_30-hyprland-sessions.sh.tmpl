@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 # Re-run when either managed Wayland session entry changes.
-# hyprland-legacy.desktop: {{ include "dot_local/share/wayland-sessions/hyprland-legacy.desktop" | sha256sum }}
 # hyprland-lua.desktop:   {{ include "dot_local/share/wayland-sessions/hyprland-lua.desktop" | sha256sum }}
 
 set -euo pipefail
@@ -10,13 +9,11 @@ source_dir="$HOME/.local/share/wayland-sessions"
 # first, causing GDM to select stale managed entries from there.
 target_dir="/usr/share/wayland-sessions"
 sessions=(
-    "$source_dir/hyprland-legacy.desktop"
     "$source_dir/hyprland-lua.desktop"
 )
 
 stale_sessions=(
     "/usr/local/share/wayland-sessions/hyprland-lua.desktop"
-    "/usr/local/share/wayland-sessions/hyprland-legacy.desktop"
 )
 
 for session in "${sessions[@]}"; do

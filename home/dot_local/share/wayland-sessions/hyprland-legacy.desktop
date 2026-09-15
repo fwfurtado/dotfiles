@@ -1,6 +1,0 @@
-[Desktop Entry]
-Name=Hyprland (legacy INI 0.53.3)
-Comment=Hyprland 0.53.3 with the legacy INI profile
-Exec=/home/fwfurtado/.local/bin/hyprland-legacy-session
-DesktopNames=Hyprland
-Type=Application

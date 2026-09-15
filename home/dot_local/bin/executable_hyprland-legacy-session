@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -euo pipefail
-
-exec /usr/bin/uwsm start -e -D Hyprland -N "Hyprland (legacy INI 0.53.3)" "/usr/bin/start-hyprland" -- --config "/home/fwfurtado/.config/hypr/hyprland.conf"
