@@ -207,7 +207,7 @@ validate_closure() {
             else
                 closure="$(ldd "$artifact" 2>&1 || true)"
             fi
-            if grep -q 'not found' <<<"$closure" || grep -Fq "$BUILD_HOME/.local/opt" <<<"$closure" || grep -Fq "$WORKSPACE" <<<"$closure"; then
+            if grep -q 'not found' <<<"$closure" || grep -Fq "$BUILD_HOME/.local/opt" <<<"$closure" || { [[ "$temporary_library_path" -eq 0 ]] && grep -Fq "$WORKSPACE" <<<"$closure"; }; then
                 printf '[hyprland-install] error: dependency closure for %s is incomplete or points at a user-local/workspace path\n' "$artifact" >&2
                 return 1
             fi
