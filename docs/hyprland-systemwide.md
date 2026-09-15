@@ -70,14 +70,14 @@ fi
 chezmoi apply
 ```
 
-AccountsService is not managed automatically by the installer or session hook. If GDM needs a per-user default, create or edit the user record and set `XSession=hyprland`:
+AccountsService is not managed automatically by the installer or session hook. If GDM needs a per-user default, create or edit the user record and set `Session=hyprland`:
 
 ```sh
 sudo install -d -m 0755 /var/lib/AccountsService/users
 if sudo test -e "/var/lib/AccountsService/users/$USER"; then
-    printf '%s\n' "Existing AccountsService record: preserve all existing keys and set XSession=hyprland manually: /var/lib/AccountsService/users/$USER"
+    printf '%s\n' "Existing AccountsService record: preserve all existing keys and set Session=hyprland manually: /var/lib/AccountsService/users/$USER"
 else
-    printf '[User]\nXSession=hyprland\n' | sudo tee "/var/lib/AccountsService/users/$USER" >/dev/null
+    printf '[User]\nSession=hyprland\n' | sudo tee "/var/lib/AccountsService/users/$USER" >/dev/null
 fi
 ```
 
