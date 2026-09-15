@@ -255,7 +255,6 @@ readonly MESON_COMMON_ARGS=(
     -Dc_link_args=-Wl,-rpath,"$BUILD_PREFIX/lib"
     -Dcpp_link_args=-Wl,-rpath,"$BUILD_PREFIX/lib"
     -Dbuild.rpath="$BUILD_PREFIX/lib"
-    -Dinstall_rpath="$PREFIX/lib"
 )
 
 
