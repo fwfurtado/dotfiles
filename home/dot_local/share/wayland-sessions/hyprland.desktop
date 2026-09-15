@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Hyprland
+Comment=Hyprland 0.56.2 Lua session launched through UWSM
+TryExec=uwsm
+Exec=uwsm start -e -D Hyprland /usr/local/bin/start-hyprland -- --path /usr/local/bin/Hyprland -- --config /home/fwfurtado/.config/hypr/hyprland.lua
+DesktopNames=Hyprland
+Type=Application
