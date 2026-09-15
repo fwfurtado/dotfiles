@@ -152,6 +152,16 @@ fi
 run_as_user() {
     runuser -u "$BUILD_USER" -- env HOME="$BUILD_HOME" USER="$BUILD_USER" LOGNAME="$BUILD_USER" CC="$BUILD_CC" CXX="$BUILD_CXX" "$@"
 }
+# Public sources must stay anonymous HTTPS even when the invoking user has a
+# global or system Git URL rewrite (for example, HTTPS GitHub URLs to SSH).
+# These environment overrides are scoped to this script's Git processes.
+run_git_as_user() {
+    run_as_user env \
+        GIT_CONFIG_GLOBAL=/dev/null \
+        GIT_CONFIG_NOSYSTEM=1 \
+        GIT_TERMINAL_PROMPT=0 \
+        git "$@"
+}
 
 run_as_user mkdir -p "$BUILD_HOME/.cache"
 WORKSPACE="$(run_as_user mktemp -d "$BUILD_HOME/.cache/hyprland-systemwide.XXXXXX")"
@@ -167,20 +177,20 @@ run_as_user mkdir -p "$WORKSPACE/src" "$WORKSPACE/build" "$BUILD_PREFIX" "$STAGE
 clone_pinned() {
     local name=$1 url=$2 commit=$3 destination="$WORKSPACE/src/$1" actual
     log "fetching pinned $name ($commit)"
-    if ! run_as_user git clone --filter=blob:none --no-tags "$url" "$destination"; then
+    if ! run_git_as_user clone --filter=blob:none --no-tags "$url" "$destination"; then
         die "unable to fetch $name from $url; check network/DNS/firewall access and retry"
     fi
     if [[ "${#commit}" -eq 40 ]]; then
-        if ! run_as_user git -C "$destination" fetch --no-tags --depth=1 origin "$commit"; then
+        if ! run_git_as_user -C "$destination" fetch --no-tags --depth=1 origin "$commit"; then
             die "fetched $name, but commit $commit is unavailable; verify source availability and provenance"
         fi
     else
         # The validated Glaze provenance records the unambiguous short ID
         # b518eec; fetch all refs so a server need not accept an abbreviated want.
-        run_as_user git -C "$destination" fetch --no-tags origin || die "fetched $name, but its pinned history is unavailable"
+        run_git_as_user -C "$destination" fetch --no-tags origin || die "fetched $name, but its pinned history is unavailable"
     fi
-    run_as_user git -C "$destination" checkout --detach --quiet "$commit" || die "cannot check out pinned $name commit $commit"
-    actual="$(run_as_user git -C "$destination" rev-parse HEAD)"
+    run_git_as_user -C "$destination" checkout --detach --quiet "$commit" || die "cannot check out pinned $name commit $commit"
+    actual="$(run_git_as_user -C "$destination" rev-parse HEAD)"
     [[ "$actual" == "$commit" || "$actual" == "$commit"* ]] || die "provenance mismatch for $name: expected $commit, got $actual"
 }
 
