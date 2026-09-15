@@ -17,6 +17,7 @@ SOURCE_PREFIX=''
 WORKSPACE=''
 STAGED_PREFIX=''
 FINAL_STAGING=''
+RUNTIME_DIR=''
 PORTAL_TEMP=''
 rollback_prefix=''
 
@@ -45,6 +46,9 @@ cleanup() {
     if [[ -n "$WORKSPACE" && -d "$WORKSPACE" ]]; then
         rm -rf -- "$WORKSPACE"
     fi
+    if [[ -n "$RUNTIME_DIR" && -d "$RUNTIME_DIR" ]]; then
+        rm -rf -- "$RUNTIME_DIR"
+    fi
     if [[ -n "$FINAL_STAGING" && -d "$FINAL_STAGING" ]]; then
         rm -rf -- "$FINAL_STAGING"
     fi
@@ -52,6 +56,11 @@ cleanup() {
         rm -f -- "$PORTAL_TEMP"
     fi
     return "$status"
+}
+run_as_build_user() {
+    runuser -u "$BUILD_USER" -- env \
+        HOME="$BUILD_HOME" USER="$BUILD_USER" LOGNAME="$BUILD_USER" \
+        XDG_RUNTIME_DIR="$RUNTIME_DIR" "$@"
 }
 
 trap on_error ERR
@@ -154,6 +163,9 @@ STAGED_PREFIX="$WORKSPACE"
 FINAL_STAGING="$STAGED_PREFIX"
 readonly WORKSPACE STAGED_PREFIX
 install -d -o root -g root -m 0755 "$STAGED_PREFIX/bin" "$STAGED_PREFIX/lib"
+RUNTIME_DIR="$(mktemp -d /tmp/hyprland-systemwide-runtime.XXXXXX)" || die 'could not create a temporary XDG runtime directory'
+chown "$BUILD_USER" "$RUNTIME_DIR" || die 'could not assign the temporary XDG runtime directory to SUDO_USER'
+chmod 0700 "$RUNTIME_DIR"
 
 for public_binary in Hyprland start-hyprland hyprctl; do
     cp -a -- "$SOURCE_PREFIX/bin/$public_binary" "$STAGED_PREFIX/bin/" || die "could not stage bin/$public_binary"
@@ -218,7 +230,7 @@ validate_closure() {
 
 # The temporary library path is scoped to this pre-install ldd invocation only.
 validate_closure "$STAGED_PREFIX" 1
-if ! version_output="$(LD_LIBRARY_PATH="$STAGED_PREFIX/lib" "$STAGED_PREFIX/bin/Hyprland" --version 2>&1)"; then
+if ! version_output="$(run_as_build_user env LD_LIBRARY_PATH="$STAGED_PREFIX/lib" "$STAGED_PREFIX/bin/Hyprland" --version 2>&1)"; then
     printf '%s\n' "$version_output" >&2
     die 'staged Hyprland could not execute --version'
 fi
@@ -277,7 +289,12 @@ if ! validate_closure "$PREFIX" 0; then
     restore_old_prefix
     die 'installed dynamic closure validation failed'
 fi
-if ! version_output="$("$PREFIX/bin/Hyprland" --version 2>&1)" || ! grep -Eq "^Hyprland[[:space:]]+$VERSION([[:space:]]|$)" <<<"$version_output"; then
+if ! version_output="$(run_as_build_user "$PREFIX/bin/Hyprland" --version 2>&1)"; then
+    printf '%s\n' "$version_output" >&2
+    restore_old_prefix
+    die 'installed Hyprland could not execute --version'
+fi
+if ! grep -Eq "^Hyprland[[:space:]]+$VERSION([[:space:]]|$)" <<<"$version_output"; then
     restore_old_prefix
     die "installed Hyprland did not report exactly version $VERSION: $version_output"
 fi
