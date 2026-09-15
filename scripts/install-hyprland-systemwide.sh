@@ -160,6 +160,7 @@ fi
 # tree is read-only input and is never deleted or modified by cleanup.
 WORKSPACE="$(mktemp -d "/opt/.hyprland-${VERSION}.stage.XXXXXX")" || die 'could not create an isolated root staging directory under /opt'
 STAGED_PREFIX="$WORKSPACE"
+chmod 0755 "$STAGED_PREFIX"
 FINAL_STAGING="$STAGED_PREFIX"
 readonly WORKSPACE STAGED_PREFIX
 install -d -o root -g root -m 0755 "$STAGED_PREFIX/bin" "$STAGED_PREFIX/lib"
