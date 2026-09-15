@@ -219,6 +219,7 @@ validate_closure() {
 # The temporary library path is scoped to this pre-install ldd invocation only.
 validate_closure "$STAGED_PREFIX" 1
 if ! version_output="$(LD_LIBRARY_PATH="$STAGED_PREFIX/lib" "$STAGED_PREFIX/bin/Hyprland" --version 2>&1)"; then
+    printf '%s\n' "$version_output" >&2
     die 'staged Hyprland could not execute --version'
 fi
 if ! grep -Eq "^Hyprland[[:space:]]+$VERSION([[:space:]]|$)" <<<"$version_output"; then
