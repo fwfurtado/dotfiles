@@ -111,9 +111,6 @@ hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
     description = "window::Pin window",
 })
-hl.bind("SUPER+F12", hl.dsp.exec_cmd("~/.local/bin/hypr-cinema"), {
-    description = "window::Cinema mode (center column)",
-})
 hl.bind("SUPER+SHIFT+R", hl.dsp.exec_cmd("hyprctl --batch \"dispatch layoutmsg mfact exact $mfact ; dispatch layoutmsg orientationcenter\""), {
     description = "window::Reset layout",
 })
@@ -260,9 +257,6 @@ hl.bind("SUPER+ALT+R", hl.dsp.exec_cmd("hyprctl reload"), {
 })
 hl.bind("SUPER+ALT+Q", hl.dsp.exit(), {
     description = "system::Exit session",
-})
-hl.bind("SUPER+ALT+D", hl.dsp.exec_cmd("~/.local/bin/hypr-doctor"), {
-    description = "system::Run setup doctor",
 })
 hl.bind("SUPER+SHIFT+slash", hl.dsp.exec_cmd("qs -c cheatsheet ipc call cheatsheet toggle"), {
     description = "system::Show keybindings",

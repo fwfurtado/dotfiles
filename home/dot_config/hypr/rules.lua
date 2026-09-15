@@ -15,7 +15,6 @@ hl.window_rule({
 })
 
 -- The share bar receives its final title after mapping.  Keep this as a
--- defensive render rule; ~/.local/bin/hypr-sharebar owns geometry by reacting
 -- to the windowtitlev2 event, rather than relying on a one-shot map rule.
 hl.window_rule({
     match = { title = "^(.*is sharing.*)$" },

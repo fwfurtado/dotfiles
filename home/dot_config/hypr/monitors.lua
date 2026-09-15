@@ -28,6 +28,3 @@ hl.workspace_rule({ workspace = "9", monitor = "DP-1" })
 -- Workspace de comunicação: sem gaps laterais gigantes, Slack/Meet ocupam mais.
 hl.workspace_rule({ workspace = "9", gaps_out = 10 })
 
--- Cinema mode: uma janela sozinha em 5120px é ilegível. O toggle em
--- ~/.local/bin/hypr-cinema estreita a área útil via gaps assimétricos,
--- criando uma coluna central de ~2560px sem mexer no layout.
