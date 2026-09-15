@@ -242,7 +242,7 @@ build_meson() {
     local name=$1 source=$2 build_dir="$WORKSPACE/build/$1"
     shift 2
     log "configuring $name"
-    if ! run_as_user meson setup "$build_dir" "$source" --prefix "$BUILD_PREFIX" --libdir lib --buildtype release --wrap-mode nodownload "${MESON_COMMON_ARGS[@]}" "$@"; then
+    if ! run_as_user meson setup "$build_dir" "$source" --prefix "$BUILD_PREFIX" --libdir lib --buildtype release --wrap-mode nodownload "$@"; then
         die "Meson configuration failed for $name; install its development dependencies and inspect the output"
     fi
     if ! run_as_user meson compile -C "$build_dir" -j "${JOBS:-$(nproc)}"; then
@@ -250,13 +250,6 @@ build_meson() {
     fi
     run_as_user meson install -C "$build_dir" || die "installation into the temporary prefix failed for $name"
 }
-
-readonly MESON_COMMON_ARGS=(
-    -Dc_link_args=-Wl,-rpath,"$BUILD_PREFIX/lib"
-    -Dcpp_link_args=-Wl,-rpath,"$BUILD_PREFIX/lib"
-    -Dbuild.rpath="$BUILD_PREFIX/lib"
-)
-
 
 build_cmake "$BUILD_PREFIX" hyprwayland-scanner "$WORKSPACE/src/hyprwayland-scanner"
 build_cmake "$BUILD_PREFIX" hyprutils "$WORKSPACE/src/hyprutils"
