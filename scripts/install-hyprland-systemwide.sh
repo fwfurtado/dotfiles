@@ -99,8 +99,7 @@ done
 
 BUILD_USER="$SUDO_USER"
 passwd_entry="$(getent passwd "$BUILD_USER")" || die "cannot resolve SUDO_USER=$BUILD_USER"
-BUILD_HOME="${passwd_entry#*:}"
-BUILD_HOME="${BUILD_HOME%%:*}"
+IFS=: read -r _ _ _ _ _ BUILD_HOME _ <<<"$passwd_entry"
 [[ -n "$BUILD_HOME" && -d "$BUILD_HOME" ]] || die "cannot resolve a home directory for SUDO_USER=$BUILD_USER"
 [[ "$BUILD_HOME" == /* ]] || die "resolved SUDO_USER home is not an absolute path: $BUILD_HOME"
 SOURCE_PREFIX="$BUILD_HOME/.local/opt/hyprland-${VERSION}"
