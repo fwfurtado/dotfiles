@@ -215,10 +215,12 @@ readonly CMAKE_COMMON_ARGS=(
     -DCMAKE_PREFIX_PATH="$BUILD_PREFIX"
     -DCMAKE_C_COMPILER="$BUILD_CC"
     -DCMAKE_CXX_COMPILER="$BUILD_CXX"
+    # Keep build/test binaries runnable from the private dependency prefix.
+    # cmake --install replaces this with the final runtime prefix below.
     -DCMAKE_INSTALL_RPATH="$PREFIX/lib"
     -DCMAKE_BUILD_RPATH="$BUILD_PREFIX/lib"
     -DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF
-    -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
+    -DCMAKE_BUILD_WITH_INSTALL_RPATH=OFF
     -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON
 )
 
@@ -250,9 +252,12 @@ build_meson() {
 }
 
 readonly MESON_COMMON_ARGS=(
-    -Dc_link_args=-Wl,-rpath,"$PREFIX/lib"
-    -Dcpp_link_args=-Wl,-rpath,"$PREFIX/lib"
+    -Dc_link_args=-Wl,-rpath,"$BUILD_PREFIX/lib"
+    -Dcpp_link_args=-Wl,-rpath,"$BUILD_PREFIX/lib"
+    -Dbuild.rpath="$BUILD_PREFIX/lib"
+    -Dinstall_rpath="$PREFIX/lib"
 )
+
 
 build_cmake "$BUILD_PREFIX" hyprwayland-scanner "$WORKSPACE/src/hyprwayland-scanner"
 build_cmake "$BUILD_PREFIX" hyprutils "$WORKSPACE/src/hyprutils"
