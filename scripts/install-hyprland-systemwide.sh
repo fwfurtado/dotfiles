@@ -6,7 +6,7 @@ set -Eeuo pipefail
 readonly VERSION='0.56.2'
 readonly HYPRLAND_COMMIT='efb50993780079460b0cbed1363e2166a2de1d9f'
 readonly PREFIX="/opt/hyprland-${VERSION}"
-readonly PORTAL_FILE='/etc/xdg/xdg-desktop-portal/hyprland-portals.conf'
+readonly PORTAL_FILE='/usr/share/xdg-desktop-portal/hyprland-portals.conf'
 readonly PUBLIC_BIN_DIR='/usr/local/bin'
 readonly ROLLBACK_TAG="$(date -u +%Y%m%dT%H%M%SZ)-$$"
 
@@ -17,6 +17,7 @@ BUILD_HOME=''
 WORKSPACE=''
 STAGE=''
 BUILD_PREFIX=''
+STAGED_PREFIX=''
 PORTAL_TEMP=''
 FINAL_STAGING=''
 
@@ -96,9 +97,12 @@ readonly BUILD_USER BUILD_HOME
 # packages separately; this script never changes the apt package set except for
 # the two explicit manual marks performed after a successful installation.
 readonly REQUIRED_COMMANDS=(
-    git cmake ninja meson pkg-config gcc g++ make readelf ldd file find stat id nproc grep
+    git cmake meson pkg-config gcc g++ make readelf ldd file find stat id nproc grep
     runuser install mktemp cmp dpkg-query apt-mark
 )
+if ! command -v ninja >/dev/null 2>&1; then
+    die "required build backend 'ninja' is unavailable; install ninja-build (this validated build has no supported CMake backend fallback)"
+fi
 for command_name in "${REQUIRED_COMMANDS[@]}"; do
     command -v "$command_name" >/dev/null 2>&1 || die "required build command '$command_name' is unavailable; install build-essential, cmake, ninja-build, meson, pkg-config, binutils, file, and util-linux first"
 done
@@ -156,8 +160,9 @@ WORKSPACE="$(run_as_user mktemp -d "$BUILD_HOME/.cache/hyprland-systemwide.XXXXX
 readonly WORKSPACE
 STAGE="$WORKSPACE/stage"
 BUILD_PREFIX="$WORKSPACE/prefix"
-readonly STAGE BUILD_PREFIX
-run_as_user mkdir -p "$WORKSPACE/src" "$WORKSPACE/build" "$BUILD_PREFIX" "$STAGE/opt"
+STAGED_PREFIX="$STAGE$PREFIX"
+readonly STAGE BUILD_PREFIX STAGED_PREFIX
+run_as_user mkdir -p "$WORKSPACE/src" "$WORKSPACE/build" "$BUILD_PREFIX" "$STAGED_PREFIX"
 
 clone_pinned() {
     local name=$1 url=$2 commit=$3 destination="$WORKSPACE/src/$1" actual
@@ -196,7 +201,6 @@ clone_pinned glaze https://github.com/stephenberry/glaze.git b518eec
 readonly CMAKE_COMMON_ARGS=(
     -G Ninja
     -DCMAKE_BUILD_TYPE=Release
-    -DCMAKE_INSTALL_PREFIX="$BUILD_PREFIX"
     -DCMAKE_INSTALL_LIBDIR=lib
     -DCMAKE_PREFIX_PATH="$BUILD_PREFIX"
     -DCMAKE_C_COMPILER="$BUILD_CC"
@@ -209,10 +213,11 @@ readonly CMAKE_COMMON_ARGS=(
 )
 
 build_cmake() {
-    local name=$1 source=$2 build_dir="$WORKSPACE/build/$1"
-    shift 2
+    local install_prefix=$1 name=$2 source=$3 build_dir="$WORKSPACE/build/$2"
+    shift 3
     log "configuring $name"
-    if ! run_as_user cmake -S "$source" -B "$build_dir" "${CMAKE_COMMON_ARGS[@]}" "$@"; then
+    if ! run_as_user cmake -S "$source" -B "$build_dir" "${CMAKE_COMMON_ARGS[@]}" \
+        -DCMAKE_INSTALL_PREFIX="$install_prefix" "$@"; then
         die "CMake configuration failed for $name; install its development dependencies and inspect the output"
     fi
     if ! run_as_user cmake --build "$build_dir" --parallel "${JOBS:-$(nproc)}"; then
@@ -239,20 +244,20 @@ readonly MESON_COMMON_ARGS=(
     -Dcpp_link_args=-Wl,-rpath,"$PREFIX/lib"
 )
 
-build_cmake hyprwayland-scanner "$WORKSPACE/src/hyprwayland-scanner"
-build_cmake hyprutils "$WORKSPACE/src/hyprutils"
-build_cmake hyprlang "$WORKSPACE/src/hyprlang"
-build_cmake hyprcursor "$WORKSPACE/src/hyprcursor"
-build_cmake hyprgraphics "$WORKSPACE/src/hyprgraphics"
-build_cmake hyprwire "$WORKSPACE/src/hyprwire"
+build_cmake "$BUILD_PREFIX" hyprwayland-scanner "$WORKSPACE/src/hyprwayland-scanner"
+build_cmake "$BUILD_PREFIX" hyprutils "$WORKSPACE/src/hyprutils"
+build_cmake "$BUILD_PREFIX" hyprlang "$WORKSPACE/src/hyprlang"
+build_cmake "$BUILD_PREFIX" hyprcursor "$WORKSPACE/src/hyprcursor"
+build_cmake "$BUILD_PREFIX" hyprgraphics "$WORKSPACE/src/hyprgraphics"
+build_cmake "$BUILD_PREFIX" hyprwire "$WORKSPACE/src/hyprwire"
 build_meson wayland "$WORKSPACE/src/wayland" -Ddocumentation=false -Dtests=false
 build_meson wayland-protocols "$WORKSPACE/src/wayland-protocols" -Dtests=false
-build_cmake aquamarine "$WORKSPACE/src/aquamarine"
-build_cmake hyprland "$WORKSPACE/src/hyprland" \
+build_cmake "$BUILD_PREFIX" aquamarine "$WORKSPACE/src/aquamarine"
+build_cmake "$STAGED_PREFIX" hyprland "$WORKSPACE/src/hyprland" \
     -DNO_HYPRPM=ON -DNO_UWSM=ON -DNO_SYSTEMD=OFF -DNO_XWAYLAND=OFF \
     -DFETCHCONTENT_SOURCE_DIR_GLAZE="$WORKSPACE/src/glaze"
 
-STAGED_PREFIX="$STAGE$PREFIX"
+run_as_user cp -a -- "$BUILD_PREFIX/." "$STAGED_PREFIX/" || die 'could not copy the private dependency prefix into the staged versioned prefix'
 [[ -x "$STAGED_PREFIX/bin/Hyprland" && -x "$STAGED_PREFIX/bin/start-hyprland" && -x "$STAGED_PREFIX/bin/hyprctl" ]] || die 'build completed without all three expected public binaries'
 
 # Static audit before touching /opt. A build path in RUNPATH is unsafe even if
