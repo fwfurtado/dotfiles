@@ -365,10 +365,8 @@ vim.diagnostic.config({
 local map = vim.keymap.set
 
 map('n', '<leader>ff', '<cmd>Pick files<cr>', { desc = 'Find files' })
-map('n', '<leader>fb', '<cmd>Pick buffers<cr>', { desc = 'Buffers' })
 map('n', '<leader>fg', '<cmd>Pick grep_live<cr>', { desc = 'Live grep' })
 map('n', '<leader>fh', '<cmd>Pick help<cr>', { desc = 'Help' })
-map('n', '<leader>fd', '<cmd>Pick diagnostic<cr>', { desc = 'Diagnostics' })
 map('n', '<leader>fr', '<cmd>Pick resume<cr>', { desc = 'Retoma última busca' })
 
 -- pickers do mini.extra
@@ -410,6 +408,16 @@ map('n', '<leader>ls', '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = 'LS
 map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc = 'LSP workspace symbols' })
 map('n', '<leader>lg', '<cmd>Pick lsp scope="definition"<cr>', { desc = 'LSP definition' })
 map('n', '<leader>li', '<cmd>Pick lsp scope="implementation"<cr>', { desc = 'LSP implementation' })
+map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
+map('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
+map('n', '<leader>lD', '<cmd>Pick diagnostic<cr>', { desc = 'Diagnostics' })
+
+map('n', ']e', function()
+    vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
+end, { desc = 'Próximo erro' })
+map('n', '[e', function()
+    vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
+end, { desc = 'Erro anterior' })
 
 map('n', '<leader>tw', MiniTrailspace.trim, { desc = 'Trim trailing whitespace' })
 map('n', '<leader>tl', MiniTrailspace.trim_last_lines, { desc = 'Trim linhas finais' })
@@ -427,8 +435,6 @@ map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
 map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write' })
 map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
 
-map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
-map('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
 
 map('x', '<leader>p', [["_dP]], { desc = 'Paste keeping register' })
 
@@ -436,8 +442,11 @@ map('i', '<Space>', '<C-g>u<Space>')
 map('i', '<CR>', '<C-g>u<CR>')
 
 
+map('n', '<leader>bp', '<cmd>Pick buffers<cr>', { desc = 'Buffers' })
 map('n', '<leader>bd', function() require('mini.bufremove').delete() end, { desc = 'Fecha buffer' })
 map('n', '<leader>bo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Fecha os outros buffers' })
+
+
 --------------------------------------------------------------------------------
 -- Autocmds
 --------------------------------------------------------------------------------
