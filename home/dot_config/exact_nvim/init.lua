@@ -81,7 +81,7 @@ vim.api.nvim_create_autocmd('PackChanged', {
 
 vim.pack.add({
     { src = 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects', version = 'main' },
-    { src = 'https://github.com/nvim-treesitter/nvim-treesitter', version = 'main' },
+    { src = 'https://github.com/nvim-treesitter/nvim-treesitter',             version = 'main' },
     'https://github.com/nvim-mini/mini.nvim',
     'https://github.com/stevearc/oil.nvim',
 })
@@ -192,7 +192,7 @@ local miniclue = require('mini.clue')
 miniclue.setup({
     triggers = {
         { mode = { 'n', 'x' }, keys = '<Leader>' },
-        { mode = 'n', keys = '<C-w>' },
+        { mode = 'n',          keys = '<C-w>' },
         { mode = { 'n', 'x' }, keys = 'g' },
         { mode = { 'n', 'x' }, keys = 'z' },
         { mode = { 'n', 'x' }, keys = "'" },
@@ -201,7 +201,7 @@ miniclue.setup({
         { mode = { 'n', 'x' }, keys = '[' },
         { mode = { 'n', 'x' }, keys = ']' },
         { mode = { 'i', 'c' }, keys = '<C-r>' },
-        { mode = 'i', keys = '<C-x>' },
+        { mode = 'i',          keys = '<C-x>' },
     },
 
     clues = {
@@ -244,7 +244,7 @@ require('oil').setup({
 
     lsp_file_methods = {
         enabled = true,
-        timeout_ms = 1000,   -- mesmo default do options.lsp_timeout do mini.files
+        timeout_ms = 1000, -- mesmo default do options.lsp_timeout do mini.files
     },
 
     view_options = {
@@ -376,25 +376,36 @@ map('n', '<leader>fk', '<cmd>Pick keymaps<cr>', { desc = 'Keymaps' })
 --map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
 map('n', '<leader>fq', '<cmd>Pick list scope="quickfix"<cr>', { desc = 'Quickfix' })
 
+-- Git maps
 map('n', '<leader>gh', '<cmd>Pick git_hunks<cr>', { desc = 'Git hunks' })
 map('n', '<leader>gH', '<cmd>Pick git_hunks scope="staged"<cr>', { desc = 'Git hunks (staged)' })
 map('n', '<leader>gc', '<cmd>Pick git_commits<cr>', { desc = 'Git commits' })
 map('n', '<leader>gb', '<cmd>Pick git_branches<cr>', { desc = 'Git branches' })
 
+-- LSP maps
 map('n', '<leader>la', function()
+    ---@type vim.lsp.buf.code_action.Opts
     vim.lsp.buf.code_action({ context = { only = { 'quickfix' } } })
 end, { desc = 'Quick fix' })
+
 map('n', '<leader>lo', function()
+    ---@type vim.lsp.buf.code_action.Opts
     vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
 end, { desc = 'Organize imports' })
+
 map('n', '<leader>lh', function()
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
 end, { desc = 'Toggle inlay hints' })
 
 map('n', '<leader>lv', function()
-    local cfg = vim.diagnostic.config()
-    vim.diagnostic.config({ virtual_lines = not cfg.virtual_lines })
+    local cfg = vim.diagnostic.config() or {}
+    local using_lines = cfg.virtual_lines ~= nil and cfg.virtual_lines ~= false
+    vim.diagnostic.config({
+        virtual_lines = not using_lines and { current_line = true } or false,
+        virtual_text = using_lines and { current_line = true } or false,
+    })
 end, { desc = 'Toggle diagnostics em linhas' })
+
 map('n', '<leader>lr', '<cmd>Pick lsp scope="references"<cr>', { desc = 'LSP references' })
 map('n', '<leader>ls', '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = 'LSP symbols' })
 map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc = 'LSP workspace symbols' })
@@ -409,29 +420,36 @@ end, { desc = 'Toggle quickfix' })
 map('n', ']e', function()
     vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
 end, { desc = 'Próximo erro' })
+
 map('n', '[e', function()
     vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
 end, { desc = 'Erro anterior' })
 
+-- Buffer Maps
+map('n', '<leader>bp', '<cmd>Pick buffers<cr>', { desc = 'Buffers' })
+map('n', '<leader>bd', function() require('mini.bufremove').delete() end, { desc = 'Fecha buffer' })
+map('n', '<leader>bo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Fecha os outros buffers' })
+
+-- Trim maps
 map('n', '<leader>tw', function()
     MiniTrailspace.trim()
     MiniTrailspace.trim_last_lines()
 end, { desc = 'Trim all' })
 
+
+-- Dir buffer maps
 map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
 
+
+-- Helper maps
 map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write' })
 map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
 
-
+-- Replace selected line with yanked text and keep yanked text in register (like dd + p keeping yanked text)
 map('x', '<leader>p', [["_dP]], { desc = 'Paste keeping register' })
 
+-- Create an undo point after each space
 map('i', '<Space>', '<C-g>u<Space>')
-
-
-map('n', '<leader>bp', '<cmd>Pick buffers<cr>', { desc = 'Buffers' })
-map('n', '<leader>bd', function() require('mini.bufremove').delete() end, { desc = 'Fecha buffer' })
-map('n', '<leader>bo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Fecha os outros buffers' })
 
 -- Tab/S-Tab: navega no menu; se houver snippet ativo, pula entre placeholders
 map({ 'i', 's' }, '<Tab>', function()
@@ -455,7 +473,6 @@ map('i', '<CR>', function()
 end, { expr = true, desc = 'Confirma completion ou nova linha' })
 
 map('i', '<C-Space>', vim.lsp.completion.get, { desc = 'Trigger completion' })
-map('i', '<C-@>', vim.lsp.completion.get, { desc = 'Trigger completion (terminal)' })
 
 --------------------------------------------------------------------------------
 -- Autocmds
@@ -469,4 +486,3 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
     pattern = { 'grep', 'grepadd' },
     command = 'cwindow',
 })
-
