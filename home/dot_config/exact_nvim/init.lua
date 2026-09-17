@@ -413,6 +413,10 @@ map('n', '<leader>li', '<cmd>Pick lsp scope="implementation"<cr>', { desc = 'LSP
 map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
 map('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
 map('n', '<leader>lD', '<cmd>Pick diagnostic<cr>', { desc = 'Diagnostics' })
+map('n', '<leader>q', function()
+    local open = vim.fn.getqflist({ winid = 0 }).winid ~= 0
+    vim.cmd(open and 'cclose' or 'copen')
+end, { desc = 'Toggle quickfix' })
 
 map('n', ']e', function()
     vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR, float = true })
