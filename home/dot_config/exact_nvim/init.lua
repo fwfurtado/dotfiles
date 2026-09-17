@@ -209,6 +209,7 @@ miniclue.setup({
         { mode = 'n', keys = '<Leader>g', desc = '+Git' },
         { mode = 'n', keys = '<Leader>l', desc = '+LSP' },
         { mode = 'n', keys = '<Leader>t', desc = '+Trim' },
+        { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
 
         -- conjuntos prontos para teclas built-in do Vim
         miniclue.gen_clues.g(),
@@ -220,7 +221,7 @@ miniclue.setup({
         miniclue.gen_clues.square_brackets(),
     },
 
-    window = { 
+    window = {
         delay = 300,
         config = { width = 'auto' },
     },
@@ -279,6 +280,20 @@ local servers = {
         cmd = { 'gopls' },
         filetypes = { 'go', 'gomod', 'gowork', 'gotmpl' },
         root_markers = { 'go.work', 'go.mod', '.git' },
+        settings = {
+            gopls = {
+                staticcheck = true,
+                gofumpt = true,
+                usePlaceholders = true, -- completion de função vem com snippet dos argumentos
+                hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    constantValues = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
+            },
+        },
     },
     zls = {
         cmd = { 'zls' },
@@ -363,7 +378,9 @@ map('n', '<leader>fk', '<cmd>Pick keymaps<cr>', { desc = 'Keymaps' })
 map('n', '<leader>fC', '<cmd>Pick colorschemes<cr>', { desc = 'Colorschemes' })
 map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
 map('n', '<leader>f:', '<cmd>Pick history scope=":"<cr>', { desc = 'Histórico de comandos' })
-
+map('n', '<leader>fw', function()
+    MiniPick.builtin.grep({ pattern = vim.fn.expand('<cword>') })
+end, { desc = 'Grep palavra sob o cursor' })
 map('n', '<leader>fq', '<cmd>Pick list scope="quickfix"<cr>', { desc = 'Quickfix' })
 map('n', '<leader>fj', '<cmd>Pick list scope="jump"<cr>', { desc = 'Jump list' })
 map('n', '<leader>fc', '<cmd>Pick list scope="change"<cr>', { desc = 'Change list' })
@@ -374,6 +391,20 @@ map('n', '<leader>gH', '<cmd>Pick git_hunks scope="staged"<cr>', { desc = 'Git h
 map('n', '<leader>gc', '<cmd>Pick git_commits<cr>', { desc = 'Git commits' })
 map('n', '<leader>gb', '<cmd>Pick git_branches<cr>', { desc = 'Git branches' })
 
+map('n', '<leader>la', function()
+    vim.lsp.buf.code_action({ context = { only = { 'quickfix' } } })
+end, { desc = 'Quick fix' })
+map('n', '<leader>lo', function()
+    vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+end, { desc = 'Organize imports' })
+map('n', '<leader>lh', function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = 0 }), { bufnr = 0 })
+end, { desc = 'Toggle inlay hints' })
+
+map('n', '<leader>lv', function()
+    local cfg = vim.diagnostic.config()
+    vim.diagnostic.config({ virtual_lines = not cfg.virtual_lines })
+end, { desc = 'Toggle diagnostics em linhas' })
 map('n', '<leader>lr', '<cmd>Pick lsp scope="references"<cr>', { desc = 'LSP references' })
 map('n', '<leader>ls', '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = 'LSP symbols' })
 map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc = 'LSP workspace symbols' })
@@ -404,6 +435,9 @@ map('x', '<leader>p', [["_dP]], { desc = 'Paste keeping register' })
 map('i', '<Space>', '<C-g>u<Space>')
 map('i', '<CR>', '<C-g>u<CR>')
 
+
+map('n', '<leader>bd', function() require('mini.bufremove').delete() end, { desc = 'Fecha buffer' })
+map('n', '<leader>bo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Fecha os outros buffers' })
 --------------------------------------------------------------------------------
 -- Autocmds
 --------------------------------------------------------------------------------
