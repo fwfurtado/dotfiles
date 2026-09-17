@@ -441,13 +441,35 @@ map('n', '<esc>', '<cmd>nohlsearch<cr>', { desc = 'Clear highlight' })
 map('x', '<leader>p', [["_dP]], { desc = 'Paste keeping register' })
 
 map('i', '<Space>', '<C-g>u<Space>')
-map('i', '<CR>', '<C-g>u<CR>')
 
 
 map('n', '<leader>bp', '<cmd>Pick buffers<cr>', { desc = 'Buffers' })
 map('n', '<leader>bd', function() require('mini.bufremove').delete() end, { desc = 'Fecha buffer' })
 map('n', '<leader>bo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Fecha os outros buffers' })
 
+-- Tab/S-Tab: navega no menu; se houver snippet ativo, pula entre placeholders
+map({ 'i', 's' }, '<Tab>', function()
+    if vim.fn.pumvisible() == 1 then return '<C-n>' end
+    if vim.snippet.active({ direction = 1 }) then return '<cmd>lua vim.snippet.jump(1)<cr>' end
+    return '<Tab>'
+end, { expr = true, desc = 'Completion: próximo / snippet' })
+
+map({ 'i', 's' }, '<S-Tab>', function()
+    if vim.fn.pumvisible() == 1 then return '<C-p>' end
+    if vim.snippet.active({ direction = -1 }) then return '<cmd>lua vim.snippet.jump(-1)<cr>' end
+    return '<S-Tab>'
+end, { expr = true, desc = 'Completion: anterior / snippet' })
+
+-- Enter confirma se houver item selecionado; senão, quebra linha com undo break
+map('i', '<CR>', function()
+    if vim.fn.pumvisible() == 1 and vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+        return '<C-y>'
+    end
+    return '<C-g>u<CR>'
+end, { expr = true, desc = 'Confirma completion ou nova linha' })
+
+map('i', '<C-Space>', vim.lsp.completion.get, { desc = 'Trigger completion' })
+map('i', '<C-@>', vim.lsp.completion.get, { desc = 'Trigger completion (terminal)' })
 
 --------------------------------------------------------------------------------
 -- Autocmds
