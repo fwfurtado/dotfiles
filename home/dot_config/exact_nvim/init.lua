@@ -208,7 +208,6 @@ miniclue.setup({
         { mode = 'n', keys = '<Leader>f', desc = '+Find' },
         { mode = 'n', keys = '<Leader>g', desc = '+Git' },
         { mode = 'n', keys = '<Leader>l', desc = '+LSP' },
-        { mode = 'n', keys = '<Leader>t', desc = '+Trim' },
         { mode = 'n', keys = '<Leader>b', desc = '+Buffer' },
 
         -- conjuntos prontos para teclas built-in do Vim
@@ -373,19 +372,10 @@ map('n', '<leader>fr', '<cmd>Pick resume<cr>', { desc = 'Retoma última busca' }
 map('n', '<leader>fo', '<cmd>Pick oldfiles<cr>', { desc = 'Oldfiles' })
 map('n', '<leader>fl', '<cmd>Pick buf_lines scope="current"<cr>', { desc = 'Linhas do buffer' })
 map('n', '<leader>fk', '<cmd>Pick keymaps<cr>', { desc = 'Keymaps' })
-map('n', '<leader>fC', '<cmd>Pick colorschemes<cr>', { desc = 'Colorschemes' })
-map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
-map('n', '<leader>f:', '<cmd>Pick history scope=":"<cr>', { desc = 'Histórico de comandos' })
+--map('n', '<leader>fC', '<cmd>Pick colorschemes<cr>', { desc = 'Colorschemes' })
+--map('n', '<leader>fH', '<cmd>Pick hl_groups<cr>', { desc = 'Highlight groups' })
 map('n', '<leader>fq', '<cmd>Pick list scope="quickfix"<cr>', { desc = 'Quickfix' })
-map('n', '<leader>fj', '<cmd>Pick list scope="jump"<cr>', { desc = 'Jump list' })
-map('n', '<leader>fc', '<cmd>Pick list scope="change"<cr>', { desc = 'Change list' })
-map('n', '<leader>fw', function()
-    local word = vim.fn.expand('<cword>')
-    if word == '' then return vim.notify('Sem palavra sob o cursor', vim.log.levels.WARN) end
-    MiniPick.builtin.grep({ pattern = word, method = 'plain' })
-end, { desc = 'Grep palavra sob o cursor' })
 
-map('n', '<leader>gf', '<cmd>Pick git_files<cr>', { desc = 'Git files' })
 map('n', '<leader>gh', '<cmd>Pick git_hunks<cr>', { desc = 'Git hunks' })
 map('n', '<leader>gH', '<cmd>Pick git_hunks scope="staged"<cr>', { desc = 'Git hunks (staged)' })
 map('n', '<leader>gc', '<cmd>Pick git_commits<cr>', { desc = 'Git commits' })
@@ -408,8 +398,6 @@ end, { desc = 'Toggle diagnostics em linhas' })
 map('n', '<leader>lr', '<cmd>Pick lsp scope="references"<cr>', { desc = 'LSP references' })
 map('n', '<leader>ls', '<cmd>Pick lsp scope="document_symbol"<cr>', { desc = 'LSP symbols' })
 map('n', '<leader>lS', '<cmd>Pick lsp scope="workspace_symbol_live"<cr>', { desc = 'LSP workspace symbols' })
-map('n', '<leader>lg', '<cmd>Pick lsp scope="definition"<cr>', { desc = 'LSP definition' })
-map('n', '<leader>li', '<cmd>Pick lsp scope="implementation"<cr>', { desc = 'LSP implementation' })
 map('n', '<leader>lf', function() vim.lsp.buf.format({ async = true }) end, { desc = 'Format' })
 map('n', '<leader>ld', vim.diagnostic.open_float, { desc = 'Line diagnostics' })
 map('n', '<leader>lD', '<cmd>Pick diagnostic<cr>', { desc = 'Diagnostics' })
@@ -425,17 +413,11 @@ map('n', '[e', function()
     vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR, float = true })
 end, { desc = 'Erro anterior' })
 
-map('n', '<leader>tw', MiniTrailspace.trim, { desc = 'Trim trailing whitespace' })
-map('n', '<leader>tl', MiniTrailspace.trim_last_lines, { desc = 'Trim linhas finais' })
-map('n', '<leader>ta', function()
+map('n', '<leader>tw', function()
     MiniTrailspace.trim()
     MiniTrailspace.trim_last_lines()
 end, { desc = 'Trim all' })
 
-map('n', '<leader>e', '<cmd>Pick explorer<cr>', { desc = 'Navegar' })
-map('n', '<leader>E', function()
-    require('mini.files').open(vim.api.nvim_buf_get_name(0), true)
-end, { desc = 'File explorer' })
 map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
 
 map('n', '<leader>w', '<cmd>write<cr>', { desc = 'Write' })
