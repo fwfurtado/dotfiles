@@ -94,7 +94,7 @@ vim.cmd.colorscheme('minicyan')
 --------------------------------------------------------------------------------
 local parsers = {
     'bash', 'c', 'dart', 'diff', 'dockerfile', 'fish', 'go', 'gomod', 'gosum',
-    'gitcommit', 'hcl', 'json', 'kotlin', 'lua', 'make', 'markdown',
+    'gitcommit', 'hcl', 'json', 'lua', 'make', 'markdown',
     'markdown_inline', 'python', 'query', 'rust', 'sql', 'toml', 'vim',
     'vimdoc', 'yaml', 'zig',
 }
