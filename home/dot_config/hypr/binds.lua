@@ -162,6 +162,23 @@ hl.define_submap("resize", function()
 end)
 
 -- Workspaces.
+local function move_windows_current_workspace(target)
+    local current = hl.get_active_special_workspace() or hl.get_active_workspace()
+    if not current then
+        return
+    end
+
+    for _, window in pairs(hl.get_windows({ workspace = current })) do
+        hl.dispatch(hl.dsp.window.move({
+            window = window,
+            workspace = target,
+            follow = false,
+        }))
+    end
+
+    hl.dispatch(hl.dsp.focus({ workspace = tostring(target) }))
+end
+
 for workspace = 1, 9 do
     hl.bind("SUPER+" .. workspace, hl.dsp.focus({ workspace = tostring(workspace) }), {
         description = "workspace::Go to workspace " .. workspace,
@@ -173,8 +190,11 @@ for workspace = 1, 9 do
     })
 end
 for workspace = 1, 9 do
-    hl.bind("SUPER+CTRL+SHIFT+" .. workspace, hl.dsp.exec_cmd("~/.config/hypr/scripts/move-workspace.sh " .. workspace), {
-        description = "workspace::Send all::Send workspace to " .. workspace,
+    local target = workspace
+    hl.bind("SUPER+CTRL+SHIFT+" .. target, function()
+        move_windows_current_workspace(target)
+    end, {
+        description = "workspace::Send all::Send workspace to " .. target,
     })
 end
 hl.bind("SUPER+bracketleft", hl.dsp.focus({ workspace = "e-1" }), {
