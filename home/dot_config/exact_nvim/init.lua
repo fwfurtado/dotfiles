@@ -259,18 +259,21 @@ require('oil').setup({
 require('fyler').setup({
     use_as_default_explorer = true,
 
-    kind = 'split_right_most',
+    follow_root_dir = false,
 
     integrations = {
         icon = 'mini_icons',
     },
 
     extensions = {
-        git = { enabled = true }
+        git = { enabled = true, inline = false },
+        trash = { enabled = true },
+        watcher = { enabled = true },
     },
 
     ui = {
-        indent_guides = true
+        indent_guides = true,
+        hidden_items = { switches = {} },
     },
 })
 
