@@ -257,6 +257,8 @@ require('oil').setup({
 -- fyler.nvim — em avaliação, convivendo com o oil.nvim
 --------------------------------------------------------------------------------
 require('fyler').setup({
+    use_as_default_explorer = true,
+
     kind = 'split_right_most',
 
     integrations = {
@@ -458,7 +460,7 @@ end, { desc = 'Trim all' })
 
 
 -- Dir buffer maps
-map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
+map('n', '-', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
 map('n', '<leader>e', '<cmd>Fyler<cr>', { desc = 'Fyler (diretório do buffer)' })
 
 
