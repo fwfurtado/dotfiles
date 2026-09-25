@@ -449,7 +449,7 @@ map('n', '<leader>bd', function() require('mini.bufremove').delete() end, { desc
 map('n', '<leader>bo', '<cmd>%bd|e#|bd#<cr>', { desc = 'Fecha os outros buffers' })
 
 -- Trim maps
-map('n', '<leader>tw', function()
+map('n', '<leader>t', function()
     MiniTrailspace.trim()
     MiniTrailspace.trim_last_lines()
 end, { desc = 'Trim all' })
