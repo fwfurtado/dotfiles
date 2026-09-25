@@ -265,12 +265,12 @@ require('fyler').setup({
         icon = 'mini_icons',
     },
 
-    extentions = {
+    extensions = {
         git = { enabled = true }
     },
 
     ui = {
-        idente_guides = true
+        indent_guides = true
     },
 })
 
