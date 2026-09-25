@@ -228,7 +228,7 @@ miniclue.setup({
 })
 
 --------------------------------------------------------------------------------
--- oil.nvim — em avaliação, convivendo com mini.files
+-- oil.nvim
 --------------------------------------------------------------------------------
 -- default_file_explorer = false enquanto isso for teste: assumir os buffers de
 -- diretório é irreversível dentro da sessão e mudaria o comportamento de
@@ -252,6 +252,11 @@ require('oil').setup({
         show_hidden = true,
     },
 })
+
+--------------------------------------------------------------------------------
+-- fyler.nvim — em avaliação, convivendo com o oil.nvim
+--------------------------------------------------------------------------------
+require('fyler').setup()
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = parsers,
@@ -440,6 +445,7 @@ end, { desc = 'Trim all' })
 
 -- Dir buffer maps
 map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
+map('n', '<leader>e', function() fyler.open() end, { desc = 'Fyler (diretório do buffer)' })
 
 
 -- Helper maps
