@@ -256,7 +256,19 @@ require('oil').setup({
 --------------------------------------------------------------------------------
 -- fyler.nvim — em avaliação, convivendo com o oil.nvim
 --------------------------------------------------------------------------------
-require('fyler').setup()
+require('fyler').setup({
+    integrations = {
+        icon = 'mini_icons',
+    },
+
+    extentions = {
+        git = { enabled = true, inline = false}
+    },
+
+    ui = {
+        idente_guides = true
+    },
+})
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = parsers,
