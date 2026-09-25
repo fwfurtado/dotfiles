@@ -257,6 +257,8 @@ require('oil').setup({
 -- fyler.nvim — em avaliação, convivendo com o oil.nvim
 --------------------------------------------------------------------------------
 require('fyler').setup({
+    kind = 'split_right_most',
+
     integrations = {
         icon = 'mini_icons',
     },
