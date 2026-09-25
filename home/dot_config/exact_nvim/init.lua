@@ -155,12 +155,6 @@ require('mini.pick').setup()
 -- Precisa vir DEPOIS de mini.pick: MiniExtra.setup() só registra os pickers em
 -- MiniPick.registry se o global MiniPick já existir (extra.lua, apply_config).
 require('mini.extra').setup()
-require('mini.files').setup({
-    mappings = {
-        go_in = '<Right>',
-        go_out = '<Left>',
-    }
-})
 
 require('mini.move').setup({
     mappings = {
@@ -242,6 +236,7 @@ require('oil').setup({
 
     delete_to_trash = true,
     watch_for_changes = true,
+    skip_confirm_for_simple_edits = true,
 
     lsp_file_methods = {
         enabled = true,
@@ -464,7 +459,7 @@ end, { desc = 'Trim all' })
 
 -- Dir buffer maps
 map('n', '-', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
-map('n', '<leader>e', '<cmd>Fyler<cr>', { desc = 'Fyler (diretório do buffer)' })
+map('n', '<leader>e', '<cmd>Fyler kind=split_right_most<cr>', { desc = 'Fyler (diretório do buffer)' })
 
 
 -- Helper maps
