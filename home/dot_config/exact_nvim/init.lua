@@ -463,7 +463,7 @@ end, { desc = 'Trim all' })
 
 -- Dir buffer maps
 map('n', '-', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
-map('n', '<leader>e', '<cmd>Fyler kind=split_right_most<cr>', { desc = 'Fyler (diretório do buffer)' })
+map('n', '<leader>e', function() require('fyler').toggle({ kind='split_right_most' }) end, { desc = 'Fyler (diretório do buffer)' })
 
 
 -- Helper maps
