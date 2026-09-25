@@ -445,7 +445,7 @@ end, { desc = 'Trim all' })
 
 -- Dir buffer maps
 map('n', '<leader>o', '<cmd>Oil<cr>', { desc = 'Oil (diretório do buffer)' })
-map('n', '<leader>e', function() fyler.open() end, { desc = 'Fyler (diretório do buffer)' })
+map('n', '<leader>e', '<cmd>Fyler kind=split_left_most<cr>', { desc = 'Fyler (diretório do buffer)' })
 
 
 -- Helper maps
