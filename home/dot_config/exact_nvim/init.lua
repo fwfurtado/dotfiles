@@ -266,7 +266,7 @@ require('fyler').setup({
     },
 
     extentions = {
-        git = { enabled = true, inline = false}
+        git = { enabled = true }
     },
 
     ui = {
