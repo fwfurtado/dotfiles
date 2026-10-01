@@ -21,7 +21,7 @@ hl.bind("SUPER+SHIFT+Return", hl.dsp.exec_cmd(browser), {
 hl.bind("SUPER+E", hl.dsp.exec_cmd("nautilus"), {
     description = "apps::Open file manager",
 })
-hl.bind("SUPER+space", hl.dsp.exec_cmd("qs -c omni ipc call omni all"), {
+hl.bind("SUPER+space", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"), {
     description = "apps::Open launcher",
 })
 hl.bind("SUPER+V", hl.dsp.exec_cmd("cliphist list | " .. launcher .. " --dmenu | cliphist decode | wl-copy"), {
@@ -227,19 +227,19 @@ hl.bind("SUPER+Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | wl-copy"), {
 })
 
 -- Media and volume are handled by Quickshell's OSD; these only emit events.
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.4 @DEFAULT_AUDIO_SINK@ 5%+"), {
+hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), {
     repeating = true,
     description = "media::Volume up",
 })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), {
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("noctalia msg volume-down"), {
     repeating = true,
     description = "media::Volume down",
 })
-hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), {
+hl.bind("XF86AudioMute", hl.dsp.exec_cmd("noctalia msg volume-mute"), {
     locked = true,
     description = "media::Mute output",
 })
-hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), {
+hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("noctalia msg mic-mute"), {
     locked = true,
     description = "media::Mute microphone",
 })
@@ -263,10 +263,6 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), {
     repeating = true,
     description = "media::Brightness down",
 })
-hl.bind("SUPER+backslash", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), {
-    locked = true,
-    description = "media::Mute microphone",
-})
 
 -- System.
 hl.bind("SUPER+ALT+L", hl.dsp.exec_cmd("hyprlock"), {
@@ -278,13 +274,13 @@ hl.bind("SUPER+ALT+R", hl.dsp.exec_cmd("hyprctl reload"), {
 hl.bind("SUPER+ALT+Q", hl.dsp.exit(), {
     description = "system::Exit session",
 })
-hl.bind("SUPER+SHIFT+slash", hl.dsp.exec_cmd("qs -c cheatsheet ipc call cheatsheet toggle"), {
-    description = "system::Show keybindings",
-})
-hl.bind("SUPER+C", hl.dsp.exec_cmd("qs -c dashboard ipc call dashboard openTab calendar"), {
+-- hl.bind("SUPER+SHIFT+slash", hl.dsp.exec_cmd("qs -c cheatsheet ipc call cheatsheet toggle"), {
+--     description = "system::Show keybindings",
+-- })
+hl.bind("SUPER+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center calendar"), {
     description = "system::Show calendar",
 })
-hl.bind("SUPER+SHIFT+C", hl.dsp.exec_cmd("qs -c dashboard ipc call dashboard openTab system"), {
+hl.bind("SUPER+SHIFT+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center system"), {
     description = "system::Show system monitor",
 })
 
