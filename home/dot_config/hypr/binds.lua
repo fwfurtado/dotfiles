@@ -253,9 +253,9 @@ hl.bind("SUPER+ALT+R", hl.dsp.exec_cmd("hyprctl reload"), {
 hl.bind("SUPER+ALT+Q", hl.dsp.exit(), {
     description = "Exit session",
 })
--- hl.bind("SUPER+SHIFT+slash", hl.dsp.exec_cmd("qs -c cheatsheet ipc call cheatsheet toggle"), {
---     description = "Show keybindings",
--- })
+hl.bind("SUPER+SHIFT+slash", hl.dsp.exec_cmd("noctalia msg panel-toggle kenn/keybind-cheatsheet:cheatsheet"), {
+    description = "Show keybindings",
+})
 hl.bind("SUPER+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center calendar"), {
     description = "Show calendar",
 })
