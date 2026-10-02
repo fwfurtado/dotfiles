@@ -29,14 +29,9 @@ hl.bind("SUPER+V", hl.dsp.exec_cmd("cliphist list | " .. launcher .. " --dmenu |
 })
 
 -- 2. Focus
--- hjkl follows tiling conventions; mirrored arrows are convenient while the
--- hand is on the mouse.
+-- Arrow keys mirror the compositor's directional focus commands.
 do
     local focus_binds = {
-        { "H", "left" },
-        { "J", "down" },
-        { "K", "up" },
-        { "L", "right" },
         { "left", "left" },
         { "down", "down" },
         { "up", "up" },
@@ -73,10 +68,6 @@ hl.bind("SUPER+period", hl.dsp.layout("removemaster"), {
 -- 4. Move Windows
 do
     local move_binds = {
-        { "H", "left" },
-        { "J", "down" },
-        { "K", "up" },
-        { "L", "right" },
         { "left", "left" },
         { "down", "down" },
         { "up", "up" },
@@ -123,22 +114,6 @@ hl.bind("SUPER+R", hl.dsp.submap("resize"), {
     description = "Enter resize mode",
 })
 hl.define_submap("resize", function()
-    hl.bind("H", hl.dsp.window.resize({ x = -80, y = 0, relative = true }), {
-        repeating = true,
-        description = "Narrow window",
-    })
-    hl.bind("L", hl.dsp.window.resize({ x = 80, y = 0, relative = true }), {
-        repeating = true,
-        description = "Widen window",
-    })
-    hl.bind("K", hl.dsp.window.resize({ x = 0, y = -40, relative = true }), {
-        repeating = true,
-        description = "Shrink height",
-    })
-    hl.bind("J", hl.dsp.window.resize({ x = 0, y = 40, relative = true }), {
-        repeating = true,
-        description = "Grow height",
-    })
     hl.bind("left", hl.dsp.window.resize({ x = -80, y = 0, relative = true }), {
         repeating = true,
         description = "Narrow window",
