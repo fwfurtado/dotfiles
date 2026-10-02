@@ -8,7 +8,7 @@ local term = "ghostty +new-window"
 local browser = "google-chrome"
 local launcher = "fuzzel"
 
--- Applications.
+-- 1. Applications
 hl.bind("SUPER+Return", hl.dsp.exec_cmd(term), {
     description = "apps::Open terminal",
 })
@@ -28,8 +28,9 @@ hl.bind("SUPER+V", hl.dsp.exec_cmd("cliphist list | " .. launcher .. " --dmenu |
     description = "apps::Clipboard history",
 })
 
--- Focus. hjkl follows tiling conventions; mirrored arrows are convenient
--- while the hand is on the mouse.
+-- 2. Focus
+-- hjkl follows tiling conventions; mirrored arrows are convenient while the
+-- hand is on the mouse.
 do
     local focus_binds = {
         { "H", "left", "Focus window left" },
@@ -49,7 +50,7 @@ do
     end
 end
 
--- Master-layout actions.
+-- 3. Master Layout
 hl.bind("SUPER+M", hl.dsp.layout("focusmaster"), {
     description = "focus::Master::Focus master window",
 })
@@ -69,7 +70,7 @@ hl.bind("SUPER+period", hl.dsp.layout("removemaster"), {
     description = "focus::Master::Remove master slot",
 })
 
--- Move windows.
+-- 4. Move Windows
 do
     local move_binds = {
         { "H", "left", "Move window left" },
@@ -95,7 +96,7 @@ hl.bind("SUPER+mouse:273", hl.dsp.window.resize(), {
     description = "move::Resize with mouse",
 })
 
--- Window state.
+-- 5. Window State
 hl.bind("SUPER+Q", hl.dsp.window.close(), {
     description = "window::Close window",
 })
@@ -115,8 +116,9 @@ hl.bind("SUPER+SHIFT+R", hl.dsp.exec_cmd("hyprctl --batch \"dispatch layoutmsg m
     description = "window::Reset layout",
 })
 
--- Resize mode.  The submap function scopes these binds to resize.  Escape
--- and Return explicitly select reset, matching the legacy submap block.
+-- 6. Resize Mode
+-- The submap function scopes these binds to resize. Escape and Return
+-- explicitly select reset, matching the legacy submap block.
 hl.bind("SUPER+R", hl.dsp.submap("resize"), {
     description = "window::Enter resize mode",
 })
@@ -161,7 +163,7 @@ hl.define_submap("resize", function()
     })
 end)
 
--- Workspaces.
+-- 7. Workspaces
 local function move_windows_current_workspace(target)
     local current = hl.get_active_special_workspace() or hl.get_active_workspace()
     if not current then
@@ -207,7 +209,7 @@ hl.bind("SUPER+grave", hl.dsp.focus({ workspace = "previous" }), {
     description = "workspace::Back to last workspace",
 })
 
--- Scratchpad.
+-- 8. Scratchpad
 hl.bind("SUPER+S", hl.dsp.workspace.toggle_special("scratch"), {
     description = "workspace::Scratchpad::Toggle scratchpad",
 })
@@ -215,7 +217,7 @@ hl.bind("SUPER+SHIFT+S", hl.dsp.window.move({ workspace = "special:scratch", fol
     description = "workspace::Scratchpad::Send window to scratchpad",
 })
 
--- Screenshots.
+-- 9. Screenshots
 hl.bind("Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | swappy -f -"), {
     description = "capture::Region to editor",
 })
@@ -226,7 +228,9 @@ hl.bind("SUPER+Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | wl-copy"), {
     description = "capture::Region to clipboard",
 })
 
--- Media and volume are handled by Quickshell's OSD; these only emit events.
+-- 10. Media
+-- Volume and media actions are handled by Quickshell's OSD; these binds only
+-- emit events.
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), {
     repeating = true,
     description = "media::Volume up",
@@ -264,7 +268,7 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), {
     description = "media::Brightness down",
 })
 
--- System.
+-- 11. System
 hl.bind("SUPER+ALT+L", hl.dsp.exec_cmd("hyprlock"), {
     description = "system::Lock screen",
 })
