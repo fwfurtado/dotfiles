@@ -3,7 +3,7 @@ background-blur = 10
 theme = Ubuntu
 keybind = alt+backspace=text:\x1b\x7f
 {{$m := merge (dict) (get .machine .machineClass) .machine.defaults -}}
-background-opacity = {{ $m.opacity }}
+# background-opacity = {{ $m.opacity }}
 {{ if eq .chezmoi.os "linux" }}
 keybind = global:super+ctrl+grave_accent=toggle_quick_terminal
 
