@@ -1,12 +1,11 @@
--- Layout: master com orientação central.
+-- Layout: scrolling com pseudo-master central dinâmico.
 --
--- Em 32:9 o dwindle é inutilizável: duas janelas viram dois painéis de
--- 2560px, cada um com linhas de ~400 colunas. O padrão que funciona é
--- "cockpit": janela principal centralizada com largura fixa, satélites nas
--- bordas — que é exatamente orientation=center.
+-- Em 32:9 o scrolling mantém uma faixa horizontal de janelas e scrolling.lua
+-- promove a coluna focada para 50%, reduz as demais para 25% e mantém o foco
+-- centralizado.
 hl.config({
     general = {
-        layout = "master",
+        layout = "scrolling",
         gaps_in = 5,
         gaps_out = 10,
         border_size = 2,
@@ -16,16 +15,6 @@ hl.config({
         },
         resize_on_border = true,
         allow_tearing = false,
-    },
-})
-
-hl.config({
-    master = {
-        new_status = "slave", -- nova janela não rouba o master
-        new_on_top = false,
-        mfact = 0.42, -- ~2150px de master em 5120px: uma coluna de código honesta
-        orientation = "center",
-        slave_count_for_center_master = 1, -- já centraliza com 1 satélite
     },
 })
 

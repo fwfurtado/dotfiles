@@ -4,6 +4,8 @@
 -- descriptions contain labels only.  hl.dsp.exec_cmd() is used for every
 -- external command so process startup stays asynchronous and outside Lua callbacks.
 
+local scrolling = require("scrolling")
+
 local term = "ghostty +new-window"
 local browser = "google-chrome"
 local launcher = "fuzzel"
@@ -45,24 +47,24 @@ do
     end
 end
 
--- 3. Master Layout
-hl.bind("SUPER+M", hl.dsp.layout("focusmaster"), {
-    description = "Focus master window",
+-- 3. Scrolling Layout
+hl.bind("SUPER+M", scrolling.center_focused, {
+    description = "Center focused column",
 })
-hl.bind("SUPER+SHIFT+M", hl.dsp.layout("swapwithmaster"), {
-    description = "Swap with master",
+hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
+    description = "Promote window to own column",
 })
-hl.bind("SUPER+Tab", hl.dsp.layout("cyclenext"), {
-    description = "Next in stack",
+hl.bind("SUPER+Tab", hl.dsp.layout("focus r"), {
+    description = "Focus next column",
 })
-hl.bind("SUPER+SHIFT+Tab", hl.dsp.layout("cycleprev"), {
-    description = "Previous in stack",
+hl.bind("SUPER+SHIFT+Tab", hl.dsp.layout("focus l"), {
+    description = "Focus previous column",
 })
-hl.bind("SUPER+comma", hl.dsp.layout("addmaster"), {
-    description = "Add master slot",
+hl.bind("SUPER+comma", hl.dsp.layout("swapcol l"), {
+    description = "Swap column left",
 })
-hl.bind("SUPER+period", hl.dsp.layout("removemaster"), {
-    description = "Remove master slot",
+hl.bind("SUPER+period", hl.dsp.layout("swapcol r"), {
+    description = "Swap column right",
 })
 
 -- 4. Move Windows
@@ -103,8 +105,8 @@ hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
     description = "Pin window",
 })
-hl.bind("SUPER+SHIFT+R", hl.dsp.exec_cmd("hyprctl --batch \"dispatch layoutmsg mfact exact $mfact ; dispatch layoutmsg orientationcenter\""), {
-    description = "Reset layout",
+hl.bind("SUPER+SHIFT+R", scrolling.center_focused, {
+    description = "Reset scrolling layout",
 })
 
 -- 6. Resize Mode
