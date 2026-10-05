@@ -1,13 +1,15 @@
 -- Dynamic centered-master behavior on top of Hyprland's scrolling layout.
 --
 -- The scrolling layout remains responsible for the infinite horizontal tape.
--- This module only enforces a visual invariant on the active workspace:
+-- This module enforces a visual invariant on the active workspace:
 --
---     [ 25% ] [ focused: 50% ] [ 25% ]
+--     first focused:  [ focused: expands ][ 25% ]
+--     middle focused: [ 25% ][ focused: 50% ][ 25% ]
+--     last focused:   [ 25% ][ focused: expands ]
 --
--- Columns outside the viewport keep participating in the scrolling tape at
--- 25%. Whenever focus changes, the focused tiled column is resized to 50%
--- and centered.
+-- Interior columns use a centered 50% master. The first and last columns use
+-- `fit expand`, allowing the focused edge column to consume all space that
+-- would otherwise be left empty while keeping the adjacent column visible.
 
 local M = {}
 
@@ -27,6 +29,36 @@ hl.config({
     },
 })
 
+local function is_edge_column(window, workspace)
+    local layout = window.layout
+    local column = layout and layout.column
+
+    if not layout or layout.name ~= "scrolling" or not column or column.index == nil then
+        return false
+    end
+
+    local first_index = math.huge
+    local last_index = -math.huge
+
+    for _, candidate in pairs(hl.get_windows({ workspace = workspace })) do
+        if not candidate.floating then
+            local candidate_layout = candidate.layout
+            local candidate_column = candidate_layout and candidate_layout.column
+
+            if candidate_layout
+                and candidate_layout.name == "scrolling"
+                and candidate_column
+                and candidate_column.index ~= nil
+            then
+                first_index = math.min(first_index, candidate_column.index)
+                last_index = math.max(last_index, candidate_column.index)
+            end
+        end
+    end
+
+    return column.index == first_index or column.index == last_index
+end
+
 function M.center_focused()
     local window = hl.get_active_window()
     local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
@@ -39,7 +71,15 @@ function M.center_focused()
         return
     end
 
+    local edge_column = is_edge_column(window, workspace)
+
     hl.dispatch(hl.dsp.layout("colresize all " .. side_width))
+
+    if edge_column then
+        hl.dispatch(hl.dsp.layout("fit expand"))
+        return
+    end
+
     hl.dispatch(hl.dsp.layout("colresize " .. focused_width))
     hl.dispatch(hl.dsp.layout("center"))
 end
