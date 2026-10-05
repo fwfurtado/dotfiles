@@ -3,23 +3,24 @@
 -- The scrolling layout remains responsible for the infinite horizontal tape.
 -- This module enforces a visual invariant on the active workspace:
 --
---     first focused:  [ focused: expands ][ 25% ]
+--     first focused:  [ focused: 75% ][ 25% ]
 --     middle focused: [ 25% ][ focused: 50% ][ 25% ]
---     last focused:   [ 25% ][ focused: expands ]
+--     last focused:   [ 25% ][ focused: 75% ]
 --
--- Interior columns use a centered 50% master. The first and last columns use
--- `fit expand`, allowing the focused edge column to consume all space that
--- would otherwise be left empty while keeping the adjacent column visible.
+-- Interior columns are centered. Edge columns switch the scrolling viewport
+-- to fit mode so a 75% focused column is anchored against the monitor edge,
+-- leaving the adjacent 25% column visible and avoiding empty space.
 
 local M = {}
 
 local side_width = 0.25
 local focused_width = 0.50
+local edge_width = 0.75
 
 hl.config({
     scrolling = {
         column_width = side_width,
-        explicit_column_widths = "0.25, 0.50",
+        explicit_column_widths = "0.25, 0.50, 0.75",
         focus_fit_method = 0,
         follow_focus = true,
         follow_min_visible = 0.0,
@@ -59,6 +60,14 @@ local function is_edge_column(window, workspace)
     return column.index == first_index or column.index == last_index
 end
 
+local function set_focus_fit_method(value)
+    hl.config({
+        scrolling = {
+            focus_fit_method = value,
+        },
+    })
+end
+
 function M.center_focused()
     local window = hl.get_active_window()
     local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
@@ -76,10 +85,13 @@ function M.center_focused()
     hl.dispatch(hl.dsp.layout("colresize all " .. side_width))
 
     if edge_column then
-        hl.dispatch(hl.dsp.layout("fit expand"))
+        set_focus_fit_method(1)
+        hl.dispatch(hl.dsp.layout("colresize " .. edge_width))
+        hl.dispatch(hl.dsp.layout("fit_into_view"))
         return
     end
 
+    set_focus_fit_method(0)
     hl.dispatch(hl.dsp.layout("colresize " .. focused_width))
     hl.dispatch(hl.dsp.layout("center"))
 end
