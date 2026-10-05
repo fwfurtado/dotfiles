@@ -48,8 +48,8 @@ do
 end
 
 -- 3. Scrolling Layout
-hl.bind("SUPER+M", scrolling.center_focused, {
-    description = "Center focused column",
+hl.bind("SUPER+M", scrolling.resize_focused, {
+    description = "Resize focused column",
 })
 hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
     description = "Promote window to own column",
@@ -105,7 +105,7 @@ hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
     description = "Pin window",
 })
-hl.bind("SUPER+SHIFT+R", scrolling.center_focused, {
+hl.bind("SUPER+SHIFT+R", scrolling.resize_focused, {
     description = "Reset scrolling layout",
 })
 
