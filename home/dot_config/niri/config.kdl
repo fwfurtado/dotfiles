@@ -152,16 +152,21 @@ binds {
         close-window
     }
 
-    Mod+F {
+    Mod+M {
         maximize-column
     }
 
-    Mod+Shift+F {
+    Mod+Shift+M {
         fullscreen-window
     }
 
-    Mod+V {
+    Mod+F {
         toggle-window-floating
+    }
+
+    // Clipboard
+    Mod+V {
+        spawn "noctalia" "msg" "panel-toggle" "clipboard";
     }
 
     // Lock.
@@ -188,24 +193,24 @@ binds {
 
     // Media
     XF86AudioPlay repeat=false allow-when-locked=true {
-        spawn "playerctl" "play-pause";
+        spawn "noctalia" "msg" "media" "toggle";
     }
 
     XF86AudioNext repeat=false allow-when-locked=true {
-        spawn "playerctl" "next";
+        spawn "noctalia" "msg" "media" "next";
     }
 
     XF86AudioPrev repeat=false allow-when-locked=true {
-        spawn "playerctl" "previous";
+        spawn "noctalia" "msg" "media" "previous";
     }
 
     // Brightness
     XF86MonBrightnessUp {
-        spawn "brightnessctl" "set" "5%+";
+        spawn "noctalia" "msg" "brightness-up";
     }
 
     XF86MonBrightnessDown {
-        spawn "brightnessctl" "set" "5%-";
+        spawn "noctalia" "msg" "brightness-down";
     }
 
     // Screenshot
