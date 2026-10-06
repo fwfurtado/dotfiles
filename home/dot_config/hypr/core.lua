@@ -107,7 +107,7 @@ hl.config({
 
 -- Workspace swipe gesture.
 hl.gesture({
-    fingers = 3,
+    fingers = 4,
     direction = "horizontal",
     scale = 0.5,
     action = "workspace",
