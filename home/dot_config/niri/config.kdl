@@ -1,0 +1,189 @@
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            variant "mac"
+            model "pc105"
+            options "lv3:ralt_switch"
+        }
+
+        repeat-rate 40
+        repeat-delay 300
+    }
+
+    mouse {
+        accel-speed 0.4
+        accel-profile "adaptive"
+    }
+
+    touchpad {
+        tap
+        natural-scroll
+        dwt
+        click-method "clickfinger"
+    }
+}
+
+// Para o primeiro login, deixaria o Niri escolher automaticamente
+// resolução e refresh.
+//
+// Depois de entrar:
+//   niri msg outputs
+//
+// e então podemos fixar exatamente seu 5120x1440@120.xxx.
+output "DP-1" {
+    mode "5120x1440@119.999"
+    scale 1
+}
+layout {
+    gaps 10
+
+    // É o comportamento mais próximo do scrolling que você está usando.
+    // center-focused-column "never"
+
+    default-column-width {
+        proportion 0.5
+    }
+
+    // preset-column-widths {
+    //     proportion 0.33333
+    //     proportion 0.5
+    //     proportion 0.66667
+    //     proportion 1.0
+    // }
+
+    focus-ring {
+        width 2
+    }
+
+    border {
+        off
+    }
+}
+
+prefer-no-csd
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+binds {
+    // Apps
+    Mod+Return {
+        spawn "ghostty" "+new-window"
+    }
+
+    Mod+Shift+Return {
+        spawn "google-chrome"
+    }
+
+    Mod+Space {
+        spawn "noctalia" "msg" "panel-toggle" "launcher"
+    }
+
+    // Overview nativo
+    Mod+O repeat=false {
+        toggle-overview
+    }
+
+    // Window / column navigation.
+    Mod+Left {
+        focus-column-left
+    }
+
+    Mod+Right {
+        focus-column-right
+    }
+
+    Mod+Up {
+        focus-window-up
+    }
+
+    Mod+Down {
+        focus-window-down
+    }
+
+    // Mover dentro do layout.
+    Mod+Ctrl+Left {
+        move-column-left
+    }
+
+    Mod+Ctrl+Right {
+        move-column-right
+    }
+
+    Mod+Ctrl+Up {
+        move-window-up
+    }
+
+    Mod+Ctrl+Down {
+        move-window-down
+    }
+
+    // Workspaces dinâmicos verticais.
+    Mod+Page_Up {
+        focus-workspace-up
+    }
+
+    Mod+Page_Down {
+        focus-workspace-down
+    }
+
+    Mod+Ctrl+Page_Up {
+        move-column-to-workspace-up
+    }
+
+    Mod+Ctrl+Page_Down {
+        move-column-to-workspace-down
+    }
+
+    // Column operations.
+    Mod+C {
+        center-column
+    }
+
+    Mod+BracketLeft {
+        consume-or-expel-window-left
+    }
+
+    Mod+BracketRight {
+        consume-or-expel-window-right
+    }
+
+    Mod+R {
+        switch-preset-column-width
+    }
+
+    Mod+Shift+R {
+        switch-preset-column-width-back
+    }
+
+    // Window state.
+    Mod+Q repeat=false {
+        close-window
+    }
+
+    Mod+F {
+        maximize-column
+    }
+
+    Mod+Shift+F {
+        fullscreen-window
+    }
+
+    Mod+V {
+        toggle-window-floating
+    }
+
+    // Lock.
+    Mod+Alt+L allow-when-locked=true {
+        spawn "hyprlock"
+    }
+
+    // Exit session.
+    Mod+Shift+E {
+        quit
+    }
+}
+
+include "noctalia.kdl"
