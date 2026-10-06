@@ -1,11 +1,6 @@
--- Layout: scrolling com pseudo-master central dinâmico.
---
--- Em 32:9 o scrolling mantém uma faixa horizontal de janelas e scrolling.lua
--- promove a coluna focada para 50%, reduz as demais para 25% e mantém o foco
--- centralizado.
+-- General compositor behavior. Layout-specific configuration lives in its own module.
 hl.config({
     general = {
-        layout = "scrolling",
         gaps_in = 5,
         gaps_out = 10,
         border_size = 2,
@@ -73,7 +68,7 @@ hl.config({
         repeat_delay = 300,
         follow_mouse = 2,
         sensitivity = 0.4,
-        accel_profile = "adaptive", -- desktop: sem aceleração, previsível
+        accel_profile = "adaptive", -- libinput adaptive acceleration
 
         touchpad = {
             natural_scroll = true,

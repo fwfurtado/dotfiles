@@ -95,20 +95,7 @@ hl.window_rule({
     size = { 2000, 1200 },
 })
 
--- Layer rules for Quickshell.  Do not add blur to the full-screen surfaces
--- (control center, dashboard, or omni); their visible cards are inner panels.
-hl.layer_rule({
-    match = { namespace = "quickshell-bar" },
-    blur = true,
-})
-hl.layer_rule({
-    match = { namespace = "quickshell-notifications" },
-    blur = true,
-})
-hl.layer_rule({
-    match = { namespace = "quickshell-osd" },
-    blur = true,
-})
+-- Launcher.
 hl.layer_rule({
     match = { namespace = "launcher" },
     blur = true,

@@ -1,19 +1,13 @@
--- Focus-driven master behavior on top of Hyprland's scrolling layout.
+-- Scrolling layout configuration and layout-specific keybindings.
 --
--- Hyprland's scrolling layout owns viewport movement through `follow_focus`.
--- This module only enforces column widths when focus changes:
---
---     focused column: 50%
---     every other column: 25%
---
--- No explicit centering or edge handling is performed here.
-
-local M = {}
-
-local side_width = 0.25
-local focused_width = 0.75
+-- Keep layout-specific behavior here so binds.lua remains independent from
+-- the active tiling algorithm. Switching layouts should only require loading
+-- another layout module.
 
 hl.config({
+    general = {
+        layout = "scrolling",
+    },
     scrolling = {
         fullscreen_on_one_column = true,
         column_width = 0.5,
@@ -27,25 +21,54 @@ hl.config({
     },
 })
 
-function M.resize_focused()
-    local window = hl.get_active_window()
-    local workspace = hl.get_active_special_workspace() or hl.get_active_workspace()
+-- Centering is explicit; normal focus movement uses scrolling:focus_fit_method.
+hl.bind("SUPER+F", hl.dsp.layout("center"), {
+    description = "Center column",
+})
 
-    if not window or window.floating or not workspace then
-        return
-    end
+-- Column navigation and movement.
+hl.bind("SUPER+CTRL+left", hl.dsp.layout("focus l"), {
+    description = "Focus previous column",
+})
+hl.bind("SUPER+CTRL+right", hl.dsp.layout("focus r"), {
+    description = "Focus next column",
+})
+hl.bind("SUPER+CTRL+SHIFT+left", hl.dsp.layout("swapcol l"), {
+    description = "Swap column left",
+})
+hl.bind("SUPER+CTRL+SHIFT+right", hl.dsp.layout("swapcol r"), {
+    description = "Swap column right",
+})
 
-    if workspace.tiled_layout ~= "scrolling" then
-        return
-    end
+-- Move a window between columns. If the current column contains more than one
+-- window, consume_or_expel detaches the focused window into its own column.
+hl.bind("SUPER+ALT+left", hl.dsp.layout("consume_or_expel prev"), {
+    description = "Consume or expel window left",
+})
+hl.bind("SUPER+ALT+right", hl.dsp.layout("consume_or_expel next"), {
+    description = "Consume or expel window right",
+})
 
-    hl.dispatch(hl.dsp.layout("colresize all " .. side_width))
-    hl.dispatch(hl.dsp.layout("colresize " .. focused_width))
-end
+-- Fast column navigation.
+hl.bind("SUPER+Tab", hl.dsp.layout("focus r"), {
+    description = "Focus next column",
+})
+hl.bind("SUPER+SHIFT+Tab", hl.dsp.layout("focus l"), {
+    description = "Focus previous column",
+})
 
--- hl.on("window.active", function()
---     M.resize_focused()
--- end)
+-- Detach the focused window into its own column.
+hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
+    description = "Promote window to own column",
+})
 
-return M
+-- Cycle through the widths configured in explicit_column_widths.
+hl.bind("SUPER+SHIFT+bracketleft", hl.dsp.layout("colresize -conf"), {
+    description = "Previous column width preset",
+})
+hl.bind("SUPER+SHIFT+bracketright", hl.dsp.layout("colresize +conf"), {
+    description = "Next column width preset",
+})
+
+return true
 

@@ -44,47 +44,7 @@ do
         })
     end
 end
-hl.bind("SUPER + F", hl.dsp.layout("center"), {description = "Center column"})
-
--- 3. Scrolling Layout
--- Keep SUPER+arrows for window-level focus and SUPER+SHIFT+arrows for
--- window-level movement. Add CTRL for column-level operations.
-hl.bind("SUPER+CTRL+left", hl.dsp.layout("focus l"), {
-    description = "Focus previous column",
-})
-hl.bind("SUPER+CTRL+right", hl.dsp.layout("focus r"), {
-    description = "Focus next column",
-})
-hl.bind("SUPER+CTRL+SHIFT+left", hl.dsp.layout("swapcol l"), {
-    description = "Swap column left",
-})
-hl.bind("SUPER+CTRL+SHIFT+right", hl.dsp.layout("swapcol r"), {
-    description = "Swap column right",
-})
-
--- Move a single window into an adjacent column; when the window already shares
--- a column, the same action expels it into its own column.
-hl.bind("SUPER+ALT+left", hl.dsp.layout("consume_or_expel prev"), {
-    description = "Consume or expel window left",
-})
-hl.bind("SUPER+ALT+right", hl.dsp.layout("consume_or_expel next"), {
-    description = "Consume or expel window right",
-})
-
--- Fast column navigation is kept on Tab as an alternative to CTRL+arrows.
-hl.bind("SUPER+Tab", hl.dsp.layout("focus r"), {
-    description = "Focus next column",
-})
-hl.bind("SUPER+SHIFT+Tab", hl.dsp.layout("focus l"), {
-    description = "Focus previous column",
-})
-
--- Always detach the focused window into its own column.
-hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
-    description = "Promote window to own column",
-})
-
--- 4. Move Windows
+-- 3. Move Windows
 do
     local move_binds = {
         { "left", "left" },
@@ -106,7 +66,7 @@ hl.bind("SUPER+mouse:273", hl.dsp.window.resize(), {
     description = "Resize with mouse",
 })
 
--- 5. Window State
+-- 4. Window State
 hl.bind("SUPER+Q", hl.dsp.window.close(), {
     description = "Close window",
 })
@@ -122,45 +82,7 @@ hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
     description = "Pin window",
 })
--- 6. Resize Mode
--- The submap function scopes these binds to resize. Escape and Return
--- explicitly select reset, matching the legacy submap block.
-hl.bind("SUPER + SHIFT + bracketleft", hl.dsp.layout("colresize -conf"), {
-    description = "Previous column width preset",
-})
-hl.bind("SUPER + SHIFT + bracketright", hl.dsp.layout("colresize +conf"), {
-    description = "Next column width preset",
-})
-
--- hl.bind("SUPER+R", hl.dsp.submap("resize"), {
---     description = "Enter resize mode",
--- })
--- hl.define_submap("resize", function()
---     hl.bind("left", hl.dsp.window.resize({ x = -80, y = 0, relative = true }), {
---         repeating = true,
---         description = "Narrow window",
---     })
---     hl.bind("right", hl.dsp.window.resize({ x = 80, y = 0, relative = true }), {
---         repeating = true,
---         description = "Widen window",
---     })
---     hl.bind("up", hl.dsp.window.resize({ x = 0, y = -40, relative = true }), {
---         repeating = true,
---         description = "Shrink height",
---     })
---     hl.bind("down", hl.dsp.window.resize({ x = 0, y = 40, relative = true }), {
---         repeating = true,
---         description = "Grow height",
---     })
---     hl.bind("Escape", hl.dsp.submap("reset"), {
---         description = "Leave resize mode",
---     })
---     hl.bind("Return", hl.dsp.submap("reset"), {
---         description = "Leave resize mode",
---     })
--- end)
-
--- 7. Workspaces
+-- 5. Workspaces
 local function move_windows_current_workspace(target)
     local current = hl.get_active_special_workspace() or hl.get_active_workspace()
     if not current then
@@ -206,7 +128,7 @@ hl.bind("SUPER+grave", hl.dsp.focus({ workspace = "previous" }), {
     description = "Back to last workspace",
 })
 
--- 8. Scratchpad
+-- 6. Scratchpad
 hl.bind("SUPER+S", hl.dsp.workspace.toggle_special("scratch"), {
     description = "Toggle scratchpad",
 })
@@ -214,7 +136,7 @@ hl.bind("SUPER+SHIFT+S", hl.dsp.window.move({ workspace = "special:scratch", fol
     description = "Send window to scratchpad",
 })
 
--- 9. Screenshots
+-- 7. Screenshots
 hl.bind("Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | swappy -f -"), {
     description = "Region to editor",
 })
@@ -225,8 +147,8 @@ hl.bind("SUPER+Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | wl-copy"), {
     description = "Region to clipboard",
 })
 
--- 10. Media
--- Volume and media actions are handled by Quickshell's OSD; these binds only
+-- 8. Media
+-- Volume and media actions are handled by Noctalia's OSD; these binds only
 -- emit events.
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("noctalia msg volume-up"), {
     repeating = true,
@@ -265,7 +187,7 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), {
     description = "Brightness down",
 })
 
--- 11. System
+-- 9. System
 hl.bind("SUPER+ALT+L", hl.dsp.exec_cmd("hyprlock"), {
     description = "Lock screen",
 })
