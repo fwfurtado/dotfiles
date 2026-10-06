@@ -207,6 +207,11 @@ binds {
     XF86MonBrightnessDown {
         spawn "brightnessctl" "set" "5%-";
     }
+
+    // Screenshot
+    Print {
+        spawn "noctalia" "msg" "screenshot-region";
+    }
 }
 
 include "noctalia.kdl"
