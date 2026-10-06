@@ -4,8 +4,6 @@
 -- descriptions contain labels only.  hl.dsp.exec_cmd() is used for every
 -- external command so process startup stays asynchronous and outside Lua callbacks.
 
-local scrolling = require("scrolling")
-
 local term = "ghostty +new-window"
 local browser = "google-chrome"
 local launcher = "fuzzel"
@@ -49,23 +47,41 @@ end
 hl.bind("SUPER + F", hl.dsp.layout("center"), {description = "Center column"})
 
 -- 3. Scrolling Layout
--- hl.bind("SUPER+M", scrolling.resize_focused, {
---     description = "Resize focused column",
--- })
-hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
-    description = "Promote window to own column",
+-- Keep SUPER+arrows for window-level focus and SUPER+SHIFT+arrows for
+-- window-level movement. Add CTRL for column-level operations.
+hl.bind("SUPER+CTRL+left", hl.dsp.layout("focus l"), {
+    description = "Focus previous column",
 })
+hl.bind("SUPER+CTRL+right", hl.dsp.layout("focus r"), {
+    description = "Focus next column",
+})
+hl.bind("SUPER+CTRL+SHIFT+left", hl.dsp.layout("swapcol l"), {
+    description = "Swap column left",
+})
+hl.bind("SUPER+CTRL+SHIFT+right", hl.dsp.layout("swapcol r"), {
+    description = "Swap column right",
+})
+
+-- Move a single window into an adjacent column; when the window already shares
+-- a column, the same action expels it into its own column.
+hl.bind("SUPER+ALT+left", hl.dsp.layout("consume_or_expel prev"), {
+    description = "Consume or expel window left",
+})
+hl.bind("SUPER+ALT+right", hl.dsp.layout("consume_or_expel next"), {
+    description = "Consume or expel window right",
+})
+
+-- Fast column navigation is kept on Tab as an alternative to CTRL+arrows.
 hl.bind("SUPER+Tab", hl.dsp.layout("focus r"), {
     description = "Focus next column",
 })
 hl.bind("SUPER+SHIFT+Tab", hl.dsp.layout("focus l"), {
     description = "Focus previous column",
 })
-hl.bind("SUPER+comma", hl.dsp.layout("swapcol l"), {
-    description = "Swap column left",
-})
-hl.bind("SUPER+period", hl.dsp.layout("swapcol r"), {
-    description = "Swap column right",
+
+-- Always detach the focused window into its own column.
+hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
+    description = "Promote window to own column",
 })
 
 -- 4. Move Windows
@@ -106,15 +122,15 @@ hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
     description = "Pin window",
 })
--- hl.bind("SUPER+SHIFT+R", scrolling.resize_focused, {
---     description = "Reset scrolling layout",
--- })
-
 -- 6. Resize Mode
 -- The submap function scopes these binds to resize. Escape and Return
 -- explicitly select reset, matching the legacy submap block.
-hl.bind("SUPER + SHIFT + bracketleft",  hl.dsp.layout("colresize -conf"))
-hl.bind("SUPER + SHIFT + bracketright", hl.dsp.layout("colresize +conf"))
+hl.bind("SUPER + SHIFT + bracketleft", hl.dsp.layout("colresize -conf"), {
+    description = "Previous column width preset",
+})
+hl.bind("SUPER + SHIFT + bracketright", hl.dsp.layout("colresize +conf"), {
+    description = "Next column width preset",
+})
 
 -- hl.bind("SUPER+R", hl.dsp.submap("resize"), {
 --     description = "Enter resize mode",
