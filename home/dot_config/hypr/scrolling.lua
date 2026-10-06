@@ -10,13 +10,13 @@
 
 local M = {}
 
-local side_width = 0.50
+local side_width = 0.25
 local focused_width = 0.75
 
 hl.config({
     scrolling = {
         column_width = side_width,
-        explicit_column_widths = "0.50, 0.75",
+        explicit_column_widths = "0.25, 0.75",
         focus_fit_method = 0,
         follow_focus = true,
         follow_min_visible = 0.0,
