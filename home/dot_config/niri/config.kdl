@@ -45,21 +45,6 @@ layout {
     default-column-width {
         proportion 0.5
     }
-
-    // preset-column-widths {
-    //     proportion 0.33333
-    //     proportion 0.5
-    //     proportion 0.66667
-    //     proportion 1.0
-    // }
-
-    focus-ring {
-        width 2
-    }
-
-    border {
-        off
-    }
 }
 
 prefer-no-csd
@@ -69,6 +54,9 @@ hotkey-overlay {
 }
 
 binds {
+    // Hotkey overlay
+    Mod+Shift+Slash { show-hotkey-overlay; }
+
     // Apps
     Mod+Return {
         spawn "ghostty" "+new-window"
@@ -181,10 +169,6 @@ binds {
         spawn "hyprlock"
     }
 
-    // Exit session.
-    Mod+Shift+E {
-        quit
-    }
 }
 
 include "noctalia.kdl"
