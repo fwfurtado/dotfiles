@@ -8,6 +8,7 @@ readonly PREFIX="/opt/hyprland-${VERSION}"
 readonly PORTAL_FILE='/usr/share/xdg-desktop-portal/hyprland-portals.conf'
 readonly PUBLIC_BIN_DIR='/usr/local/bin'
 readonly PUBLIC_BINARIES=(Hyprland start-hyprland hyprctl hyprpm)
+readonly PUBLIC_SYMLINK_BINARIES=(Hyprland start-hyprland hyprctl)
 readonly ROLLBACK_TAG="$(printf '%(%Y%m%dT%H%M%SZ)T' -1)-$$"
 
 DRY_RUN=0
@@ -20,6 +21,7 @@ STAGED_PREFIX=''
 FINAL_STAGING=''
 RUNTIME_DIR=''
 PORTAL_TEMP=''
+PUBLIC_TEMP=''
 rollback_prefix=''
 
 log() {
@@ -56,6 +58,9 @@ cleanup() {
     if [[ -n "$PORTAL_TEMP" && -e "$PORTAL_TEMP" ]]; then
         rm -f -- "$PORTAL_TEMP"
     fi
+    if [[ -n "$PUBLIC_TEMP" && -e "$PUBLIC_TEMP" ]]; then
+        rm -f -- "$PUBLIC_TEMP"
+    fi
     return "$status"
 }
 run_as_build_user() {
@@ -72,7 +77,7 @@ usage() {
         'Usage: sudo scripts/install-hyprland-systemwide.sh [OPTIONS]' \
         '' \
         "Promote the validated Hyprland $VERSION prefix to $PREFIX, then atomically" \
-        'publish /usr/local/bin/Hyprland, start-hyprland, hyprctl, and hyprpm.' \
+        'publish /usr/local/bin/Hyprland, start-hyprland, hyprctl, and a hyprpm environment wrapper.' \
         '' \
         'Options:' \
         '  --dry-run       Run preflight checks and show changes; do not install.' \
@@ -96,8 +101,8 @@ done
 # Promotion does not build anything. These are the only external tools used by
 # the preflight, staging, dynamic-link audit, and atomic installation paths.
 readonly REQUIRED_COMMANDS=(
-    patchelf readelf ldd file find cp mv install mktemp cmp stat id grep
-    dpkg-query apt-mark runuser getent chown ln rm chmod
+    patchelf readelf ldd file find cp mv install mktemp cmp stat id grep python3 pkg-config pkgconf
+    dpkg-query apt-mark runuser getent chown ln rm chmod gcc gcc-16 g++ g++-16 git cmake make cpio
 )
 
 if ! command -v patchelf >/dev/null 2>&1; then
@@ -106,6 +111,7 @@ fi
 for command_name in "${REQUIRED_COMMANDS[@]}"; do
     command -v "$command_name" >/dev/null 2>&1 || die "required command '$command_name' is unavailable"
 done
+pkg-config --exists lua5.5 || die "lua5.5 pkg-config metadata is required for Hyprland/hyprpm plugin builds"
 
 BUILD_USER="$SUDO_USER"
 passwd_entry="$(getent passwd "$BUILD_USER")" || die "cannot resolve SUDO_USER=$BUILD_USER"
@@ -115,12 +121,17 @@ IFS=: read -r _ _ _ _ _ BUILD_HOME _ <<<"$passwd_entry"
 SOURCE_PREFIX="$BUILD_HOME/.local/opt/hyprland-${VERSION}"
 readonly BUILD_USER BUILD_HOME SOURCE_PREFIX
 
-# The validated prefix is user-local and must remain untouched. Only the
-# selected public entry points and custom Hypr runtime libraries are promoted;
-# Wayland and ordinary dependencies remain distro-owned and are resolved from
-# the host runtime.
+# The validated prefix is user-local and must remain untouched. Promote the
+# complete private Hypr prefix (runtime, headers, pkg-config/CMake metadata, and
+# scanners) so hyprpm can rebuild headers/plugins without depending on ~/.local.
+# Wayland and ordinary host dependencies remain distro-owned.
 [[ -d "$SOURCE_PREFIX" ]] || die "validated source prefix is missing: $SOURCE_PREFIX"
-[[ -d "$SOURCE_PREFIX/bin" && -d "$SOURCE_PREFIX/lib" ]] || die "validated source prefix lacks bin/ or lib/: $SOURCE_PREFIX"
+[[ -d "$SOURCE_PREFIX/bin" && -d "$SOURCE_PREFIX/lib" && -d "$SOURCE_PREFIX/include" ]] \
+    || die "validated source prefix lacks bin/, lib/, or include/: $SOURCE_PREFIX"
+[[ -d "$SOURCE_PREFIX/lib/pkgconfig" ]] || die "validated source prefix lacks lib/pkgconfig/: $SOURCE_PREFIX"
+if grep -RIFq "$BUILD_HOME/.local/opt/.hyprland-${VERSION}.stage."     "$SOURCE_PREFIX/lib/pkgconfig" "$SOURCE_PREFIX/share/pkgconfig"     "$SOURCE_PREFIX/lib/cmake" "$SOURCE_PREFIX/share/cmake" 2>/dev/null; then
+    die 'validated source metadata still references a temporary staging prefix; rebuild with scripts/build-hyprland-local.sh --clean'
+fi
 for public_binary in "${PUBLIC_BINARIES[@]}"; do
     [[ -x "$SOURCE_PREFIX/bin/$public_binary" ]] || die "validated source prefix lacks executable bin/$public_binary"
 done
@@ -148,11 +159,11 @@ fi
 
 if [[ "$DRY_RUN" -eq 1 ]]; then
     log 'preflight succeeded; dry-run makes no filesystem, apt, or source changes'
-    log "would promote the validated prefix $SOURCE_PREFIX to $PREFIX and use distro Wayland/runtime libraries"
+    log "would promote the complete validated prefix $SOURCE_PREFIX to $PREFIX and use distro Wayland/host libraries"
     if [[ -e "$PREFIX" || -L "$PREFIX" ]]; then
         log "would move $PREFIX to a unique ${PREFIX}.rollback.* path"
     fi
-    log "would atomically publish $PUBLIC_BIN_DIR/{Hyprland,start-hyprland,hyprctl,hyprpm}"
+    log "would atomically publish symlinks for Hyprland/start-hyprland/hyprctl plus a hyprpm environment wrapper"
     log "would recreate $PORTAL_FILE and mark only xdg-desktop-portal-hyprland and libhyprcursor0 manual"
     exit 0
 fi
@@ -164,25 +175,50 @@ STAGED_PREFIX="$WORKSPACE"
 chmod 0755 "$STAGED_PREFIX"
 FINAL_STAGING="$STAGED_PREFIX"
 readonly WORKSPACE STAGED_PREFIX
-install -d -o root -g root -m 0755 "$STAGED_PREFIX/bin" "$STAGED_PREFIX/lib"
+install -d -o root -g root -m 0755 "$STAGED_PREFIX"
 RUNTIME_DIR="$(mktemp -d /tmp/hyprland-systemwide-runtime.XXXXXX)" || die 'could not create a temporary XDG runtime directory'
 chown "$BUILD_USER" "$RUNTIME_DIR" || die 'could not assign the temporary XDG runtime directory to SUDO_USER'
 chmod 0700 "$RUNTIME_DIR"
 
-for public_binary in "${PUBLIC_BINARIES[@]}"; do
-    cp -a -- "$SOURCE_PREFIX/bin/$public_binary" "$STAGED_PREFIX/bin/" || die "could not stage bin/$public_binary"
-done
+cp -a -- "$SOURCE_PREFIX/." "$STAGED_PREFIX/" || die "could not stage the complete validated prefix $SOURCE_PREFIX"
 
-staged_library_count=0
-while IFS= read -r -d '' library; do
-    cp -a -- "$library" "$STAGED_PREFIX/lib/" || die "could not stage runtime library $library"
-    staged_library_count=$((staged_library_count + 1))
-done < <(
-    find "$SOURCE_PREFIX/lib" -maxdepth 1 \( -type f -o -type l \) \( \
-        -name 'libaquamarine*' -o -name 'libhypr*.so*' -o -name 'liblua5.5.so*' \
-    \) -print0
+relocate_metadata() {
+    local root=$1 from=$2 to=$3
+    python3 - "$root" "$from" "$to" <<'PYMETADATA'
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1])
+source = sys.argv[2]
+target = sys.argv[3]
+roots = (
+    root / "lib/pkgconfig",
+    root / "share/pkgconfig",
+    root / "lib/cmake",
+    root / "share/cmake",
 )
-[[ "$staged_library_count" -gt 0 ]] || die 'validated source prefix contains none of the required custom runtime libraries'
+
+for metadata_root in roots:
+    if not metadata_root.is_dir():
+        continue
+    for path in metadata_root.rglob("*"):
+        if not path.is_file() or path.suffix not in {".pc", ".cmake"}:
+            continue
+        text = path.read_text()
+        updated = text.replace(source, target)
+        if updated != text:
+            path.write_text(updated)
+
+for metadata_root in roots:
+    if not metadata_root.is_dir():
+        continue
+    for path in metadata_root.rglob("*"):
+        if path.is_file() and path.suffix in {".pc", ".cmake"} and source in path.read_text():
+            raise SystemExit(f"unrelocated source prefix remains in {path}")
+PYMETADATA
+}
+
+relocate_metadata "$STAGED_PREFIX" "$SOURCE_PREFIX" "$PREFIX"
 
 # Replace every ELF's RPATH rather than inheriting the user-local source path.
 # Shell scripts and symlinks are deliberately excluded: only regular ELF files
@@ -199,7 +235,7 @@ patch_and_audit_elf() {
                 die "staged ELF $artifact contains a user-local or workspace path"
             fi
         fi
-    done < <(find "$tree/bin" "$tree/lib" -maxdepth 1 -type f -print0)
+    done < <(find "$tree/bin" "$tree/lib" -type f -print0)
 }
 patch_and_audit_elf "$STAGED_PREFIX"
 
@@ -226,7 +262,7 @@ validate_closure() {
                 return 1
             fi
         fi
-    done < <(find "$tree/bin" "$tree/lib" -maxdepth 1 -type f -print0)
+    done < <(find "$tree/bin" "$tree/lib" -type f -print0)
 }
 
 
@@ -302,12 +338,33 @@ if ! grep -Eq "^Hyprland[[:space:]]+$VERSION([[:space:]]|$)" <<<"$version_output
 fi
 
 install -d -o root -g root -m 0755 "$PUBLIC_BIN_DIR"
-for public_binary in "${PUBLIC_BINARIES[@]}"; do
+for public_binary in "${PUBLIC_SYMLINK_BINARIES[@]}"; do
     temporary_link="$PUBLIC_BIN_DIR/.${public_binary}.hyprland-install.$$"
     rm -f -- "$temporary_link"
     ln -s "$PREFIX/bin/$public_binary" "$temporary_link"
     mv -Tf -- "$temporary_link" "$PUBLIC_BIN_DIR/$public_binary"
 done
+
+hyprpm_wrapper="$PUBLIC_BIN_DIR/.hyprpm.hyprland-install.$$"
+PUBLIC_TEMP="$hyprpm_wrapper"
+cat >"$hyprpm_wrapper" <<EOF
+#!/usr/bin/env bash
+set -Eeuo pipefail
+readonly HYPRLAND_PREFIX='$PREFIX'
+export PATH="\$HYPRLAND_PREFIX/bin:\${PATH:-/usr/local/bin:/usr/bin:/bin}"
+export PKG_CONFIG_PATH="\$HYPRLAND_PREFIX/lib/pkgconfig:\$HYPRLAND_PREFIX/share/pkgconfig\${PKG_CONFIG_PATH:+:\$PKG_CONFIG_PATH}"
+export CMAKE_PREFIX_PATH="\$HYPRLAND_PREFIX\${CMAKE_PREFIX_PATH:+:\$CMAKE_PREFIX_PATH}"
+export LD_LIBRARY_PATH="\$HYPRLAND_PREFIX/lib\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}"
+export CC="\${CC:-gcc-16}"
+export CXX="\${CXX:-g++-16}"
+export LUA_PKG_CONFIG="\${LUA_PKG_CONFIG:-lua5.5}"
+exec "\$HYPRLAND_PREFIX/bin/hyprpm" "\$@"
+EOF
+bash -n "$hyprpm_wrapper" || die 'generated hyprpm wrapper failed shell syntax validation'
+chown root:root "$hyprpm_wrapper"
+chmod 0755 "$hyprpm_wrapper"
+mv -Tf -- "$hyprpm_wrapper" "$PUBLIC_BIN_DIR/hyprpm"
+PUBLIC_TEMP=''
 
 # Recreate the validated system preference atomically. Preserve an existing
 # differing file under a unique rollback name rather than overwriting it.
@@ -344,4 +401,4 @@ PORTAL_TEMP=''
 apt-mark manual xdg-desktop-portal-hyprland libhyprcursor0 >/dev/null || die 'apt-mark manual failed; verify both runtime packages are installed'
 
 log "Hyprland $VERSION promoted from $SOURCE_PREFIX to $PREFIX"
-log 'public symlinks, portal preference, and minimal apt protection are ready'
+log 'public symlinks, hyprpm build wrapper, portal preference, and minimal apt protection are ready'

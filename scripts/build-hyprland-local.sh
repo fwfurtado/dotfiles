@@ -18,6 +18,7 @@ CLEAN=0
 STAGE_PREFIX=''
 BACKUP_PREFIX=''
 PREPARED_SOURCE=''
+PATCHED_HYPRLAND_SOURCE=''
 
 log() { printf '[hyprland-build] %s\n' "$*"; }
 die() { printf '[hyprland-build] error: %s\n' "$*" >&2; exit 1; }
@@ -39,7 +40,10 @@ done
 
 [[ "$EUID" -ne 0 ]] || die 'run as your normal user, not with sudo'
 
-for cmd in git cmake pkg-config python3 cp mv rm mkdir grep ldd nproc mktemp date dpkg; do
+export CC="${CC:-gcc-16}"
+export CXX="${CXX:-g++-16}"
+
+for cmd in git cmake pkg-config python3 cp mv rm mkdir grep ldd nproc mktemp date dpkg "$CC" "$CXX"; do
     command -v "$cmd" >/dev/null || die "required command '$cmd' is unavailable"
 done
 
@@ -53,6 +57,9 @@ STAGE_PREFIX="$(mktemp -d "${FINAL_PREFIX%/*}/.hyprland-${VERSION}.stage.XXXXXX"
 
 cleanup() {
     local status=$?
+    if [[ -n "$PATCHED_HYPRLAND_SOURCE" && -d "$PATCHED_HYPRLAND_SOURCE/.git" ]]; then
+        git -C "$PATCHED_HYPRLAND_SOURCE" checkout -- hyprpm/src/core/PluginManager.cpp >/dev/null 2>&1 || true
+    fi
     [[ -z "$STAGE_PREFIX" || ! -d "$STAGE_PREFIX" ]] || rm -rf -- "$STAGE_PREFIX"
     return "$status"
 }
@@ -80,6 +87,65 @@ prepare_source() {
 
     git -C "$dir" checkout --detach "$commit"
     PREPARED_SOURCE="$dir"
+}
+
+patch_hyprpm_workdir_ownership() {
+    local source=$1
+    python3 - "$source/hyprpm/src/core/PluginManager.cpp" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text()
+old = r'''
+    cmd = std::format("make -C '{}' installheaders && chmod -R 644 '{}' && find '{}' -type d -exec chmod a+x {{}} \\;", WORKINGDIR, DataState::getHeadersPath(),
+                      DataState::getHeadersPath());
+'''
+new = r'''
+    cmd = std::format(
+        "make -C '{}' installheaders && chmod -R 644 '{}' && find '{}' -type d -exec chmod a+x {{}} \\; ; status=$?; chown -R {}:{} '{}'; exit $status",
+        WORKINGDIR, DataState::getHeadersPath(), DataState::getHeadersPath(), getuid(), getgid(), WORKINGDIR);
+'''
+if old not in text:
+    raise SystemExit(f"expected hyprpm v0.56.2 installheaders block not found in {path}")
+path.write_text(text.replace(old, new, 1))
+PY
+    PATCHED_HYPRLAND_SOURCE="$source"
+}
+
+relocate_prefix_metadata() {
+    local from=$1 to=$2
+    python3 - "$from" "$to" <<'PY'
+from pathlib import Path
+import sys
+
+source = Path(sys.argv[1])
+target = sys.argv[2]
+roots = (
+    source / "lib/pkgconfig",
+    source / "share/pkgconfig",
+    source / "lib/cmake",
+    source / "share/cmake",
+)
+
+for root in roots:
+    if not root.is_dir():
+        continue
+    for path in root.rglob("*"):
+        if not path.is_file() or path.suffix not in {".pc", ".cmake"}:
+            continue
+        text = path.read_text()
+        updated = text.replace(str(source), target)
+        if updated != text:
+            path.write_text(updated)
+
+for root in roots:
+    if not root.is_dir():
+        continue
+    for path in root.rglob("*"):
+        if path.is_file() and path.suffix in {".pc", ".cmake"} and str(source) in path.read_text():
+            raise SystemExit(f"unrelocated staging prefix remains in {path}")
+PY
 }
 
 build_project() {
@@ -133,6 +199,7 @@ prepare_source "Hyprland-${VERSION}" \
 HYPRLAND_SOURCE="$PREPARED_SOURCE"
 git -C "$HYPRLAND_SOURCE" submodule sync --recursive
 git -C "$HYPRLAND_SOURCE" submodule update --init --recursive
+patch_hyprpm_workdir_ownership "$HYPRLAND_SOURCE"
 
 HYPRLAND_BUILD="$HYPRLAND_SOURCE/build-local"
 [[ "$CLEAN" -eq 0 ]] || rm -rf -- "$HYPRLAND_BUILD"
@@ -154,6 +221,8 @@ done
 
 for req in \
     'hyprutils >= 0.14.0' \
+    'hyprwire >= 0.3.1' \
+    'hyprwayland-scanner >= 0.3.10' \
     'hyprgraphics >= 0.5.1' \
     'hyprlang >= 0.6.7' \
     'hyprcursor >= 0.1.7' \
@@ -174,6 +243,9 @@ for bin in Hyprland hyprctl hyprpm; do
         die "unresolved shared library in $bin"
     fi
 done
+
+log "relocating pkg-config/CMake metadata to $FINAL_PREFIX"
+relocate_prefix_metadata "$STAGE_PREFIX" "$FINAL_PREFIX"
 
 if [[ -e "$FINAL_PREFIX" || -L "$FINAL_PREFIX" ]]; then
     BACKUP_PREFIX="${FINAL_PREFIX}.rollback.$(date -u +%Y%m%dT%H%M%SZ)"
