@@ -113,16 +113,3 @@ hl.gesture({
     action = "workspace",
 })
 
--- HyprExpo
-hl.config({
-    plugin = {
-        hyprexpo = {
-            columns = 3,
-            gaps_in = 5,
-            gaps_out = 8,
-            skip_empty = 1,
-            drag_drop_enable = 1,
-            show_workspace_names = 1,
-        },
-    },
-})
