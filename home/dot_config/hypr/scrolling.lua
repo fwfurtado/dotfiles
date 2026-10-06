@@ -42,9 +42,9 @@ function M.resize_focused()
     hl.dispatch(hl.dsp.layout("colresize " .. focused_width))
 end
 
-hl.on("window.active", function()
-    M.resize_focused()
-end)
+-- hl.on("window.active", function()
+--     M.resize_focused()
+-- end)
 
 return M
 
