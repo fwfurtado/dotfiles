@@ -7,6 +7,7 @@ readonly VERSION='0.56.2'
 readonly PREFIX="/opt/hyprland-${VERSION}"
 readonly PORTAL_FILE='/usr/share/xdg-desktop-portal/hyprland-portals.conf'
 readonly PUBLIC_BIN_DIR='/usr/local/bin'
+readonly PUBLIC_BINARIES=(Hyprland start-hyprland hyprctl hyprpm)
 readonly ROLLBACK_TAG="$(printf '%(%Y%m%dT%H%M%SZ)T' -1)-$$"
 
 DRY_RUN=0
@@ -71,7 +72,7 @@ usage() {
         'Usage: sudo scripts/install-hyprland-systemwide.sh [OPTIONS]' \
         '' \
         "Promote the validated Hyprland $VERSION prefix to $PREFIX, then atomically" \
-        'publish /usr/local/bin/Hyprland, start-hyprland, and hyprctl.' \
+        'publish /usr/local/bin/Hyprland, start-hyprland, hyprctl, and hyprpm.' \
         '' \
         'Options:' \
         '  --dry-run       Run preflight checks and show changes; do not install.' \
@@ -120,7 +121,7 @@ readonly BUILD_USER BUILD_HOME SOURCE_PREFIX
 # the host runtime.
 [[ -d "$SOURCE_PREFIX" ]] || die "validated source prefix is missing: $SOURCE_PREFIX"
 [[ -d "$SOURCE_PREFIX/bin" && -d "$SOURCE_PREFIX/lib" ]] || die "validated source prefix lacks bin/ or lib/: $SOURCE_PREFIX"
-for public_binary in Hyprland start-hyprland hyprctl; do
+for public_binary in "${PUBLIC_BINARIES[@]}"; do
     [[ -x "$SOURCE_PREFIX/bin/$public_binary" ]] || die "validated source prefix lacks executable bin/$public_binary"
 done
 build_uid="$(id -u "$BUILD_USER")" || die "cannot determine uid for SUDO_USER=$BUILD_USER"
@@ -151,7 +152,7 @@ if [[ "$DRY_RUN" -eq 1 ]]; then
     if [[ -e "$PREFIX" || -L "$PREFIX" ]]; then
         log "would move $PREFIX to a unique ${PREFIX}.rollback.* path"
     fi
-    log "would atomically publish $PUBLIC_BIN_DIR/{Hyprland,start-hyprland,hyprctl}"
+    log "would atomically publish $PUBLIC_BIN_DIR/{Hyprland,start-hyprland,hyprctl,hyprpm}"
     log "would recreate $PORTAL_FILE and mark only xdg-desktop-portal-hyprland and libhyprcursor0 manual"
     exit 0
 fi
@@ -168,7 +169,7 @@ RUNTIME_DIR="$(mktemp -d /tmp/hyprland-systemwide-runtime.XXXXXX)" || die 'could
 chown "$BUILD_USER" "$RUNTIME_DIR" || die 'could not assign the temporary XDG runtime directory to SUDO_USER'
 chmod 0700 "$RUNTIME_DIR"
 
-for public_binary in Hyprland start-hyprland hyprctl; do
+for public_binary in "${PUBLIC_BINARIES[@]}"; do
     cp -a -- "$SOURCE_PREFIX/bin/$public_binary" "$STAGED_PREFIX/bin/" || die "could not stage bin/$public_binary"
 done
 
@@ -301,7 +302,7 @@ if ! grep -Eq "^Hyprland[[:space:]]+$VERSION([[:space:]]|$)" <<<"$version_output
 fi
 
 install -d -o root -g root -m 0755 "$PUBLIC_BIN_DIR"
-for public_binary in Hyprland start-hyprland hyprctl; do
+for public_binary in "${PUBLIC_BINARIES[@]}"; do
     temporary_link="$PUBLIC_BIN_DIR/.${public_binary}.hyprland-install.$$"
     rm -f -- "$temporary_link"
     ln -s "$PREFIX/bin/$public_binary" "$temporary_link"
