@@ -46,7 +46,7 @@ do
         })
     end
 end
-hl.bind("SUPER + C", hl.dsp.layout("center"), {description = "Center column"})
+hl.bind("SUPER + F", hl.dsp.layout("center"), {description = "Center column"})
 
 -- 3. Scrolling Layout
 -- hl.bind("SUPER+M", scrolling.resize_focused, {
