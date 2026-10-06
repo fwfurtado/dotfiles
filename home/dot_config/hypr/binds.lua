@@ -46,11 +46,12 @@ do
         })
     end
 end
+hl.bind("SUPER + C", hl.dsp.layout("center"), {description = "Center column"})
 
 -- 3. Scrolling Layout
-hl.bind("SUPER+M", scrolling.resize_focused, {
-    description = "Resize focused column",
-})
+-- hl.bind("SUPER+M", scrolling.resize_focused, {
+--     description = "Resize focused column",
+-- })
 hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
     description = "Promote window to own column",
 })
@@ -105,40 +106,43 @@ hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
     description = "Pin window",
 })
-hl.bind("SUPER+SHIFT+R", scrolling.resize_focused, {
-    description = "Reset scrolling layout",
-})
+-- hl.bind("SUPER+SHIFT+R", scrolling.resize_focused, {
+--     description = "Reset scrolling layout",
+-- })
 
 -- 6. Resize Mode
 -- The submap function scopes these binds to resize. Escape and Return
 -- explicitly select reset, matching the legacy submap block.
-hl.bind("SUPER+R", hl.dsp.submap("resize"), {
-    description = "Enter resize mode",
-})
-hl.define_submap("resize", function()
-    hl.bind("left", hl.dsp.window.resize({ x = -80, y = 0, relative = true }), {
-        repeating = true,
-        description = "Narrow window",
-    })
-    hl.bind("right", hl.dsp.window.resize({ x = 80, y = 0, relative = true }), {
-        repeating = true,
-        description = "Widen window",
-    })
-    hl.bind("up", hl.dsp.window.resize({ x = 0, y = -40, relative = true }), {
-        repeating = true,
-        description = "Shrink height",
-    })
-    hl.bind("down", hl.dsp.window.resize({ x = 0, y = 40, relative = true }), {
-        repeating = true,
-        description = "Grow height",
-    })
-    hl.bind("Escape", hl.dsp.submap("reset"), {
-        description = "Leave resize mode",
-    })
-    hl.bind("Return", hl.dsp.submap("reset"), {
-        description = "Leave resize mode",
-    })
-end)
+hl.bind("SUPER + SHIFT + bracketleft",  hl.dsp.layout("colresize -conf"))
+hl.bind("SUPER + SHIFT + bracketright", hl.dsp.layout("colresize +conf"))
+
+-- hl.bind("SUPER+R", hl.dsp.submap("resize"), {
+--     description = "Enter resize mode",
+-- })
+-- hl.define_submap("resize", function()
+--     hl.bind("left", hl.dsp.window.resize({ x = -80, y = 0, relative = true }), {
+--         repeating = true,
+--         description = "Narrow window",
+--     })
+--     hl.bind("right", hl.dsp.window.resize({ x = 80, y = 0, relative = true }), {
+--         repeating = true,
+--         description = "Widen window",
+--     })
+--     hl.bind("up", hl.dsp.window.resize({ x = 0, y = -40, relative = true }), {
+--         repeating = true,
+--         description = "Shrink height",
+--     })
+--     hl.bind("down", hl.dsp.window.resize({ x = 0, y = 40, relative = true }), {
+--         repeating = true,
+--         description = "Grow height",
+--     })
+--     hl.bind("Escape", hl.dsp.submap("reset"), {
+--         description = "Leave resize mode",
+--     })
+--     hl.bind("Return", hl.dsp.submap("reset"), {
+--         description = "Leave resize mode",
+--     })
+-- end)
 
 -- 7. Workspaces
 local function move_windows_current_workspace(target)
