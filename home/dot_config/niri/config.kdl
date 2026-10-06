@@ -170,8 +170,8 @@ binds {
     }
 
     // Lock.
-    Mod+Alt+L allow-when-locked=true {
-        spawn "hyprlock"
+    Mod+Alt+L {
+        spawn "noctalia" "msg" "session" "lock";
     }
 
     // Volume / audio
