@@ -265,4 +265,11 @@ hl.bind("SUPER+SHIFT+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-cent
     description = "Show system monitor",
 })
 
+-- 12. HyprExpo
+hl.bind("SUPER+G", function()
+    hl.plugin.hyprexpo.expo("toggle")
+end, {
+    description = "Workspace overview",
+})
+
 return true
