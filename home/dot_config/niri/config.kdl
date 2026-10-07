@@ -122,6 +122,10 @@ binds {
     Mod+Alt+Up    { spawn-sh "niri msg action move-floating-window -y -100"; }
     Mod+Alt+Down  { spawn-sh "niri msg action move-floating-window -y +100"; }
 
+    Mod+Alt+Shift+Left  { spawn-sh "niri msg action move-floating-window -x -20"; }
+    Mod+Alt+Shift+Right { spawn-sh "niri msg action move-floating-window -x +20"; }
+    Mod+Alt+Shift+Up    { spawn-sh "niri msg action move-floating-window -y -20"; }
+    Mod+Alt+Shift+Down  { spawn-sh "niri msg action move-floating-window -y +20"; }
     // Workspaces dinâmicos verticais.
     Mod+Page_Up {
         focus-workspace-up
