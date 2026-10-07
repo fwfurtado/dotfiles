@@ -117,10 +117,10 @@ binds {
     }
 
     // Mover float window
-    Mod+Alt+Left  { move-floating-window x=-100; }
-    Mod+Alt+Right { move-floating-window x=+100; }
-    Mod+Alt+Up    { move-floating-window y=-100; }
-    Mod+Alt+Down  { move-floating-window y=+100; }
+    Mod+Alt+Left  { spawn-sh "niri msg action move-floating-window -x -100"; }
+    Mod+Alt+Right { spawn-sh "niri msg action move-floating-window -x +100"; }
+    Mod+Alt+Up    { spawn-sh "niri msg action move-floating-window -y -100"; }
+    Mod+Alt+Down  { spawn-sh "niri msg action move-floating-window -y +100"; }
 
     // Workspaces dinâmicos verticais.
     Mod+Page_Up {
