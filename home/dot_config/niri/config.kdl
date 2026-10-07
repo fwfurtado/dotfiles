@@ -116,6 +116,12 @@ binds {
         move-window-down
     }
 
+    // Mover float window
+    Mod+Alt+Left  { move-floating-window -x -100; }
+    Mod+Alt+Right { move-floating-window -x +100; }
+    Mod+Alt+Up    { move-floating-window -y -100; }
+    Mod+Alt+Down  { move-floating-window -y +100; }
+
     // Workspaces dinâmicos verticais.
     Mod+Page_Up {
         focus-workspace-up
@@ -169,6 +175,10 @@ binds {
 
     Mod+F {
         toggle-window-floating
+    }
+
+    Mod+Shift+F {
+        switch-focus-between-floating-and-tilling;
     }
 
     // Clipboard
