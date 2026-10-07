@@ -45,7 +45,7 @@ layout {
     gaps 10
 
     // É o comportamento mais próximo do scrolling que você está usando.
-    center-focused-column "always"
+    center-focused-column "on-overflow"
 
     default-column-width {
         proportion 0.5
