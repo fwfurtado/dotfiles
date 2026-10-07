@@ -6,7 +6,6 @@
 
 local term = "ghostty +new-window"
 local browser = "google-chrome"
-local launcher = "fuzzel"
 
 -- 1. Applications
 hl.bind("SUPER+Return", hl.dsp.exec_cmd(term), {
@@ -24,7 +23,7 @@ hl.bind("SUPER+E", hl.dsp.exec_cmd("nautilus"), {
 hl.bind("SUPER+space", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"), {
     description = "Open launcher",
 })
-hl.bind("SUPER+V", hl.dsp.exec_cmd("cliphist list | " .. launcher .. " --dmenu | cliphist decode | wl-copy"), {
+hl.bind("SUPER+V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"), {
     description = "Clipboard history",
 })
 
@@ -44,21 +43,8 @@ do
         })
     end
 end
--- 3. Move Windows
-do
-    local move_binds = {
-        { "left", "left" },
-        { "down", "down" },
-        { "up", "up" },
-        { "right", "right" },
-    }
-    for _, entry in ipairs(move_binds) do
-        local key, direction = table.unpack(entry)
-        hl.bind("SUPER+SHIFT+" .. key, hl.dsp.window.move({ direction = direction }), {
-            description = "Move window " .. direction,
-        })
-    end
-end
+-- 3. Pointer move / resize
+-- Keyboard movement is layout-specific and lives in scrolling.lua.
 hl.bind("SUPER+mouse:272", hl.dsp.window.drag(), {
     description = "Drag window",
 })
@@ -70,13 +56,13 @@ hl.bind("SUPER+mouse:273", hl.dsp.window.resize(), {
 hl.bind("SUPER+Q", hl.dsp.window.close(), {
     description = "Close window",
 })
-hl.bind("SUPER+CTRL+F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }), {
-    description = "Fullscreen",
-})
-hl.bind("SUPER+CTRL+M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }), {
+hl.bind("SUPER+M", hl.dsp.window.fullscreen({ mode = "maximized", action = "toggle" }), {
     description = "Maximize (respect gaps)",
 })
-hl.bind("SUPER+CTRL+space", hl.dsp.window.float({ action = "toggle" }), {
+hl.bind("SUPER+SHIFT+M", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" }), {
+    description = "Fullscreen",
+})
+hl.bind("SUPER+F", hl.dsp.window.float({ action = "toggle" }), {
     description = "Toggle floating",
 })
 hl.bind("SUPER+CTRL+P", hl.dsp.window.pin({ action = "toggle" }), {
@@ -118,11 +104,17 @@ for workspace = 1, 9 do
         description = "Send workspace to " .. target,
     })
 end
-hl.bind("SUPER+bracketleft", hl.dsp.focus({ workspace = "e-1" }), {
+hl.bind("SUPER+Page_Up", hl.dsp.focus({ workspace = "e-1" }), {
     description = "Previous existing workspace",
 })
-hl.bind("SUPER+bracketright", hl.dsp.focus({ workspace = "e+1" }), {
+hl.bind("SUPER+Page_Down", hl.dsp.focus({ workspace = "e+1" }), {
     description = "Next existing workspace",
+})
+hl.bind("SUPER+CTRL+Page_Up", hl.dsp.window.move({ workspace = "e-1", follow = false }), {
+    description = "Send window to previous workspace",
+})
+hl.bind("SUPER+CTRL+Page_Down", hl.dsp.window.move({ workspace = "e+1", follow = false }), {
+    description = "Send window to next workspace",
 })
 hl.bind("SUPER+grave", hl.dsp.focus({ workspace = "previous" }), {
     description = "Back to last workspace",
@@ -137,14 +129,8 @@ hl.bind("SUPER+SHIFT+S", hl.dsp.window.move({ workspace = "special:scratch", fol
 })
 
 -- 7. Screenshots
-hl.bind("Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | swappy -f -"), {
-    description = "Region to editor",
-})
-hl.bind("SHIFT+Print", hl.dsp.exec_cmd("grim - | wl-copy"), {
-    description = "Screen to clipboard",
-})
-hl.bind("SUPER+Print", hl.dsp.exec_cmd("grim -g \"$(slurp -d)\" - | wl-copy"), {
-    description = "Region to clipboard",
+hl.bind("Print", hl.dsp.exec_cmd("noctalia msg screenshot-region"), {
+    description = "Screenshot region",
 })
 
 -- 8. Media
@@ -166,29 +152,29 @@ hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("noctalia msg mic-mute"), {
     locked = true,
     description = "Mute microphone",
 })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), {
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("noctalia msg media toggle"), {
     locked = true,
     description = "Play / pause",
 })
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), {
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("noctalia msg media next"), {
     locked = true,
     description = "Next track",
 })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), {
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("noctalia msg media previous"), {
     locked = true,
     description = "Previous track",
 })
-hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), {
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up"), {
     repeating = true,
     description = "Brightness up",
 })
-hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), {
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down"), {
     repeating = true,
     description = "Brightness down",
 })
 
 -- 9. System
-hl.bind("SUPER+ALT+L", hl.dsp.exec_cmd("hyprlock"), {
+hl.bind("SUPER+ALT+L", hl.dsp.exec_cmd("noctalia msg session lock"), {
     description = "Lock screen",
 })
 hl.bind("SUPER+ALT+R", hl.dsp.exec_cmd("hyprctl reload"), {
@@ -200,7 +186,7 @@ hl.bind("SUPER+ALT+Q", hl.dsp.exit(), {
 hl.bind("SUPER+SHIFT+slash", hl.dsp.exec_cmd("noctalia msg panel-toggle kenn/keybind-cheatsheet:cheatsheet"), {
     description = "Show keybindings",
 })
-hl.bind("SUPER+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center calendar"), {
+hl.bind("SUPER+ALT+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center calendar"), {
     description = "Show calendar",
 })
 hl.bind("SUPER+SHIFT+C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center system"), {

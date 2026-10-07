@@ -22,52 +22,39 @@ hl.config({
 })
 
 -- Centering is explicit; normal focus movement uses scrolling:focus_fit_method.
-hl.bind("SUPER+F", hl.dsp.layout("center"), {
+hl.bind("SUPER+C", hl.dsp.layout("center"), {
     description = "Center column",
 })
 
--- Column navigation and movement.
-hl.bind("SUPER+CTRL+left", hl.dsp.layout("focus l"), {
-    description = "Focus previous column",
+-- Match Niri's Mod+Ctrl+arrow movement semantics. Horizontal movement swaps
+-- the active column; vertical movement reorders the focused window in-column.
+hl.bind("SUPER+CTRL+left", hl.dsp.layout("swapcol l"), {
+    description = "Move column left",
 })
-hl.bind("SUPER+CTRL+right", hl.dsp.layout("focus r"), {
-    description = "Focus next column",
+hl.bind("SUPER+CTRL+right", hl.dsp.layout("swapcol r"), {
+    description = "Move column right",
 })
-hl.bind("SUPER+CTRL+SHIFT+left", hl.dsp.layout("swapcol l"), {
-    description = "Swap column left",
+hl.bind("SUPER+CTRL+up", hl.dsp.window.move({ direction = "up" }), {
+    description = "Move window up",
 })
-hl.bind("SUPER+CTRL+SHIFT+right", hl.dsp.layout("swapcol r"), {
-    description = "Swap column right",
+hl.bind("SUPER+CTRL+down", hl.dsp.window.move({ direction = "down" }), {
+    description = "Move window down",
 })
 
--- Move a window between columns. If the current column contains more than one
--- window, consume_or_expel detaches the focused window into its own column.
-hl.bind("SUPER+ALT+left", hl.dsp.layout("consume_or_expel prev"), {
+-- Consume / expel matches Niri's Mod+[ and Mod+].
+hl.bind("SUPER+bracketleft", hl.dsp.layout("consume_or_expel prev"), {
     description = "Consume or expel window left",
 })
-hl.bind("SUPER+ALT+right", hl.dsp.layout("consume_or_expel next"), {
+hl.bind("SUPER+bracketright", hl.dsp.layout("consume_or_expel next"), {
     description = "Consume or expel window right",
 })
 
--- Fast column navigation.
-hl.bind("SUPER+Tab", hl.dsp.layout("focus r"), {
-    description = "Focus next column",
-})
-hl.bind("SUPER+SHIFT+Tab", hl.dsp.layout("focus l"), {
-    description = "Focus previous column",
-})
-
--- Detach the focused window into its own column.
-hl.bind("SUPER+SHIFT+M", hl.dsp.layout("promote"), {
-    description = "Promote window to own column",
-})
-
 -- Cycle through the widths configured in explicit_column_widths.
-hl.bind("SUPER+SHIFT+bracketleft", hl.dsp.layout("colresize -conf"), {
-    description = "Previous column width preset",
-})
-hl.bind("SUPER+SHIFT+bracketright", hl.dsp.layout("colresize +conf"), {
+hl.bind("SUPER+R", hl.dsp.layout("colresize +conf"), {
     description = "Next column width preset",
+})
+hl.bind("SUPER+SHIFT+R", hl.dsp.layout("colresize -conf"), {
+    description = "Previous column width preset",
 })
 
 return true
