@@ -32,8 +32,12 @@ input {
 //
 // e então podemos fixar exatamente seu 5120x1440@120.xxx.
 // output "DP-1" {
+//     mode "5120x1440@119.999"
+//     scale 1
+// }
+
 output "HDMI-A-1" {
-    mode "5120x1440@119.999"
+    mode "5120x1440@59.977"
     scale 1
 }
 
