@@ -34,12 +34,6 @@ hl.window_rule({
     size = { 1200, 800 },
 })
 hl.window_rule({
-    match = { class = "^(blueman-manager)$" },
-    float = true,
-    center = true,
-    size = { 1200, 800 },
-})
-hl.window_rule({
     match = { class = "^(nm-connection-editor)$" },
     float = true,
     center = true,
