@@ -178,7 +178,7 @@ binds {
     }
 
     Mod+Shift+F {
-        switch-focus-between-floating-and-tilling;
+        switch-focus-between-floating-and-tiling;
     }
 
     // Clipboard
