@@ -164,6 +164,8 @@ binds {
         switch-preset-column-width-back
     }
 
+    Mod+Ctrl+R { switch-preset-window-height; }
+
     // Window state.
     Mod+Q repeat=false {
         close-window
