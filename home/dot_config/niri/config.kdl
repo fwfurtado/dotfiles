@@ -60,7 +60,7 @@ hotkey-overlay {
 
 binds {
     // Hotkey overlay
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+Slash { spaw "noctalia" "msg" "panel-toggle" "kenn/keybind-cheatsheet:cheatsheet" }
 
     // Apps
     Mod+Return {
