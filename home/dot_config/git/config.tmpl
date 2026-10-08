@@ -57,3 +57,13 @@
 [alias]
 	hdiff = -c core.pager=\"hunk pager\" diff
 	hshow = -c core.pager=\"hunk pager\" show
+
+[merge]
+    tool = ec
+
+[mergetool "ec"]
+    cmd = ec \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+    trustExistCode = true
+
+[mergetool]
+    keepBackup = false
